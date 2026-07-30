@@ -1,17 +1,63 @@
-namespace HPSkyStatusClient
+using HPSkyStatusClient.Configuration;
+using HPSkyStatusClient.Forms;
+using HPSkyStatusClient.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace HPSkyStatusClient;
+
+internal static class Program
 {
-    internal static class Program
+    [STAThread]
+    static void Main()
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        ApplicationConfiguration.Initialize();
+
+        using IHost host = Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration(config =>
+            {
+                config.AddJsonFile("appsettings.json", optional: false);
+            })
+            .ConfigureServices((context, services) =>
+            {
+                services.Configure<ApiSettings>(
+                    context.Configuration.GetSection("Server"));
+
+                services.AddSingleton<ClientSettingsService>();
+
+                services.AddHttpClient();
+
+                services.AddSingleton<ApiService>();
+
+                services.AddSingleton<StatusService>();
+
+                services.AddSingleton<PlayerWatchService>();
+
+                services.AddSingleton<AuthenticationService>();
+
+                services.AddSingleton<MainForm>();
+
+                services.AddTransient<LoginForm>();
+
+                services.AddSingleton<ApiErrorService>();
+
+                services.AddTransient<AddPlayerForm>();
+
+                services.AddSingleton<ClientSettingsApiService>();
+            })
+            .Build();
+
+        var auth = host.Services.GetRequiredService<AuthenticationService>();
+
+        if (!auth.IsRegistered())
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            var login = host.Services.GetRequiredService<LoginForm>();
+
+            if (login.ShowDialog() != DialogResult.OK)
+                return;
         }
+
+        Application.Run(host.Services.GetRequiredService<MainForm>());
     }
 }
