@@ -34,11 +34,17 @@ internal static class Program
 
                 services.AddSingleton<PlayerWatchService>();
 
+                services.AddSingleton<AuctionWatchService>();
+
                 services.AddSingleton<AuthenticationService>();
 
                 services.AddSingleton<MainForm>();
 
                 services.AddTransient<LoginForm>();
+
+                services.AddTransient<AddAuctionForm>();
+
+                services.AddTransient<AuctionDetailsForm>();
 
                 services.AddSingleton<ApiErrorService>();
 

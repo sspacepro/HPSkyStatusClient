@@ -6,7 +6,7 @@ public class AuctionWatch
 
     public string ItemTag { get; set; } = "";
 
-    public string Tier { get; set; } = "";
+    public string? Tier { get; set; }
 
     public int? Stars { get; set; }
 

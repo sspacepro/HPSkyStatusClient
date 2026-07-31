@@ -1,0 +1,197 @@
+﻿namespace HPSkyStatusClient.Forms
+{
+    partial class AddAuctionForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            lblItemName = new Label();
+            txtItem = new TextBox();
+            lblTier = new Label();
+            cmbTier = new ComboBox();
+            lblStars = new Label();
+            numStars = new NumericUpDown();
+            chkRecomb = new CheckBox();
+            lblPetXP = new Label();
+            numPetXp = new NumericUpDown();
+            lblNotifyBelow = new Label();
+            numNotify = new NumericUpDown();
+            btnAdd = new Button();
+            ((System.ComponentModel.ISupportInitialize)numStars).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPetXp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numNotify).BeginInit();
+            SuspendLayout();
+            // 
+            // lblItemName
+            // 
+            lblItemName.AutoSize = true;
+            lblItemName.Location = new Point(0, -1);
+            lblItemName.Name = "lblItemName";
+            lblItemName.Size = new Size(66, 15);
+            lblItemName.TabIndex = 0;
+            lblItemName.Text = "Item Name";
+            // 
+            // txtItem
+            // 
+            txtItem.Location = new Point(2, 16);
+            txtItem.Name = "txtItem";
+            txtItem.Size = new Size(100, 23);
+            txtItem.TabIndex = 1;
+            // 
+            // lblTier
+            // 
+            lblTier.AutoSize = true;
+            lblTier.Location = new Point(3, 42);
+            lblTier.Name = "lblTier";
+            lblTier.Size = new Size(27, 15);
+            lblTier.TabIndex = 2;
+            lblTier.Text = "Tier";
+            // 
+            // cmbTier
+            // 
+            cmbTier.FormattingEnabled = true;
+            cmbTier.Location = new Point(0, 60);
+            cmbTier.Name = "cmbTier";
+            cmbTier.Size = new Size(121, 23);
+            cmbTier.TabIndex = 3;
+            cmbTier.Text = "(Optional)";
+            // 
+            // lblStars
+            // 
+            lblStars.AutoSize = true;
+            lblStars.Location = new Point(3, 85);
+            lblStars.Name = "lblStars";
+            lblStars.Size = new Size(32, 15);
+            lblStars.TabIndex = 4;
+            lblStars.Text = "Stars";
+            // 
+            // numStars
+            // 
+            numStars.Location = new Point(2, 100);
+            numStars.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numStars.Name = "numStars";
+            numStars.Size = new Size(120, 23);
+            numStars.TabIndex = 5;
+            // 
+            // chkRecomb
+            // 
+            chkRecomb.AutoSize = true;
+            chkRecomb.Location = new Point(3, 125);
+            chkRecomb.Name = "chkRecomb";
+            chkRecomb.Size = new Size(117, 19);
+            chkRecomb.TabIndex = 6;
+            chkRecomb.Text = "Recombobulated";
+            chkRecomb.UseVisualStyleBackColor = true;
+            // 
+            // lblPetXP
+            // 
+            lblPetXP.AutoSize = true;
+            lblPetXP.Location = new Point(2, 147);
+            lblPetXP.Name = "lblPetXP";
+            lblPetXP.Size = new Size(96, 15);
+            lblPetXP.TabIndex = 7;
+            lblPetXP.Text = "Pet XP (optional)";
+            // 
+            // numPetXp
+            // 
+            numPetXp.Location = new Point(3, 165);
+            numPetXp.Maximum = new decimal(new int[] { 20000000, 0, 0, 0 });
+            numPetXp.Name = "numPetXp";
+            numPetXp.Size = new Size(120, 23);
+            numPetXp.TabIndex = 8;
+            // 
+            // lblNotifyBelow
+            // 
+            lblNotifyBelow.AutoSize = true;
+            lblNotifyBelow.Location = new Point(4, 192);
+            lblNotifyBelow.Name = "lblNotifyBelow";
+            lblNotifyBelow.Size = new Size(75, 15);
+            lblNotifyBelow.TabIndex = 9;
+            lblNotifyBelow.Text = "Notify Below";
+            // 
+            // numNotify
+            // 
+            numNotify.Location = new Point(5, 210);
+            numNotify.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            numNotify.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numNotify.Name = "numNotify";
+            numNotify.Size = new Size(120, 23);
+            numNotify.TabIndex = 10;
+            numNotify.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(4, 235);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(75, 23);
+            btnAdd.TabIndex = 11;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click_1;
+            // 
+            // AddAuctionForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(btnAdd);
+            Controls.Add(numNotify);
+            Controls.Add(lblNotifyBelow);
+            Controls.Add(numPetXp);
+            Controls.Add(lblPetXP);
+            Controls.Add(chkRecomb);
+            Controls.Add(numStars);
+            Controls.Add(lblStars);
+            Controls.Add(cmbTier);
+            Controls.Add(lblTier);
+            Controls.Add(txtItem);
+            Controls.Add(lblItemName);
+            Name = "AddAuctionForm";
+            Text = "AddAuctionForm";
+            Load += AddAuctionForm_Load;
+            ((System.ComponentModel.ISupportInitialize)numStars).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPetXp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numNotify).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Label lblItemName;
+        private TextBox txtItem;
+        private Label lblTier;
+        private ComboBox cmbTier;
+        private Label lblStars;
+        private NumericUpDown numStars;
+        private CheckBox chkRecomb;
+        private Label lblPetXP;
+        private NumericUpDown numPetXp;
+        private Label lblNotifyBelow;
+        private NumericUpDown numNotify;
+        private Button btnAdd;
+    }
+}

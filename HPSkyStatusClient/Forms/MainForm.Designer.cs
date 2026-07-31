@@ -42,12 +42,12 @@ partial class MainForm
         Status = new ColumnHeader();
         lblLocation = new ColumnHeader();
         tabMain = new TabControl();
+        pgStatus = new TabPage();
         pgPlayers = new TabPage();
         pgAuctions = new TabPage();
-        pgSettings = new TabPage();
-        pgAdmin = new TabPage();
-        pgStatus = new TabPage();
         grpAuctions = new GroupBox();
+        btnRemoveAuction = new Button();
+        btnAddAuction = new Button();
         lvAuctions = new ListView();
         Item = new ColumnHeader();
         Tier = new ColumnHeader();
@@ -55,14 +55,14 @@ partial class MainForm
         Recomb = new ColumnHeader();
         CheapestAuction = new ColumnHeader();
         NotifyBelow = new ColumnHeader();
-        btnAddAuction = new Button();
-        btnRemoveAuction = new Button();
+        pgSettings = new TabPage();
+        pgAdmin = new TabPage();
         grpStatus.SuspendLayout();
         grpPlayers.SuspendLayout();
         tabMain.SuspendLayout();
+        pgStatus.SuspendLayout();
         pgPlayers.SuspendLayout();
         pgAuctions.SuspendLayout();
-        pgStatus.SuspendLayout();
         grpAuctions.SuspendLayout();
         SuspendLayout();
         // 
@@ -204,6 +204,18 @@ partial class MainForm
         tabMain.Size = new Size(800, 450);
         tabMain.TabIndex = 2;
         // 
+        // pgStatus
+        // 
+        pgStatus.Controls.Add(grpStatus);
+        pgStatus.Location = new Point(4, 24);
+        pgStatus.Name = "pgStatus";
+        pgStatus.Padding = new Padding(3);
+        pgStatus.Size = new Size(792, 422);
+        pgStatus.TabIndex = 0;
+        pgStatus.Text = "Status";
+        pgStatus.UseVisualStyleBackColor = true;
+        pgStatus.Click += tabPage1_Click;
+        // 
         // pgPlayers
         // 
         pgPlayers.Controls.Add(grpPlayers);
@@ -226,6 +238,84 @@ partial class MainForm
         pgAuctions.Text = "Auctions";
         pgAuctions.UseVisualStyleBackColor = true;
         // 
+        // grpAuctions
+        // 
+        grpAuctions.Controls.Add(btnRemoveAuction);
+        grpAuctions.Controls.Add(btnAddAuction);
+        grpAuctions.Controls.Add(lvAuctions);
+        grpAuctions.Dock = DockStyle.Fill;
+        grpAuctions.Location = new Point(3, 3);
+        grpAuctions.Name = "grpAuctions";
+        grpAuctions.Size = new Size(786, 416);
+        grpAuctions.TabIndex = 0;
+        grpAuctions.TabStop = false;
+        grpAuctions.Text = "Auction Watches";
+        grpAuctions.Enter += grpAuctions_Enter;
+        // 
+        // btnRemoveAuction
+        // 
+        btnRemoveAuction.Location = new Point(150, 172);
+        btnRemoveAuction.Name = "btnRemoveAuction";
+        btnRemoveAuction.Size = new Size(75, 23);
+        btnRemoveAuction.TabIndex = 2;
+        btnRemoveAuction.Text = "Remove Auction";
+        btnRemoveAuction.UseVisualStyleBackColor = true;
+        btnRemoveAuction.Click += btnRemoveAuction_Click;
+        // 
+        // btnAddAuction
+        // 
+        btnAddAuction.Location = new Point(6, 172);
+        btnAddAuction.Name = "btnAddAuction";
+        btnAddAuction.Size = new Size(75, 23);
+        btnAddAuction.TabIndex = 1;
+        btnAddAuction.Text = "Add Auction";
+        btnAddAuction.UseVisualStyleBackColor = true;
+        btnAddAuction.Click += btnAddAuction_Click;
+        // 
+        // lvAuctions
+        // 
+        lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, Stars, Recomb, CheapestAuction, NotifyBelow });
+        lvAuctions.FullRowSelect = true;
+        lvAuctions.GridLines = true;
+        lvAuctions.Location = new Point(3, 17);
+        lvAuctions.MultiSelect = false;
+        lvAuctions.Name = "lvAuctions";
+        lvAuctions.Size = new Size(635, 149);
+        lvAuctions.TabIndex = 0;
+        lvAuctions.UseCompatibleStateImageBehavior = false;
+        lvAuctions.View = View.Details;
+        lvAuctions.SelectedIndexChanged += lvAuctions_SelectedIndexChanged;
+        lvAuctions.DoubleClick += lvAuctions_DoubleClick;
+        // 
+        // Item
+        // 
+        Item.Text = "Item";
+        Item.Width = 180;
+        // 
+        // Tier
+        // 
+        Tier.Text = "Tier";
+        Tier.Width = 90;
+        // 
+        // Stars
+        // 
+        Stars.Text = "Stars";
+        // 
+        // Recomb
+        // 
+        Recomb.Text = "Recomb";
+        Recomb.Width = 80;
+        // 
+        // CheapestAuction
+        // 
+        CheapestAuction.Text = "Cheapest Auction";
+        CheapestAuction.Width = 110;
+        // 
+        // NotifyBelow
+        // 
+        NotifyBelow.Text = "Notift Below";
+        NotifyBelow.Width = 110;
+        // 
         // pgSettings
         // 
         pgSettings.Location = new Point(4, 24);
@@ -246,90 +336,6 @@ partial class MainForm
         pgAdmin.Text = "Admin";
         pgAdmin.UseVisualStyleBackColor = true;
         // 
-        // pgStatus
-        // 
-        pgStatus.Controls.Add(grpStatus);
-        pgStatus.Location = new Point(4, 24);
-        pgStatus.Name = "pgStatus";
-        pgStatus.Padding = new Padding(3);
-        pgStatus.Size = new Size(792, 422);
-        pgStatus.TabIndex = 0;
-        pgStatus.Text = "Status";
-        pgStatus.UseVisualStyleBackColor = true;
-        pgStatus.Click += tabPage1_Click;
-        // 
-        // grpAuctions
-        // 
-        grpAuctions.Controls.Add(btnRemoveAuction);
-        grpAuctions.Controls.Add(btnAddAuction);
-        grpAuctions.Controls.Add(lvAuctions);
-        grpAuctions.Dock = DockStyle.Fill;
-        grpAuctions.Location = new Point(3, 3);
-        grpAuctions.Name = "grpAuctions";
-        grpAuctions.Size = new Size(786, 416);
-        grpAuctions.TabIndex = 0;
-        grpAuctions.TabStop = false;
-        grpAuctions.Text = "Auction Watches";
-        // 
-        // lvAuctions
-        // 
-        lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, Stars, Recomb, CheapestAuction, NotifyBelow });
-        lvAuctions.FullRowSelect = true;
-        lvAuctions.GridLines = true;
-        lvAuctions.Location = new Point(3, 17);
-        lvAuctions.MultiSelect = false;
-        lvAuctions.Name = "lvAuctions";
-        lvAuctions.Size = new Size(635, 149);
-        lvAuctions.TabIndex = 0;
-        lvAuctions.UseCompatibleStateImageBehavior = false;
-        lvAuctions.View = View.Details;
-        // 
-        // Item
-        // 
-        Item.Text = "Item";
-        Item.Width = 180;
-        // 
-        // Tier
-        // 
-        Tier.Text = "Tier";
-        Tier.Width = 90;
-        // 
-        // Stars
-        // 
-        Stars.Text = "Stars";
-        // 
-        // Recomb
-        // 
-        Recomb.Width = 80;
-        // 
-        // CheapestAuction
-        // 
-        CheapestAuction.Text = "Cheapest Auction";
-        CheapestAuction.Width = 110;
-        // 
-        // NotifyBelow
-        // 
-        NotifyBelow.Text = "Notift Below";
-        NotifyBelow.Width = 110;
-        // 
-        // btnAddAuction
-        // 
-        btnAddAuction.Location = new Point(6, 172);
-        btnAddAuction.Name = "btnAddAuction";
-        btnAddAuction.Size = new Size(75, 23);
-        btnAddAuction.TabIndex = 1;
-        btnAddAuction.Text = "Add Auction";
-        btnAddAuction.UseVisualStyleBackColor = true;
-        // 
-        // btnRemoveAuction
-        // 
-        btnRemoveAuction.Location = new Point(150, 172);
-        btnRemoveAuction.Name = "btnRemoveAuction";
-        btnRemoveAuction.Size = new Size(75, 23);
-        btnRemoveAuction.TabIndex = 2;
-        btnRemoveAuction.Text = "Remove Auction";
-        btnRemoveAuction.UseVisualStyleBackColor = true;
-        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -343,9 +349,9 @@ partial class MainForm
         grpStatus.PerformLayout();
         grpPlayers.ResumeLayout(false);
         tabMain.ResumeLayout(false);
+        pgStatus.ResumeLayout(false);
         pgPlayers.ResumeLayout(false);
         pgAuctions.ResumeLayout(false);
-        pgStatus.ResumeLayout(false);
         grpAuctions.ResumeLayout(false);
         ResumeLayout(false);
     }

@@ -1,5 +1,6 @@
 using HPSkyStatusClient.Configuration;
 using HPSkyStatusClient.Forms;
+using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
 using Microsoft.Extensions.DependencyInjection;
 namespace HPSkyStatusClient;
@@ -14,6 +15,7 @@ public partial class MainForm : Form
     private readonly Icon _redIcon;
     private readonly StatusService _statusService;
     private readonly PlayerWatchService _playerWatchService;
+    private readonly AuctionWatchService _auctionWatchService;
     private bool _serverOnline;
     private readonly IServiceProvider _serviceProvider;
     private readonly ApiErrorService _errorService;
@@ -21,12 +23,14 @@ public partial class MainForm : Form
     public MainForm(
         StatusService statusService,
         PlayerWatchService playerWatchService,
+        AuctionWatchService auctionWatchService,
         IServiceProvider serviceProvider,
         ApiErrorService errorService,
         ClientSettingsApiService clientSettings)
     {
         _statusService = statusService;
         _playerWatchService = playerWatchService;
+        _auctionWatchService = auctionWatchService;
         _serviceProvider = serviceProvider;
         _errorService = errorService;
         _clientSettings = clientSettings;
@@ -74,6 +78,7 @@ public partial class MainForm : Form
         {
             await UpdateStatus();
             await UpdatePlayers();
+            await UpdateAuctions();
         };
 
         timer.Start();
@@ -83,6 +88,7 @@ public partial class MainForm : Form
             await _clientSettings.Refresh();
             await UpdateStatus();
             await UpdatePlayers();
+            await UpdateAuctions();
         });
     }
 
@@ -97,48 +103,7 @@ public partial class MainForm : Form
 
         base.OnFormClosing(e);
     }
-
-    private async Task UpdateStatus()
-    {
-        var status = await _statusService.GetStatus();
-
-        if (status == null)
-        {
-            _serverOnline = false;
-
-            _trayIcon.Icon = _redIcon;
-            _trayIcon.Text = "Unable to connect to HPSkyStatus";
-
-            lblUsername.Text = "Username: Unknown";
-            lblPlayerCount.Text = "Players: ?";
-            lblServer.Text = "Server: Offline";
-            lblLastUpdate.Text = $"Last Update: {DateTime.Now:T}";
-
-            return;
-        }
-
-        _serverOnline = true;
-
-        lblUsername.Text = $"Username: {status.Username}";
-        lblPlayerCount.Text = $"Players: {status.SkyblockPlayers}";
-        lblLastUpdate.Text = $"Last Update: {DateTime.Now:T}";
-
-        if (status.SkyblockPlayers <= 25)
-        {
-            _trayIcon.Icon = _yellowIcon;
-            _trayIcon.Text = $"SkyBlock Maintenance - {status.SkyblockPlayers} players";
-
-            lblServer.Text = "Server: Maintenance";
-        }
-        else
-        {
-            _trayIcon.Icon = _greenIcon;
-            _trayIcon.Text = $"SkyBlock Online - {status.SkyblockPlayers} players";
-
-            lblServer.Text = "Server: Online";
-        }
-    }
-
+    
     private async Task UpdatePlayers()
     {
         var players = await _playerWatchService.GetStatuses();
@@ -157,6 +122,40 @@ public partial class MainForm : Form
                     : "-");
 
             lvPlayers.Items.Add(item);
+        }
+    }
+
+    private async Task UpdateAuctions()
+    {
+        var auctions = await _auctionWatchService.GetWatches();
+
+        lvAuctions.Items.Clear();
+
+        foreach (var auction in auctions)
+        {
+            var item = new ListViewItem(
+                auction.ItemTag);
+
+            item.SubItems.Add(
+                auction.Tier);
+
+            item.SubItems.Add(
+                auction.Stars?.ToString() ?? "-");
+
+            item.SubItems.Add(
+                auction.Recombobulated == true
+                    ? "Yes"
+                    : "-");
+
+            item.SubItems.Add(
+                auction.LastLowestBin.ToString("N0"));
+
+            item.SubItems.Add(
+                auction.NotifyBelow.ToString("N0"));
+
+            item.Tag = auction;
+
+            lvAuctions.Items.Add(item);
         }
     }
     private void grpStatus_Enter(object sender, EventArgs e)
@@ -252,5 +251,88 @@ public partial class MainForm : Form
     private void tabPage1_Click(object sender, EventArgs e)
     {
 
+    }
+
+    private async void btnAddAuction_Click(object sender, EventArgs e)
+    {
+        using var dialog =
+            _serviceProvider.GetRequiredService<AddAuctionForm>();
+
+        if (dialog.ShowDialog() != DialogResult.OK)
+            return;
+
+        var result =
+            await _auctionWatchService.AddWatch(dialog.Watch);
+
+        if (!result.Success)
+        {
+            MessageBox.Show(
+                result.Error,
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        await UpdateAuctions();
+    }
+
+    private async void btnRemoveAuction_Click(object sender, EventArgs e)
+    {
+        if (lvAuctions.SelectedItems.Count == 0)
+        {
+            MessageBox.Show(
+                "Select an auction first.",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            return;
+        }
+
+        var auction =
+            (AuctionWatch)lvAuctions.SelectedItems[0].Tag;
+
+        var result =
+            await _auctionWatchService.RemoveWatch(
+                auction.WatchId);
+
+        if (!result.Success)
+        {
+            MessageBox.Show(
+                result.Error,
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        await UpdateAuctions();
+    }
+
+    private void lvAuctions_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    private void grpAuctions_Enter(object sender, EventArgs e)
+    {
+
+    }
+
+    private void lvAuctions_DoubleClick(object sender, EventArgs e)
+    {
+        if (lvAuctions.SelectedItems.Count == 0)
+            return;
+
+        var auction =
+            (AuctionWatch)lvAuctions.SelectedItems[0].Tag;
+
+        var form =
+            new AuctionDetailsForm(auction);
+
+        form.ShowDialog();
     }
 }
