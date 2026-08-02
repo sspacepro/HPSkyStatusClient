@@ -1,4 +1,5 @@
 ﻿using HPSkyStatusClient.Models;
+using HPSkyStatusClient.Services;
 
 namespace HPSkyStatusClient.Forms;
 
@@ -33,7 +34,17 @@ public partial class AddAuctionForm : Form
 
             return;
         }
+        if (numPetLevel.Value > 0 &&
+    string.IsNullOrWhiteSpace(cmbTier.Text))
+        {
+            MessageBox.Show(
+                "Please select a pet rarity when entering a pet level.",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
 
+            return;
+        }
         Watch = new AuctionWatch
         {
             ItemTag = txtItem.Text
@@ -53,8 +64,10 @@ public partial class AddAuctionForm : Form
                 ? true
                 : null,
 
-            PetXp = numPetXp.Value > 0
-                ? (int)numPetXp.Value
+            PetXp = numPetLevel.Value > 0
+                ? (int)PetLevelCalculator.LevelToXp(
+                    cmbTier.Text,
+                    (int)numPetLevel.Value)
                 : null,
 
             NotifyBelow = (long)numNotify.Value
@@ -66,10 +79,6 @@ public partial class AddAuctionForm : Form
 
     }
 
-    private void AddAuctionForm_Load(object sender, EventArgs e)
-    {
-
-    }
 
 
 }

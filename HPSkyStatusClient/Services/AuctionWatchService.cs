@@ -18,7 +18,7 @@ public class AuctionWatchService
         var response = await _api.GetAsync(
             "/api/v1/auction/watch");
 
-        if (!response.IsSuccessStatusCode)
+        if (response == null || !response.IsSuccessStatusCode)
             return new List<AuctionWatch>();
 
         return JsonSerializer.Deserialize<List<AuctionWatch>>(

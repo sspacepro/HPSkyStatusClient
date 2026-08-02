@@ -20,13 +20,20 @@ public partial class MainForm : Form
     private readonly IServiceProvider _serviceProvider;
     private readonly ApiErrorService _errorService;
     private readonly ClientSettingsApiService _clientSettings;
+    private NotificationService _notifications;
+    private readonly NotificationApiService _notificationApiService;
+    private readonly NotificationTimeService _notificationTime;
+    private readonly ClientSettingsService _localSettings;
     public MainForm(
         StatusService statusService,
         PlayerWatchService playerWatchService,
         AuctionWatchService auctionWatchService,
         IServiceProvider serviceProvider,
         ApiErrorService errorService,
-        ClientSettingsApiService clientSettings)
+        ClientSettingsApiService clientSettings,
+        NotificationApiService notificationApiService,
+        NotificationTimeService notificationTime,
+        ClientSettingsService localSettings)
     {
         _statusService = statusService;
         _playerWatchService = playerWatchService;
@@ -34,6 +41,9 @@ public partial class MainForm : Form
         _serviceProvider = serviceProvider;
         _errorService = errorService;
         _clientSettings = clientSettings;
+        _notificationApiService = notificationApiService;
+        _notificationTime = notificationTime;
+        _localSettings = localSettings;
 
         _greenIcon = new Icon("skyblock-green.ico");
         _yellowIcon = new Icon("skyblock-yellow.ico");
@@ -47,7 +57,7 @@ public partial class MainForm : Form
             Text = "HPSkyStatus",
             Visible = true
         };
-
+        _notifications = new NotificationService(_trayIcon);
         var menu = new ContextMenuStrip();
 
         menu.Items.Add("Open", null, (_, _) =>
@@ -61,6 +71,7 @@ public partial class MainForm : Form
             _trayIcon.Dispose();
             Application.Exit();
         });
+
 
         _trayIcon.ContextMenuStrip = menu;
 
@@ -79,6 +90,7 @@ public partial class MainForm : Form
             await UpdateStatus();
             await UpdatePlayers();
             await UpdateAuctions();
+            await CheckNotifications();
         };
 
         timer.Start();
@@ -89,6 +101,7 @@ public partial class MainForm : Form
             await UpdateStatus();
             await UpdatePlayers();
             await UpdateAuctions();
+            await CheckNotifications(true);
         });
     }
 
@@ -103,236 +116,9 @@ public partial class MainForm : Form
 
         base.OnFormClosing(e);
     }
-    
-    private async Task UpdatePlayers()
-    {
-        var players = await _playerWatchService.GetStatuses();
-
-        lvPlayers.Items.Clear();
-
-        foreach (var player in players)
-        {
-            var item = new ListViewItem(player.Username);
-
-            item.SubItems.Add(player.Online ? "Online" : "Offline");
-
-            item.SubItems.Add(
-                player.Online
-                    ? player.Mode
-                    : "-");
-
-            lvPlayers.Items.Add(item);
-        }
-    }
-
-    private async Task UpdateAuctions()
-    {
-        var auctions = await _auctionWatchService.GetWatches();
-
-        lvAuctions.Items.Clear();
-
-        foreach (var auction in auctions)
-        {
-            var item = new ListViewItem(
-                auction.ItemTag);
-
-            item.SubItems.Add(
-                auction.Tier);
-
-            item.SubItems.Add(
-                auction.Stars?.ToString() ?? "-");
-
-            item.SubItems.Add(
-                auction.Recombobulated == true
-                    ? "Yes"
-                    : "-");
-
-            item.SubItems.Add(
-                auction.LastLowestBin.ToString("N0"));
-
-            item.SubItems.Add(
-                auction.NotifyBelow.ToString("N0"));
-
-            item.Tag = auction;
-
-            lvAuctions.Items.Add(item);
-        }
-    }
-    private void grpStatus_Enter(object sender, EventArgs e)
-    {
-
-    }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-
-    }
-
-    private async void btnRefresh_Click(object sender, EventArgs e)
-    {
-        btnRefresh.Enabled = false;
-
-        await UpdateStatus();
-
-        btnRefresh.Enabled = true;
-    }
-
-    private void lvPlayers_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private async void btnAddPlayer_Click(object sender, EventArgs e)
-    {
-        if (_clientSettings.Settings != null &&
-            lvPlayers.Items.Count >= _clientSettings.Settings.MaxWatchedPlayers)
-        {
-            MessageBox.Show(
-                $"You may only watch {_clientSettings.Settings.MaxWatchedPlayers} players.",
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            return;
-        }
-
-        using var dialog = _serviceProvider.GetRequiredService<AddPlayerForm>();
-
-        if (dialog.ShowDialog() != DialogResult.OK)
-            return;
-
-        var result = await _playerWatchService.AddPlayer(dialog.Username);
-
-        if (!result.Success)
-        {
-            MessageBox.Show(
-                result.Error,
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-
-            return;
-        }
-
-        await UpdatePlayers();
-    }
-
-    private async void btnRemovePlayer_Click(object sender, EventArgs e)
-    {
-        if (lvPlayers.SelectedItems.Count == 0)
-        {
-            MessageBox.Show(
-                "Select a player first.",
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            return;
-        }
-
-        var username = lvPlayers.SelectedItems[0].Text;
-
-        var result = await _playerWatchService.RemovePlayer(username);
-
-        if (!result.Success)
-        {
-            MessageBox.Show(
-                result.Error,
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-
-            return;
-        }
-
-        await UpdatePlayers();
-    }
-
-    private void tabPage1_Click(object sender, EventArgs e)
-    {
-
-    }
-
-    private async void btnAddAuction_Click(object sender, EventArgs e)
-    {
-        using var dialog =
-            _serviceProvider.GetRequiredService<AddAuctionForm>();
-
-        if (dialog.ShowDialog() != DialogResult.OK)
-            return;
-
-        var result =
-            await _auctionWatchService.AddWatch(dialog.Watch);
-
-        if (!result.Success)
-        {
-            MessageBox.Show(
-                result.Error,
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-
-            return;
-        }
-
-        await UpdateAuctions();
-    }
-
-    private async void btnRemoveAuction_Click(object sender, EventArgs e)
-    {
-        if (lvAuctions.SelectedItems.Count == 0)
-        {
-            MessageBox.Show(
-                "Select an auction first.",
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            return;
-        }
-
-        var auction =
-            (AuctionWatch)lvAuctions.SelectedItems[0].Tag;
-
-        var result =
-            await _auctionWatchService.RemoveWatch(
-                auction.WatchId);
-
-        if (!result.Success)
-        {
-            MessageBox.Show(
-                result.Error,
-                "HPSkyStatus",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error);
-
-            return;
-        }
-
-        await UpdateAuctions();
-    }
-
-    private void lvAuctions_SelectedIndexChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    private void grpAuctions_Enter(object sender, EventArgs e)
-    {
-
-    }
-
-    private void lvAuctions_DoubleClick(object sender, EventArgs e)
-    {
-        if (lvAuctions.SelectedItems.Count == 0)
-            return;
-
-        var auction =
-            (AuctionWatch)lvAuctions.SelectedItems[0].Tag;
-
-        var form =
-            new AuctionDetailsForm(auction);
-
-        form.ShowDialog();
+        //Place to test thins on startup.
     }
 }

@@ -18,7 +18,7 @@ public class ClientSettingsApiService
     {
         var response = await _api.GetAsync("/api/v1/client/settings");
 
-        if (!response.IsSuccessStatusCode)
+        if (response == null || !response.IsSuccessStatusCode)
             return false;
 
         Settings = JsonSerializer.Deserialize<ClientSettingsResponse>(

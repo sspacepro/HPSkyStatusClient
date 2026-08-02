@@ -35,13 +35,13 @@
             lblStars = new Label();
             numStars = new NumericUpDown();
             chkRecomb = new CheckBox();
-            lblPetXP = new Label();
-            numPetXp = new NumericUpDown();
+            lblPetLevel = new Label();
+            numPetLevel = new NumericUpDown();
             lblNotifyBelow = new Label();
             numNotify = new NumericUpDown();
             btnAdd = new Button();
             ((System.ComponentModel.ISupportInitialize)numStars).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numPetXp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numPetLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numNotify).BeginInit();
             SuspendLayout();
             // 
@@ -106,22 +106,22 @@
             chkRecomb.Text = "Recombobulated";
             chkRecomb.UseVisualStyleBackColor = true;
             // 
-            // lblPetXP
+            // lblPetLevel
             // 
-            lblPetXP.AutoSize = true;
-            lblPetXP.Location = new Point(2, 147);
-            lblPetXP.Name = "lblPetXP";
-            lblPetXP.Size = new Size(96, 15);
-            lblPetXP.TabIndex = 7;
-            lblPetXP.Text = "Pet XP (optional)";
+            lblPetLevel.AutoSize = true;
+            lblPetLevel.Location = new Point(2, 147);
+            lblPetLevel.Name = "lblPetLevel";
+            lblPetLevel.Size = new Size(110, 15);
+            lblPetLevel.TabIndex = 7;
+            lblPetLevel.Text = "Minimum Pet Level";
             // 
-            // numPetXp
+            // numPetLevel
             // 
-            numPetXp.Location = new Point(3, 165);
-            numPetXp.Maximum = new decimal(new int[] { 20000000, 0, 0, 0 });
-            numPetXp.Name = "numPetXp";
-            numPetXp.Size = new Size(120, 23);
-            numPetXp.TabIndex = 8;
+            numPetLevel.Location = new Point(3, 165);
+            numPetLevel.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            numPetLevel.Name = "numPetLevel";
+            numPetLevel.Size = new Size(120, 23);
+            numPetLevel.TabIndex = 8;
             // 
             // lblNotifyBelow
             // 
@@ -160,8 +160,8 @@
             Controls.Add(btnAdd);
             Controls.Add(numNotify);
             Controls.Add(lblNotifyBelow);
-            Controls.Add(numPetXp);
-            Controls.Add(lblPetXP);
+            Controls.Add(numPetLevel);
+            Controls.Add(lblPetLevel);
             Controls.Add(chkRecomb);
             Controls.Add(numStars);
             Controls.Add(lblStars);
@@ -171,9 +171,8 @@
             Controls.Add(lblItemName);
             Name = "AddAuctionForm";
             Text = "AddAuctionForm";
-            Load += AddAuctionForm_Load;
             ((System.ComponentModel.ISupportInitialize)numStars).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numPetXp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numPetLevel).EndInit();
             ((System.ComponentModel.ISupportInitialize)numNotify).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -188,8 +187,8 @@
         private Label lblStars;
         private NumericUpDown numStars;
         private CheckBox chkRecomb;
-        private Label lblPetXP;
-        private NumericUpDown numPetXp;
+        private Label lblPetLevel;
+        private NumericUpDown numPetLevel;
         private Label lblNotifyBelow;
         private NumericUpDown numNotify;
         private Button btnAdd;

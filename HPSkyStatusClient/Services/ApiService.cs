@@ -39,11 +39,19 @@ public class ApiService
         return client;
     }
 
-    public async Task<HttpResponseMessage> GetAsync(string url)
+    public async Task<HttpResponseMessage?> GetAsync(string url)
     {
-        using var client = CreateClient();
-        return await client.GetAsync(url);
+        try
+        {
+            using var client = CreateClient();
+            return await client.GetAsync(url);
+        }
+        catch
+        {
+            return null;
+        }
     }
+
 
     public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content)
     {

@@ -18,7 +18,7 @@ public class StatusService
         {
             var response = await _api.GetAsync("/api/v1/status");
 
-            if (!response.IsSuccessStatusCode)
+            if (response == null || !response.IsSuccessStatusCode)
                 return null;
 
             var json = await response.Content.ReadAsStringAsync();

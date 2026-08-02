@@ -19,8 +19,8 @@ public class PlayerWatchService
         {
             var response = await _api.GetAsync("/api/v1/watch/status");
 
-            if (!response.IsSuccessStatusCode)
-                return [];
+            if (response == null || !response.IsSuccessStatusCode)
+                return new List<PlayerStatus>();
 
             var json = await response.Content.ReadAsStringAsync();
 

@@ -51,6 +51,10 @@ internal static class Program
                 services.AddTransient<AddPlayerForm>();
 
                 services.AddSingleton<ClientSettingsApiService>();
+
+                services.AddSingleton<NotificationApiService>();
+
+                services.AddSingleton<NotificationTimeService>();
             })
             .Build();
 
@@ -64,6 +68,13 @@ internal static class Program
                 return;
         }
 
-        Application.Run(host.Services.GetRequiredService<MainForm>());
+        try
+        {
+            Application.Run(host.Services.GetRequiredService<MainForm>());
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.ToString());
+        }
     }
 }

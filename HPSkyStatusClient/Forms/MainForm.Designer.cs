@@ -51,6 +51,7 @@ partial class MainForm
         lvAuctions = new ListView();
         Item = new ColumnHeader();
         Tier = new ColumnHeader();
+        PetLevel = new ColumnHeader();
         Stars = new ColumnHeader();
         Recomb = new ColumnHeader();
         CheapestAuction = new ColumnHeader();
@@ -80,7 +81,6 @@ partial class MainForm
         grpStatus.TabIndex = 0;
         grpStatus.TabStop = false;
         grpStatus.Text = "Status";
-        grpStatus.Enter += grpStatus_Enter;
         // 
         // btnRefresh
         // 
@@ -173,7 +173,6 @@ partial class MainForm
         lvPlayers.TabIndex = 0;
         lvPlayers.UseCompatibleStateImageBehavior = false;
         lvPlayers.View = View.Details;
-        lvPlayers.SelectedIndexChanged += lvPlayers_SelectedIndexChanged;
         // 
         // Username
         // 
@@ -214,7 +213,6 @@ partial class MainForm
         pgStatus.TabIndex = 0;
         pgStatus.Text = "Status";
         pgStatus.UseVisualStyleBackColor = true;
-        pgStatus.Click += tabPage1_Click;
         // 
         // pgPlayers
         // 
@@ -250,7 +248,6 @@ partial class MainForm
         grpAuctions.TabIndex = 0;
         grpAuctions.TabStop = false;
         grpAuctions.Text = "Auction Watches";
-        grpAuctions.Enter += grpAuctions_Enter;
         // 
         // btnRemoveAuction
         // 
@@ -274,17 +271,16 @@ partial class MainForm
         // 
         // lvAuctions
         // 
-        lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, Stars, Recomb, CheapestAuction, NotifyBelow });
+        lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, PetLevel, Stars, Recomb, CheapestAuction, NotifyBelow });
         lvAuctions.FullRowSelect = true;
         lvAuctions.GridLines = true;
         lvAuctions.Location = new Point(3, 17);
         lvAuctions.MultiSelect = false;
         lvAuctions.Name = "lvAuctions";
-        lvAuctions.Size = new Size(635, 149);
+        lvAuctions.Size = new Size(694, 149);
         lvAuctions.TabIndex = 0;
         lvAuctions.UseCompatibleStateImageBehavior = false;
         lvAuctions.View = View.Details;
-        lvAuctions.SelectedIndexChanged += lvAuctions_SelectedIndexChanged;
         lvAuctions.DoubleClick += lvAuctions_DoubleClick;
         // 
         // Item
@@ -296,6 +292,10 @@ partial class MainForm
         // 
         Tier.Text = "Tier";
         Tier.Width = 90;
+        // 
+        // PetLevel
+        // 
+        PetLevel.Text = "Pet Level";
         // 
         // Stars
         // 
@@ -387,4 +387,5 @@ partial class MainForm
     private ColumnHeader NotifyBelow;
     private Button btnAddAuction;
     private Button btnRemoveAuction;
+    private ColumnHeader PetLevel;
 }

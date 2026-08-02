@@ -40,8 +40,5 @@ public partial class LoginForm : Form
 
 
 
-    private void LoginForm_Load(object sender, EventArgs e)
-    {
 
-    }
 }

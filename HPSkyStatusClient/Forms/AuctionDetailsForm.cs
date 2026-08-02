@@ -1,4 +1,5 @@
 ﻿using HPSkyStatusClient.Models;
+using HPSkyStatusClient.Services;
 
 namespace HPSkyStatusClient.Forms;
 
@@ -27,7 +28,8 @@ public partial class AuctionDetailsForm : Form
         lblNotifyBelow.Text =
             $"Notify Below: {_auction.NotifyBelow:N0}";
 
-        txtLore.Text =
-            _auction.ItemLore;
+        MinecraftTextRenderer.Render(
+            txtLore,
+            _auction.ItemLore);
     }
 }
