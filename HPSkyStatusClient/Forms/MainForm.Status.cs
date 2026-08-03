@@ -59,35 +59,5 @@ public partial class MainForm
 
         btnRefresh.Enabled = true;
     }
-    private async Task CheckNotifications(bool startup = false)
-    {
-        var notifications =
-            await _notificationApiService.GetNotifications();
-
-        foreach (var notification in notifications)
-        {
-            if (startup)
-            {
-                var age = DateTime.UtcNow - notification.Created;
-
-                if (age.TotalMinutes >
-                    _localSettings.Settings.NotificationHistoryMinutes)
-                {
-                    continue;
-                }
-            }
-
-            var message = notification.Message;
-
-            if (startup)
-            {
-                message +=
-                    $" ({_notificationTime.Format(notification.Created)})";
-            }
-
-            _notifications.Show(
-                notification.Title,
-                message);
-        }
-    }
+    
 }

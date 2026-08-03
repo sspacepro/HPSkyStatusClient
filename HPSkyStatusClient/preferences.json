@@ -1,0 +1,8 @@
+{
+  "ServerUrl": "",
+  "NotificationHistoryMinutes": 69,
+  "PlayerNotifications": true,
+  "AuctionNotifications": true,
+  "StartupNotificationHistory": true,
+  "MinimizeToTray": true
+}

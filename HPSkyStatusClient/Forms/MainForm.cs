@@ -3,6 +3,7 @@ using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 namespace HPSkyStatusClient;
 
 
@@ -24,6 +25,9 @@ public partial class MainForm : Form
     private readonly NotificationApiService _notificationApiService;
     private readonly NotificationTimeService _notificationTime;
     private readonly ClientSettingsService _localSettings;
+    private readonly ClientPreferencesService _preferences;
+    private readonly IOptions<ApiSettings> _apiSettings;
+
     public MainForm(
         StatusService statusService,
         PlayerWatchService playerWatchService,
@@ -33,7 +37,9 @@ public partial class MainForm : Form
         ClientSettingsApiService clientSettings,
         NotificationApiService notificationApiService,
         NotificationTimeService notificationTime,
-        ClientSettingsService localSettings)
+        ClientSettingsService localSettings,
+        ClientPreferencesService preferences,
+        IOptions<ApiSettings> apiSettings)
     {
         _statusService = statusService;
         _playerWatchService = playerWatchService;
@@ -44,7 +50,12 @@ public partial class MainForm : Form
         _notificationApiService = notificationApiService;
         _notificationTime = notificationTime;
         _localSettings = localSettings;
+        _preferences = preferences;
+        _apiSettings = apiSettings;
 
+
+
+        _preferences.Load();
         _greenIcon = new Icon("skyblock-green.ico");
         _yellowIcon = new Icon("skyblock-yellow.ico");
         _redIcon = new Icon("skyblock-red.ico");
@@ -90,7 +101,7 @@ public partial class MainForm : Form
             await UpdateStatus();
             await UpdatePlayers();
             await UpdateAuctions();
-            await CheckNotifications();
+            await CheckNotifications(false);
         };
 
         timer.Start();
@@ -98,6 +109,12 @@ public partial class MainForm : Form
         _ = Task.Run(async () =>
         {
             await _clientSettings.Refresh();
+            Invoke(() =>
+            {
+                LoadClientSettings();
+                LoadServerSettings();
+            });
+            
             await UpdateStatus();
             await UpdatePlayers();
             await UpdateAuctions();
@@ -108,10 +125,12 @@ public partial class MainForm : Form
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
-        if (e.CloseReason == CloseReason.UserClosing)
+        if (_preferences.Preferences.MinimizeToTray &&
+            e.CloseReason == CloseReason.UserClosing)
         {
             e.Cancel = true;
             Hide();
+            return;
         }
 
         base.OnFormClosing(e);
@@ -120,5 +139,8 @@ public partial class MainForm : Form
     private void MainForm_Load(object sender, EventArgs e)
     {
         //Place to test thins on startup.
+        
     }
+
+
 }

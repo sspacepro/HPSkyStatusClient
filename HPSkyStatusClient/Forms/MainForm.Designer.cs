@@ -57,6 +57,20 @@ partial class MainForm
         CheapestAuction = new ColumnHeader();
         NotifyBelow = new ColumnHeader();
         pgSettings = new TabPage();
+        btnReloadSettings = new Button();
+        btnSaveSettings = new Button();
+        grpClientSettings = new GroupBox();
+        lblServerUrl = new Label();
+        chkMinimizeToTray = new CheckBox();
+        lblLogtime = new Label();
+        chkStartupNotificationHistory = new CheckBox();
+        chkAuctionNotifications = new CheckBox();
+        chkPlayerNotifications = new CheckBox();
+        numNotificationHistory = new NumericUpDown();
+        txtServerUrl = new TextBox();
+        grpServer = new GroupBox();
+        lblMaxAuctions = new Label();
+        lblMaxPlayers = new Label();
         pgAdmin = new TabPage();
         grpStatus.SuspendLayout();
         grpPlayers.SuspendLayout();
@@ -65,6 +79,10 @@ partial class MainForm
         pgPlayers.SuspendLayout();
         pgAuctions.SuspendLayout();
         grpAuctions.SuspendLayout();
+        pgSettings.SuspendLayout();
+        grpClientSettings.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
+        grpServer.SuspendLayout();
         SuspendLayout();
         // 
         // grpStatus
@@ -143,7 +161,7 @@ partial class MainForm
         // 
         // btnRemovePlayer
         // 
-        btnRemovePlayer.Location = new Point(105, 156);
+        btnRemovePlayer.Location = new Point(92, 132);
         btnRemovePlayer.Name = "btnRemovePlayer";
         btnRemovePlayer.Size = new Size(75, 23);
         btnRemovePlayer.TabIndex = 2;
@@ -153,7 +171,7 @@ partial class MainForm
         // 
         // btnAddPlayer
         // 
-        btnAddPlayer.Location = new Point(24, 156);
+        btnAddPlayer.Location = new Point(11, 132);
         btnAddPlayer.Name = "btnAddPlayer";
         btnAddPlayer.Size = new Size(75, 23);
         btnAddPlayer.TabIndex = 1;
@@ -169,7 +187,7 @@ partial class MainForm
         lvPlayers.Location = new Point(11, 22);
         lvPlayers.MultiSelect = false;
         lvPlayers.Name = "lvPlayers";
-        lvPlayers.Size = new Size(372, 128);
+        lvPlayers.Size = new Size(406, 104);
         lvPlayers.TabIndex = 0;
         lvPlayers.UseCompatibleStateImageBehavior = false;
         lvPlayers.View = View.Details;
@@ -251,7 +269,7 @@ partial class MainForm
         // 
         // btnRemoveAuction
         // 
-        btnRemoveAuction.Location = new Point(150, 172);
+        btnRemoveAuction.Location = new Point(87, 165);
         btnRemoveAuction.Name = "btnRemoveAuction";
         btnRemoveAuction.Size = new Size(75, 23);
         btnRemoveAuction.TabIndex = 2;
@@ -261,7 +279,7 @@ partial class MainForm
         // 
         // btnAddAuction
         // 
-        btnAddAuction.Location = new Point(6, 172);
+        btnAddAuction.Location = new Point(6, 165);
         btnAddAuction.Name = "btnAddAuction";
         btnAddAuction.Size = new Size(75, 23);
         btnAddAuction.TabIndex = 1;
@@ -277,7 +295,7 @@ partial class MainForm
         lvAuctions.Location = new Point(3, 17);
         lvAuctions.MultiSelect = false;
         lvAuctions.Name = "lvAuctions";
-        lvAuctions.Size = new Size(694, 149);
+        lvAuctions.Size = new Size(694, 142);
         lvAuctions.TabIndex = 0;
         lvAuctions.UseCompatibleStateImageBehavior = false;
         lvAuctions.View = View.Details;
@@ -318,6 +336,10 @@ partial class MainForm
         // 
         // pgSettings
         // 
+        pgSettings.Controls.Add(btnReloadSettings);
+        pgSettings.Controls.Add(btnSaveSettings);
+        pgSettings.Controls.Add(grpClientSettings);
+        pgSettings.Controls.Add(grpServer);
         pgSettings.Location = new Point(4, 24);
         pgSettings.Name = "pgSettings";
         pgSettings.Padding = new Padding(3);
@@ -325,6 +347,150 @@ partial class MainForm
         pgSettings.TabIndex = 3;
         pgSettings.Text = "Settings";
         pgSettings.UseVisualStyleBackColor = true;
+        // 
+        // btnReloadSettings
+        // 
+        btnReloadSettings.Location = new Point(89, 274);
+        btnReloadSettings.Name = "btnReloadSettings";
+        btnReloadSettings.Size = new Size(75, 23);
+        btnReloadSettings.TabIndex = 3;
+        btnReloadSettings.Text = "Reload";
+        btnReloadSettings.UseVisualStyleBackColor = true;
+        btnReloadSettings.Click += btnReloadSettings_Click;
+        // 
+        // btnSaveSettings
+        // 
+        btnSaveSettings.Location = new Point(8, 274);
+        btnSaveSettings.Name = "btnSaveSettings";
+        btnSaveSettings.Size = new Size(75, 23);
+        btnSaveSettings.TabIndex = 2;
+        btnSaveSettings.Text = "Save";
+        btnSaveSettings.UseVisualStyleBackColor = true;
+        btnSaveSettings.Click += btnSaveSettings_Click;
+        // 
+        // grpClientSettings
+        // 
+        grpClientSettings.Controls.Add(lblServerUrl);
+        grpClientSettings.Controls.Add(chkMinimizeToTray);
+        grpClientSettings.Controls.Add(lblLogtime);
+        grpClientSettings.Controls.Add(chkStartupNotificationHistory);
+        grpClientSettings.Controls.Add(chkAuctionNotifications);
+        grpClientSettings.Controls.Add(chkPlayerNotifications);
+        grpClientSettings.Controls.Add(numNotificationHistory);
+        grpClientSettings.Controls.Add(txtServerUrl);
+        grpClientSettings.Location = new Point(2, 59);
+        grpClientSettings.Name = "grpClientSettings";
+        grpClientSettings.Size = new Size(273, 209);
+        grpClientSettings.TabIndex = 1;
+        grpClientSettings.TabStop = false;
+        grpClientSettings.Text = "Client Settings";
+        // 
+        // lblServerUrl
+        // 
+        lblServerUrl.AutoSize = true;
+        lblServerUrl.Location = new Point(5, 19);
+        lblServerUrl.Name = "lblServerUrl";
+        lblServerUrl.Size = new Size(92, 15);
+        lblServerUrl.TabIndex = 7;
+        lblServerUrl.Text = "Server adress url";
+        // 
+        // chkMinimizeToTray
+        // 
+        chkMinimizeToTray.AutoSize = true;
+        chkMinimizeToTray.Location = new Point(5, 187);
+        chkMinimizeToTray.Name = "chkMinimizeToTray";
+        chkMinimizeToTray.Size = new Size(112, 19);
+        chkMinimizeToTray.TabIndex = 6;
+        chkMinimizeToTray.Text = "Minimize to tray";
+        chkMinimizeToTray.UseVisualStyleBackColor = true;
+        // 
+        // lblLogtime
+        // 
+        lblLogtime.AutoSize = true;
+        lblLogtime.Location = new Point(5, 143);
+        lblLogtime.Name = "lblLogtime";
+        lblLogtime.Size = new Size(163, 15);
+        lblLogtime.TabIndex = 5;
+        lblLogtime.Text = "Notification history (minutes)";
+        // 
+        // chkStartupNotificationHistory
+        // 
+        chkStartupNotificationHistory.AutoSize = true;
+        chkStartupNotificationHistory.Checked = true;
+        chkStartupNotificationHistory.CheckState = CheckState.Checked;
+        chkStartupNotificationHistory.Location = new Point(5, 116);
+        chkStartupNotificationHistory.Name = "chkStartupNotificationHistory";
+        chkStartupNotificationHistory.Size = new Size(228, 19);
+        chkStartupNotificationHistory.TabIndex = 4;
+        chkStartupNotificationHistory.Text = "Receive recent notifications on startup";
+        chkStartupNotificationHistory.UseVisualStyleBackColor = true;
+        // 
+        // chkAuctionNotifications
+        // 
+        chkAuctionNotifications.AutoSize = true;
+        chkAuctionNotifications.Checked = true;
+        chkAuctionNotifications.CheckState = CheckState.Checked;
+        chkAuctionNotifications.Location = new Point(5, 91);
+        chkAuctionNotifications.Name = "chkAuctionNotifications";
+        chkAuctionNotifications.Size = new Size(178, 19);
+        chkAuctionNotifications.TabIndex = 3;
+        chkAuctionNotifications.Text = "Receive auction notifications";
+        chkAuctionNotifications.UseVisualStyleBackColor = true;
+        // 
+        // chkPlayerNotifications
+        // 
+        chkPlayerNotifications.AutoSize = true;
+        chkPlayerNotifications.Checked = true;
+        chkPlayerNotifications.CheckState = CheckState.Checked;
+        chkPlayerNotifications.Location = new Point(5, 66);
+        chkPlayerNotifications.Name = "chkPlayerNotifications";
+        chkPlayerNotifications.Size = new Size(170, 19);
+        chkPlayerNotifications.TabIndex = 2;
+        chkPlayerNotifications.Text = "Receive player notifications";
+        chkPlayerNotifications.UseVisualStyleBackColor = true;
+        // 
+        // numNotificationHistory
+        // 
+        numNotificationHistory.Location = new Point(5, 161);
+        numNotificationHistory.Name = "numNotificationHistory";
+        numNotificationHistory.Size = new Size(120, 23);
+        numNotificationHistory.TabIndex = 1;
+        // 
+        // txtServerUrl
+        // 
+        txtServerUrl.Location = new Point(5, 37);
+        txtServerUrl.Name = "txtServerUrl";
+        txtServerUrl.PlaceholderText = "test";
+        txtServerUrl.Size = new Size(261, 23);
+        txtServerUrl.TabIndex = 0;
+        txtServerUrl.Text = "test";
+        // 
+        // grpServer
+        // 
+        grpServer.Controls.Add(lblMaxAuctions);
+        grpServer.Controls.Add(lblMaxPlayers);
+        grpServer.Location = new Point(1, 1);
+        grpServer.Name = "grpServer";
+        grpServer.Size = new Size(274, 58);
+        grpServer.TabIndex = 0;
+        grpServer.TabStop = false;
+        grpServer.Text = "Server Limits";
+        // 
+        // lblMaxAuctions
+        // 
+        lblMaxAuctions.AutoSize = true;
+        lblMaxAuctions.Location = new Point(6, 34);
+        lblMaxAuctions.Name = "lblMaxAuctions";
+        lblMaxAuctions.Size = new Size(0, 15);
+        lblMaxAuctions.TabIndex = 1;
+        // 
+        // lblMaxPlayers
+        // 
+        lblMaxPlayers.AutoSize = true;
+        lblMaxPlayers.Location = new Point(5, 19);
+        lblMaxPlayers.Name = "lblMaxPlayers";
+        lblMaxPlayers.Size = new Size(0, 15);
+        lblMaxPlayers.TabIndex = 0;
         // 
         // pgAdmin
         // 
@@ -353,6 +519,12 @@ partial class MainForm
         pgPlayers.ResumeLayout(false);
         pgAuctions.ResumeLayout(false);
         grpAuctions.ResumeLayout(false);
+        pgSettings.ResumeLayout(false);
+        grpClientSettings.ResumeLayout(false);
+        grpClientSettings.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
+        grpServer.ResumeLayout(false);
+        grpServer.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -388,4 +560,18 @@ partial class MainForm
     private Button btnAddAuction;
     private Button btnRemoveAuction;
     private ColumnHeader PetLevel;
+    private GroupBox grpServer;
+    private Label lblMaxPlayers;
+    private Label lblMaxAuctions;
+    private GroupBox grpClientSettings;
+    private TextBox txtServerUrl;
+    private NumericUpDown numNotificationHistory;
+    private CheckBox chkAuctionNotifications;
+    private CheckBox chkPlayerNotifications;
+    private CheckBox chkStartupNotificationHistory;
+    private Label lblLogtime;
+    private Button btnSaveSettings;
+    private Button btnReloadSettings;
+    private CheckBox chkMinimizeToTray;
+    private Label lblServerUrl;
 }
