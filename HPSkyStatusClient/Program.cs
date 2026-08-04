@@ -57,6 +57,8 @@ internal static class Program
                 services.AddSingleton<NotificationTimeService>();
 
                 services.AddSingleton<ClientPreferencesService>();
+
+                services.AddSingleton<AdminApiService>();
             })
             .Build();
 

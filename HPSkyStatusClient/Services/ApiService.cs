@@ -64,4 +64,26 @@ public class ApiService
         using var client = CreateClient();
         return await client.DeleteAsync(url);
     }
+    public async Task<HttpResponseMessage?> SendAsync(
+    HttpRequestMessage request)
+    {
+        try
+        {
+            using var client = CreateClient();
+
+            if (request.RequestUri is not null &&
+                !request.RequestUri.IsAbsoluteUri)
+            {
+                request.RequestUri = new Uri(
+                    client.BaseAddress!,
+                    request.RequestUri);
+            }
+
+            return await client.SendAsync(request);
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }

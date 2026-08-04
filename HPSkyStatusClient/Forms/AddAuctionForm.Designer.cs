@@ -84,9 +84,9 @@
             lblStars.AutoSize = true;
             lblStars.Location = new Point(3, 85);
             lblStars.Name = "lblStars";
-            lblStars.Size = new Size(32, 15);
+            lblStars.Size = new Size(87, 15);
             lblStars.TabIndex = 4;
-            lblStars.Text = "Stars";
+            lblStars.Text = "Minimum stars";
             // 
             // numStars
             // 
@@ -156,7 +156,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(132, 267);
             Controls.Add(btnAdd);
             Controls.Add(numNotify);
             Controls.Add(lblNotifyBelow);

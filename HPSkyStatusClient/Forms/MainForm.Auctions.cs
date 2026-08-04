@@ -50,6 +50,7 @@ public partial class MainForm
 
             lvAuctions.Items.Add(item);
         }
+        UpdateTrayAuctions(auctions);
     }
 
     private async void btnAddAuction_Click(object sender, EventArgs e)

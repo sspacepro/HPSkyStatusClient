@@ -27,6 +27,13 @@ public partial class MainForm : Form
     private readonly ClientSettingsService _localSettings;
     private readonly ClientPreferencesService _preferences;
     private readonly IOptions<ApiSettings> _apiSettings;
+    private ToolStripMenuItem _trayServerItem = null!;
+    private ToolStripMenuItem _trayPlayersItem = null!;
+    private readonly List<ToolStripMenuItem> _trayAuctionItems = new();
+    private ToolStripSeparator _trayAuctionSeparator = null!;
+    private ToolStripMenuItem _trayUpdatedItem = null!;
+    private ToolStripMenuItem _trayRefreshItem = null!;
+    private readonly AdminApiService _adminApi;
 
     public MainForm(
         StatusService statusService,
@@ -39,7 +46,8 @@ public partial class MainForm : Form
         NotificationTimeService notificationTime,
         ClientSettingsService localSettings,
         ClientPreferencesService preferences,
-        IOptions<ApiSettings> apiSettings)
+        IOptions<ApiSettings> apiSettings,
+        AdminApiService adminApi)
     {
         _statusService = statusService;
         _playerWatchService = playerWatchService;
@@ -52,6 +60,7 @@ public partial class MainForm : Form
         _localSettings = localSettings;
         _preferences = preferences;
         _apiSettings = apiSettings;
+        _adminApi = adminApi;
 
 
 
@@ -69,7 +78,28 @@ public partial class MainForm : Form
             Visible = true
         };
         _notifications = new NotificationService(_trayIcon);
+
+
         var menu = new ContextMenuStrip();
+        menu.Renderer = new SkyBlockMenuRenderer();
+
+        _trayServerItem = new ToolStripMenuItem("SkyBlock: Unknown");
+
+        _trayServerItem.Click += (_, _) => { };
+
+        _trayPlayersItem = new ToolStripMenuItem("Players: ?");
+        _trayPlayersItem.Click += (_, _) => { };
+
+        _trayUpdatedItem = new ToolStripMenuItem("Updated: Never");
+        _trayUpdatedItem.Click += (_, _) => { };
+
+        menu.Items.Add(_trayServerItem);
+        menu.Items.Add(_trayPlayersItem);
+        menu.Items.Add(_trayUpdatedItem);
+
+        _trayAuctionSeparator = new ToolStripSeparator();
+
+        menu.Items.Add(_trayAuctionSeparator);
 
         menu.Items.Add("Open", null, (_, _) =>
         {
@@ -77,11 +107,52 @@ public partial class MainForm : Form
             WindowState = FormWindowState.Normal;
         });
 
+        _trayRefreshItem = new ToolStripMenuItem("Refresh Now");
+
+        _trayRefreshItem.Click += async (_, _) =>
+        {
+            _trayRefreshItem.Text = "Refreshing...";
+            var position = Cursor.Position;
+            try
+            {
+                await UpdateStatus();
+                await UpdatePlayers();
+                await UpdateAuctions();
+                await CheckNotifications(false);
+
+                UpdateTrayUpdatedTime();
+            }
+            finally
+            {
+                _trayRefreshItem.Text = "Refresh Now";
+            }
+            //hu
+            BeginInvoke(() =>
+            {
+                _trayIcon.ContextMenuStrip?.Show(position);
+            });
+        };
+
+        menu.Items.Add(_trayRefreshItem);
+
+        menu.Items.Add("Settings", null, (_, _) =>
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            tabMain.SelectedTab = pgSettings;
+        });
+
+        menu.Items.Add(new ToolStripSeparator());
+
         menu.Items.Add("Exit", null, (_, _) =>
         {
             _trayIcon.Dispose();
             Application.Exit();
         });
+
+        _trayIcon.ContextMenuStrip = menu;
+
+
 
 
         _trayIcon.ContextMenuStrip = menu;
@@ -102,6 +173,7 @@ public partial class MainForm : Form
             await UpdatePlayers();
             await UpdateAuctions();
             await CheckNotifications(false);
+            UpdateTrayUpdatedTime();
         };
 
         timer.Start();
@@ -114,11 +186,12 @@ public partial class MainForm : Form
                 LoadClientSettings();
                 LoadServerSettings();
             });
-            
+
             await UpdateStatus();
             await UpdatePlayers();
             await UpdateAuctions();
             await CheckNotifications(true);
+            UpdateTrayUpdatedTime();
         });
     }
 
@@ -139,7 +212,9 @@ public partial class MainForm : Form
     private void MainForm_Load(object sender, EventArgs e)
     {
         //Place to test thins on startup.
-        
+        this.pgAdmin.Hide();
+        tabMain.TabPages.Remove(pgAdmin);
+
     }
 
 

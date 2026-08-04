@@ -57,6 +57,7 @@ partial class MainForm
         CheapestAuction = new ColumnHeader();
         NotifyBelow = new ColumnHeader();
         pgSettings = new TabPage();
+        txtAdminKey = new TextBox();
         btnReloadSettings = new Button();
         btnSaveSettings = new Button();
         grpClientSettings = new GroupBox();
@@ -72,6 +73,34 @@ partial class MainForm
         lblMaxAuctions = new Label();
         lblMaxPlayers = new Label();
         pgAdmin = new TabPage();
+        txtUpdateApiKey = new TextBox();
+        btnShutdownServer = new Button();
+        grpUsers = new GroupBox();
+        btnUnblock = new Button();
+        btnBlock = new Button();
+        lvUsers = new ListView();
+        clmUsername = new ColumnHeader();
+        clmBlocked = new ColumnHeader();
+        btnRefreshUsers = new Button();
+        grpCleanup = new GroupBox();
+        btnPurgeInactive = new Button();
+        numPurgeInactive = new NumericUpDown();
+        numWatchExpiration = new NumericUpDown();
+        lblWatchExpiration = new Label();
+        numWatchCleanupInterval = new NumericUpDown();
+        lblWatchCleanupInterval = new Label();
+        grpClientLimits = new GroupBox();
+        numMaxPlayerRequestsPerMinute = new NumericUpDown();
+        lblMaxPlayerRequestsPerMinute = new Label();
+        numMaxAuctionWatches = new NumericUpDown();
+        lblMaxAuctionWatches = new Label();
+        grpServerSettings = new GroupBox();
+        numAuctionCheckInterval = new NumericUpDown();
+        lblAuctionCheckInterval = new Label();
+        numAuctionCacheRefresh = new NumericUpDown();
+        lblAuctionCacheRefrsh = new Label();
+        munHypixelUpdateInterval = new NumericUpDown();
+        lblHypixelUpdateInterval = new Label();
         grpStatus.SuspendLayout();
         grpPlayers.SuspendLayout();
         tabMain.SuspendLayout();
@@ -83,6 +112,19 @@ partial class MainForm
         grpClientSettings.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
         grpServer.SuspendLayout();
+        pgAdmin.SuspendLayout();
+        grpUsers.SuspendLayout();
+        grpCleanup.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).BeginInit();
+        grpClientLimits.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).BeginInit();
+        grpServerSettings.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).BeginInit();
         SuspendLayout();
         // 
         // grpStatus
@@ -95,7 +137,7 @@ partial class MainForm
         grpStatus.Dock = DockStyle.Fill;
         grpStatus.Location = new Point(3, 3);
         grpStatus.Name = "grpStatus";
-        grpStatus.Size = new Size(786, 416);
+        grpStatus.Size = new Size(786, 466);
         grpStatus.TabIndex = 0;
         grpStatus.TabStop = false;
         grpStatus.Text = "Status";
@@ -154,7 +196,7 @@ partial class MainForm
         grpPlayers.Dock = DockStyle.Fill;
         grpPlayers.Location = new Point(3, 3);
         grpPlayers.Name = "grpPlayers";
-        grpPlayers.Size = new Size(786, 416);
+        grpPlayers.Size = new Size(786, 466);
         grpPlayers.TabIndex = 1;
         grpPlayers.TabStop = false;
         grpPlayers.Text = "Watched Players";
@@ -218,7 +260,7 @@ partial class MainForm
         tabMain.Location = new Point(0, 0);
         tabMain.Name = "tabMain";
         tabMain.SelectedIndex = 0;
-        tabMain.Size = new Size(800, 450);
+        tabMain.Size = new Size(800, 500);
         tabMain.TabIndex = 2;
         // 
         // pgStatus
@@ -227,7 +269,7 @@ partial class MainForm
         pgStatus.Location = new Point(4, 24);
         pgStatus.Name = "pgStatus";
         pgStatus.Padding = new Padding(3);
-        pgStatus.Size = new Size(792, 422);
+        pgStatus.Size = new Size(792, 472);
         pgStatus.TabIndex = 0;
         pgStatus.Text = "Status";
         pgStatus.UseVisualStyleBackColor = true;
@@ -238,7 +280,7 @@ partial class MainForm
         pgPlayers.Location = new Point(4, 24);
         pgPlayers.Name = "pgPlayers";
         pgPlayers.Padding = new Padding(3);
-        pgPlayers.Size = new Size(792, 422);
+        pgPlayers.Size = new Size(792, 472);
         pgPlayers.TabIndex = 1;
         pgPlayers.Text = "Players";
         pgPlayers.UseVisualStyleBackColor = true;
@@ -249,7 +291,7 @@ partial class MainForm
         pgAuctions.Location = new Point(4, 24);
         pgAuctions.Name = "pgAuctions";
         pgAuctions.Padding = new Padding(3);
-        pgAuctions.Size = new Size(792, 422);
+        pgAuctions.Size = new Size(792, 472);
         pgAuctions.TabIndex = 2;
         pgAuctions.Text = "Auctions";
         pgAuctions.UseVisualStyleBackColor = true;
@@ -262,7 +304,7 @@ partial class MainForm
         grpAuctions.Dock = DockStyle.Fill;
         grpAuctions.Location = new Point(3, 3);
         grpAuctions.Name = "grpAuctions";
-        grpAuctions.Size = new Size(786, 416);
+        grpAuctions.Size = new Size(786, 466);
         grpAuctions.TabIndex = 0;
         grpAuctions.TabStop = false;
         grpAuctions.Text = "Auction Watches";
@@ -336,6 +378,7 @@ partial class MainForm
         // 
         // pgSettings
         // 
+        pgSettings.Controls.Add(txtAdminKey);
         pgSettings.Controls.Add(btnReloadSettings);
         pgSettings.Controls.Add(btnSaveSettings);
         pgSettings.Controls.Add(grpClientSettings);
@@ -343,10 +386,20 @@ partial class MainForm
         pgSettings.Location = new Point(4, 24);
         pgSettings.Name = "pgSettings";
         pgSettings.Padding = new Padding(3);
-        pgSettings.Size = new Size(792, 422);
+        pgSettings.Size = new Size(792, 472);
         pgSettings.TabIndex = 3;
         pgSettings.Text = "Settings";
         pgSettings.UseVisualStyleBackColor = true;
+        // 
+        // txtAdminKey
+        // 
+        txtAdminKey.Location = new Point(3, 303);
+        txtAdminKey.Name = "txtAdminKey";
+        txtAdminKey.PlaceholderText = "Admin Key";
+        txtAdminKey.Size = new Size(272, 23);
+        txtAdminKey.TabIndex = 4;
+        txtAdminKey.UseSystemPasswordChar = true;
+        txtAdminKey.KeyDown += txtAdminKey_KeyDown;
         // 
         // btnReloadSettings
         // 
@@ -494,19 +547,297 @@ partial class MainForm
         // 
         // pgAdmin
         // 
+        pgAdmin.Controls.Add(txtUpdateApiKey);
+        pgAdmin.Controls.Add(btnShutdownServer);
+        pgAdmin.Controls.Add(grpUsers);
+        pgAdmin.Controls.Add(grpCleanup);
+        pgAdmin.Controls.Add(grpClientLimits);
+        pgAdmin.Controls.Add(grpServerSettings);
         pgAdmin.Location = new Point(4, 24);
         pgAdmin.Name = "pgAdmin";
         pgAdmin.Padding = new Padding(3);
-        pgAdmin.Size = new Size(792, 422);
+        pgAdmin.Size = new Size(792, 472);
         pgAdmin.TabIndex = 4;
         pgAdmin.Text = "Admin";
         pgAdmin.UseVisualStyleBackColor = true;
+        // 
+        // txtUpdateApiKey
+        // 
+        txtUpdateApiKey.Location = new Point(269, 267);
+        txtUpdateApiKey.Name = "txtUpdateApiKey";
+        txtUpdateApiKey.PlaceholderText = "Update Api Key";
+        txtUpdateApiKey.Size = new Size(238, 23);
+        txtUpdateApiKey.TabIndex = 5;
+        txtUpdateApiKey.KeyDown += txtUpdateApiKey_KeyDown;
+        // 
+        // btnShutdownServer
+        // 
+        btnShutdownServer.Location = new Point(263, 296);
+        btnShutdownServer.Name = "btnShutdownServer";
+        btnShutdownServer.Size = new Size(75, 23);
+        btnShutdownServer.TabIndex = 4;
+        btnShutdownServer.Text = "Shutdown Server";
+        btnShutdownServer.UseVisualStyleBackColor = true;
+        // 
+        // grpUsers
+        // 
+        grpUsers.Controls.Add(btnUnblock);
+        grpUsers.Controls.Add(btnBlock);
+        grpUsers.Controls.Add(lvUsers);
+        grpUsers.Controls.Add(btnRefreshUsers);
+        grpUsers.Location = new Point(263, 6);
+        grpUsers.Name = "grpUsers";
+        grpUsers.Size = new Size(244, 255);
+        grpUsers.TabIndex = 3;
+        grpUsers.TabStop = false;
+        grpUsers.Text = "Users";
+        // 
+        // btnUnblock
+        // 
+        btnUnblock.Location = new Point(87, 227);
+        btnUnblock.Name = "btnUnblock";
+        btnUnblock.Size = new Size(75, 23);
+        btnUnblock.TabIndex = 3;
+        btnUnblock.Text = "Unblock";
+        btnUnblock.UseVisualStyleBackColor = true;
+        // 
+        // btnBlock
+        // 
+        btnBlock.Location = new Point(6, 227);
+        btnBlock.Name = "btnBlock";
+        btnBlock.Size = new Size(75, 23);
+        btnBlock.TabIndex = 2;
+        btnBlock.Text = "Block";
+        btnBlock.UseVisualStyleBackColor = true;
+        // 
+        // lvUsers
+        // 
+        lvUsers.Columns.AddRange(new ColumnHeader[] { clmUsername, clmBlocked });
+        lvUsers.FullRowSelect = true;
+        lvUsers.GridLines = true;
+        lvUsers.Location = new Point(6, 44);
+        lvUsers.MultiSelect = false;
+        lvUsers.Name = "lvUsers";
+        lvUsers.Size = new Size(232, 177);
+        lvUsers.TabIndex = 1;
+        lvUsers.UseCompatibleStateImageBehavior = false;
+        lvUsers.View = View.Details;
+        // 
+        // clmUsername
+        // 
+        clmUsername.Text = "Username";
+        clmUsername.Width = 175;
+        // 
+        // clmBlocked
+        // 
+        clmBlocked.Text = "Blocked";
+        clmBlocked.Width = 55;
+        // 
+        // btnRefreshUsers
+        // 
+        btnRefreshUsers.Location = new Point(6, 15);
+        btnRefreshUsers.Name = "btnRefreshUsers";
+        btnRefreshUsers.Size = new Size(75, 23);
+        btnRefreshUsers.TabIndex = 0;
+        btnRefreshUsers.Text = "Refresh Users";
+        btnRefreshUsers.UseVisualStyleBackColor = true;
+        // 
+        // grpCleanup
+        // 
+        grpCleanup.Controls.Add(btnPurgeInactive);
+        grpCleanup.Controls.Add(numPurgeInactive);
+        grpCleanup.Controls.Add(numWatchExpiration);
+        grpCleanup.Controls.Add(lblWatchExpiration);
+        grpCleanup.Controls.Add(numWatchCleanupInterval);
+        grpCleanup.Controls.Add(lblWatchCleanupInterval);
+        grpCleanup.Location = new Point(6, 285);
+        grpCleanup.Name = "grpCleanup";
+        grpCleanup.Size = new Size(251, 179);
+        grpCleanup.TabIndex = 2;
+        grpCleanup.TabStop = false;
+        grpCleanup.Text = "Cleanup";
+        // 
+        // btnPurgeInactive
+        // 
+        btnPurgeInactive.Location = new Point(6, 110);
+        btnPurgeInactive.Name = "btnPurgeInactive";
+        btnPurgeInactive.Size = new Size(158, 23);
+        btnPurgeInactive.TabIndex = 5;
+        btnPurgeInactive.Text = "Purge inactive Users Days";
+        btnPurgeInactive.UseVisualStyleBackColor = true;
+        // 
+        // numPurgeInactive
+        // 
+        numPurgeInactive.Location = new Point(6, 139);
+        numPurgeInactive.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+        numPurgeInactive.Name = "numPurgeInactive";
+        numPurgeInactive.Size = new Size(120, 23);
+        numPurgeInactive.TabIndex = 4;
+        numPurgeInactive.KeyDown += numPurgeInactive_KeyDown;
+        // 
+        // numWatchExpiration
+        // 
+        numWatchExpiration.Location = new Point(6, 81);
+        numWatchExpiration.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numWatchExpiration.Name = "numWatchExpiration";
+        numWatchExpiration.Size = new Size(120, 23);
+        numWatchExpiration.TabIndex = 3;
+        numWatchExpiration.KeyDown += numWatchExpiration_KeyDown;
+        // 
+        // lblWatchExpiration
+        // 
+        lblWatchExpiration.AutoSize = true;
+        lblWatchExpiration.Location = new Point(6, 63);
+        lblWatchExpiration.Name = "lblWatchExpiration";
+        lblWatchExpiration.Size = new Size(127, 15);
+        lblWatchExpiration.TabIndex = 2;
+        lblWatchExpiration.Text = "Watch Expiration Days:";
+        // 
+        // numWatchCleanupInterval
+        // 
+        numWatchCleanupInterval.Location = new Point(6, 37);
+        numWatchCleanupInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numWatchCleanupInterval.Name = "numWatchCleanupInterval";
+        numWatchCleanupInterval.Size = new Size(120, 23);
+        numWatchCleanupInterval.TabIndex = 1;
+        numWatchCleanupInterval.KeyDown += numWatchCleanupInterval_KeyDown;
+        // 
+        // lblWatchCleanupInterval
+        // 
+        lblWatchCleanupInterval.AutoSize = true;
+        lblWatchCleanupInterval.Location = new Point(2, 19);
+        lblWatchCleanupInterval.Name = "lblWatchCleanupInterval";
+        lblWatchCleanupInterval.Size = new Size(231, 15);
+        lblWatchCleanupInterval.TabIndex = 0;
+        lblWatchCleanupInterval.Text = "Cleanup Expired Watches Interval minutes:";
+        // 
+        // grpClientLimits
+        // 
+        grpClientLimits.Controls.Add(numMaxPlayerRequestsPerMinute);
+        grpClientLimits.Controls.Add(lblMaxPlayerRequestsPerMinute);
+        grpClientLimits.Controls.Add(numMaxAuctionWatches);
+        grpClientLimits.Controls.Add(lblMaxAuctionWatches);
+        grpClientLimits.Location = new Point(6, 167);
+        grpClientLimits.Name = "grpClientLimits";
+        grpClientLimits.Size = new Size(251, 112);
+        grpClientLimits.TabIndex = 1;
+        grpClientLimits.TabStop = false;
+        grpClientLimits.Text = "Client Limits";
+        // 
+        // numMaxPlayerRequestsPerMinute
+        // 
+        numMaxPlayerRequestsPerMinute.Location = new Point(6, 81);
+        numMaxPlayerRequestsPerMinute.Name = "numMaxPlayerRequestsPerMinute";
+        numMaxPlayerRequestsPerMinute.Size = new Size(120, 23);
+        numMaxPlayerRequestsPerMinute.TabIndex = 3;
+        numMaxPlayerRequestsPerMinute.KeyDown += numMaxPlayerRequestsPerMinute_KeyDown;
+        // 
+        // lblMaxPlayerRequestsPerMinute
+        // 
+        lblMaxPlayerRequestsPerMinute.AutoSize = true;
+        lblMaxPlayerRequestsPerMinute.Location = new Point(6, 63);
+        lblMaxPlayerRequestsPerMinute.Name = "lblMaxPlayerRequestsPerMinute";
+        lblMaxPlayerRequestsPerMinute.Size = new Size(177, 15);
+        lblMaxPlayerRequestsPerMinute.TabIndex = 2;
+        lblMaxPlayerRequestsPerMinute.Text = "Max Client Requests Per Minute:";
+        // 
+        // numMaxAuctionWatches
+        // 
+        numMaxAuctionWatches.Location = new Point(6, 37);
+        numMaxAuctionWatches.Name = "numMaxAuctionWatches";
+        numMaxAuctionWatches.Size = new Size(120, 23);
+        numMaxAuctionWatches.TabIndex = 1;
+        numMaxAuctionWatches.KeyDown += numMaxAuctionWatches_KeyDown;
+        // 
+        // lblMaxAuctionWatches
+        // 
+        lblMaxAuctionWatches.AutoSize = true;
+        lblMaxAuctionWatches.Location = new Point(6, 19);
+        lblMaxAuctionWatches.Name = "lblMaxAuctionWatches";
+        lblMaxAuctionWatches.Size = new Size(125, 15);
+        lblMaxAuctionWatches.TabIndex = 0;
+        lblMaxAuctionWatches.Text = "Max Auction Watches:";
+        // 
+        // grpServerSettings
+        // 
+        grpServerSettings.Controls.Add(numAuctionCheckInterval);
+        grpServerSettings.Controls.Add(lblAuctionCheckInterval);
+        grpServerSettings.Controls.Add(numAuctionCacheRefresh);
+        grpServerSettings.Controls.Add(lblAuctionCacheRefrsh);
+        grpServerSettings.Controls.Add(munHypixelUpdateInterval);
+        grpServerSettings.Controls.Add(lblHypixelUpdateInterval);
+        grpServerSettings.Location = new Point(6, 6);
+        grpServerSettings.Name = "grpServerSettings";
+        grpServerSettings.Size = new Size(251, 155);
+        grpServerSettings.TabIndex = 0;
+        grpServerSettings.TabStop = false;
+        grpServerSettings.Text = "Server Settings";
+        // 
+        // numAuctionCheckInterval
+        // 
+        numAuctionCheckInterval.Location = new Point(6, 125);
+        numAuctionCheckInterval.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numAuctionCheckInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCheckInterval.Name = "numAuctionCheckInterval";
+        numAuctionCheckInterval.Size = new Size(120, 23);
+        numAuctionCheckInterval.TabIndex = 5;
+        numAuctionCheckInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCheckInterval.KeyDown += numAuctionCheckInterval_KeyDown;
+        // 
+        // lblAuctionCheckInterval
+        // 
+        lblAuctionCheckInterval.AutoSize = true;
+        lblAuctionCheckInterval.Location = new Point(6, 107);
+        lblAuctionCheckInterval.Name = "lblAuctionCheckInterval";
+        lblAuctionCheckInterval.Size = new Size(188, 15);
+        lblAuctionCheckInterval.TabIndex = 4;
+        lblAuctionCheckInterval.Text = "Scan Cache For Auctions Seconds:";
+        // 
+        // numAuctionCacheRefresh
+        // 
+        numAuctionCacheRefresh.Location = new Point(6, 81);
+        numAuctionCacheRefresh.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numAuctionCacheRefresh.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCacheRefresh.Name = "numAuctionCacheRefresh";
+        numAuctionCacheRefresh.Size = new Size(120, 23);
+        numAuctionCacheRefresh.TabIndex = 3;
+        numAuctionCacheRefresh.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCacheRefresh.KeyDown += numAuctionCacheRefresh_KeyDown;
+        // 
+        // lblAuctionCacheRefrsh
+        // 
+        lblAuctionCacheRefrsh.AutoSize = true;
+        lblAuctionCacheRefrsh.Location = new Point(6, 63);
+        lblAuctionCacheRefrsh.Name = "lblAuctionCacheRefrsh";
+        lblAuctionCacheRefrsh.Size = new Size(188, 15);
+        lblAuctionCacheRefrsh.TabIndex = 2;
+        lblAuctionCacheRefrsh.Text = "Refresh Hypixel Auctions Seconds:";
+        // 
+        // munHypixelUpdateInterval
+        // 
+        munHypixelUpdateInterval.Location = new Point(6, 37);
+        munHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        munHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        munHypixelUpdateInterval.Name = "munHypixelUpdateInterval";
+        munHypixelUpdateInterval.Size = new Size(120, 23);
+        munHypixelUpdateInterval.TabIndex = 1;
+        munHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        munHypixelUpdateInterval.KeyDown += munHypixelUpdateInterval_KeyDown;
+        // 
+        // lblHypixelUpdateInterval
+        // 
+        lblHypixelUpdateInterval.AutoSize = true;
+        lblHypixelUpdateInterval.Location = new Point(6, 19);
+        lblHypixelUpdateInterval.Name = "lblHypixelUpdateInterval";
+        lblHypixelUpdateInterval.Size = new Size(179, 15);
+        lblHypixelUpdateInterval.TabIndex = 0;
+        lblHypixelUpdateInterval.Text = "Hypixel Update Interval Seconds:";
         // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(800, 500);
         Controls.Add(tabMain);
         Name = "MainForm";
         Text = "MainForm";
@@ -520,11 +851,29 @@ partial class MainForm
         pgAuctions.ResumeLayout(false);
         grpAuctions.ResumeLayout(false);
         pgSettings.ResumeLayout(false);
+        pgSettings.PerformLayout();
         grpClientSettings.ResumeLayout(false);
         grpClientSettings.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
         grpServer.ResumeLayout(false);
         grpServer.PerformLayout();
+        pgAdmin.ResumeLayout(false);
+        pgAdmin.PerformLayout();
+        grpUsers.ResumeLayout(false);
+        grpCleanup.ResumeLayout(false);
+        grpCleanup.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numPurgeInactive).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).EndInit();
+        grpClientLimits.ResumeLayout(false);
+        grpClientLimits.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).EndInit();
+        grpServerSettings.ResumeLayout(false);
+        grpServerSettings.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).EndInit();
+        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).EndInit();
         ResumeLayout(false);
     }
 
@@ -574,4 +923,33 @@ partial class MainForm
     private Button btnReloadSettings;
     private CheckBox chkMinimizeToTray;
     private Label lblServerUrl;
+    private TextBox txtAdminKey;
+    private GroupBox grpServerSettings;
+    private NumericUpDown numAuctionCheckInterval;
+    private Label lblAuctionCheckInterval;
+    private NumericUpDown numAuctionCacheRefresh;
+    private Label lblAuctionCacheRefrsh;
+    private NumericUpDown munHypixelUpdateInterval;
+    private Label lblHypixelUpdateInterval;
+    private GroupBox grpClientLimits;
+    private NumericUpDown numMaxAuctionWatches;
+    private Label lblMaxAuctionWatches;
+    private Label lblMaxPlayerRequestsPerMinute;
+    private NumericUpDown numMaxPlayerRequestsPerMinute;
+    private GroupBox grpCleanup;
+    private Label lblWatchCleanupInterval;
+    private NumericUpDown numWatchCleanupInterval;
+    private Label lblWatchExpiration;
+    private NumericUpDown numWatchExpiration;
+    private GroupBox grpUsers;
+    private Button btnBlock;
+    private ListView lvUsers;
+    private ColumnHeader clmUsername;
+    private ColumnHeader clmBlocked;
+    private Button btnRefreshUsers;
+    private Button btnUnblock;
+    private Button btnShutdownServer;
+    private NumericUpDown numPurgeInactive;
+    private TextBox txtUpdateApiKey;
+    private Button btnPurgeInactive;
 }

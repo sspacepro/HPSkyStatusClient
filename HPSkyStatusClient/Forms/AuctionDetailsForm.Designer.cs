@@ -67,7 +67,7 @@
             txtLore.Location = new Point(0, 50);
             txtLore.Name = "txtLore";
             txtLore.ReadOnly = true;
-            txtLore.Size = new Size(800, 400);
+            txtLore.Size = new Size(342, 400);
             txtLore.TabIndex = 3;
             txtLore.Text = "";
             // 
@@ -75,7 +75,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(342, 450);
             Controls.Add(txtLore);
             Controls.Add(lblNotifyBelow);
             Controls.Add(lblLowestBin);
