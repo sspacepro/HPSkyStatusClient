@@ -40,6 +40,7 @@
             lblNotifyBelow = new Label();
             numNotify = new NumericUpDown();
             btnAdd = new Button();
+            lstItems = new ListBox();
             ((System.ComponentModel.ISupportInitialize)numStars).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPetLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numNotify).BeginInit();
@@ -58,13 +59,14 @@
             // 
             txtItem.Location = new Point(2, 16);
             txtItem.Name = "txtItem";
-            txtItem.Size = new Size(100, 23);
+            txtItem.Size = new Size(194, 23);
             txtItem.TabIndex = 1;
+            txtItem.TextChanged += txtItem_TextChanged_1;
             // 
             // lblTier
             // 
             lblTier.AutoSize = true;
-            lblTier.Location = new Point(3, 42);
+            lblTier.Location = new Point(202, 86);
             lblTier.Name = "lblTier";
             lblTier.Size = new Size(27, 15);
             lblTier.TabIndex = 2;
@@ -73,7 +75,7 @@
             // cmbTier
             // 
             cmbTier.FormattingEnabled = true;
-            cmbTier.Location = new Point(0, 60);
+            cmbTier.Location = new Point(199, 104);
             cmbTier.Name = "cmbTier";
             cmbTier.Size = new Size(121, 23);
             cmbTier.TabIndex = 3;
@@ -82,7 +84,7 @@
             // lblStars
             // 
             lblStars.AutoSize = true;
-            lblStars.Location = new Point(3, 85);
+            lblStars.Location = new Point(199, 17);
             lblStars.Name = "lblStars";
             lblStars.Size = new Size(87, 15);
             lblStars.TabIndex = 4;
@@ -90,7 +92,7 @@
             // 
             // numStars
             // 
-            numStars.Location = new Point(2, 100);
+            numStars.Location = new Point(199, 35);
             numStars.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             numStars.Name = "numStars";
             numStars.Size = new Size(120, 23);
@@ -99,7 +101,7 @@
             // chkRecomb
             // 
             chkRecomb.AutoSize = true;
-            chkRecomb.Location = new Point(3, 125);
+            chkRecomb.Location = new Point(202, 64);
             chkRecomb.Name = "chkRecomb";
             chkRecomb.Size = new Size(117, 19);
             chkRecomb.TabIndex = 6;
@@ -109,7 +111,7 @@
             // lblPetLevel
             // 
             lblPetLevel.AutoSize = true;
-            lblPetLevel.Location = new Point(2, 147);
+            lblPetLevel.Location = new Point(202, 130);
             lblPetLevel.Name = "lblPetLevel";
             lblPetLevel.Size = new Size(110, 15);
             lblPetLevel.TabIndex = 7;
@@ -117,7 +119,7 @@
             // 
             // numPetLevel
             // 
-            numPetLevel.Location = new Point(3, 165);
+            numPetLevel.Location = new Point(200, 152);
             numPetLevel.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numPetLevel.Name = "numPetLevel";
             numPetLevel.Size = new Size(120, 23);
@@ -126,7 +128,7 @@
             // lblNotifyBelow
             // 
             lblNotifyBelow.AutoSize = true;
-            lblNotifyBelow.Location = new Point(4, 192);
+            lblNotifyBelow.Location = new Point(2, 178);
             lblNotifyBelow.Name = "lblNotifyBelow";
             lblNotifyBelow.Size = new Size(75, 15);
             lblNotifyBelow.TabIndex = 9;
@@ -134,7 +136,7 @@
             // 
             // numNotify
             // 
-            numNotify.Location = new Point(5, 210);
+            numNotify.Location = new Point(2, 196);
             numNotify.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             numNotify.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numNotify.Name = "numNotify";
@@ -144,7 +146,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(4, 235);
+            btnAdd.Location = new Point(2, 225);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 11;
@@ -152,11 +154,23 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click_1;
             // 
+            // lstItems
+            // 
+            lstItems.AccessibleName = "";
+            lstItems.FormattingEnabled = true;
+            lstItems.ItemHeight = 15;
+            lstItems.Location = new Point(2, 51);
+            lstItems.Name = "lstItems";
+            lstItems.Size = new Size(194, 124);
+            lstItems.TabIndex = 13;
+            lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged_1;
+            // 
             // AddAuctionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(132, 267);
+            ClientSize = new Size(327, 251);
+            Controls.Add(lstItems);
             Controls.Add(btnAdd);
             Controls.Add(numNotify);
             Controls.Add(lblNotifyBelow);
@@ -192,5 +206,6 @@
         private Label lblNotifyBelow;
         private NumericUpDown numNotify;
         private Button btnAdd;
+        private ListBox lstItems;
     }
 }

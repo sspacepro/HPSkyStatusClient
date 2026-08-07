@@ -26,7 +26,6 @@ public partial class MainForm : Form
     private readonly NotificationTimeService _notificationTime;
     private readonly ClientSettingsService _localSettings;
     private readonly ClientPreferencesService _preferences;
-    private readonly IOptions<ApiSettings> _apiSettings;
     private ToolStripMenuItem _trayServerItem = null!;
     private ToolStripMenuItem _trayPlayersItem = null!;
     private readonly List<ToolStripMenuItem> _trayAuctionItems = new();
@@ -34,7 +33,8 @@ public partial class MainForm : Form
     private ToolStripMenuItem _trayUpdatedItem = null!;
     private ToolStripMenuItem _trayRefreshItem = null!;
     private readonly AdminApiService _adminApi;
-
+    private readonly ItemCacheService _items;
+    private readonly ItemCacheService _itemCache;
     public MainForm(
         StatusService statusService,
         PlayerWatchService playerWatchService,
@@ -46,8 +46,9 @@ public partial class MainForm : Form
         NotificationTimeService notificationTime,
         ClientSettingsService localSettings,
         ClientPreferencesService preferences,
-        IOptions<ApiSettings> apiSettings,
-        AdminApiService adminApi)
+        AdminApiService adminApi,
+        ItemCacheService items,
+        ItemCacheService itemCache)
     {
         _statusService = statusService;
         _playerWatchService = playerWatchService;
@@ -59,8 +60,9 @@ public partial class MainForm : Form
         _notificationTime = notificationTime;
         _localSettings = localSettings;
         _preferences = preferences;
-        _apiSettings = apiSettings;
         _adminApi = adminApi;
+        _items = items;
+        _itemCache = itemCache;
 
 
 
@@ -117,10 +119,10 @@ public partial class MainForm : Form
             {
                 await UpdateStatus();
                 await UpdatePlayers();
-                await UpdateAuctions();
                 await CheckNotifications(false);
 
                 UpdateTrayUpdatedTime();
+                await UpdateAuctions();
             }
             finally
             {
@@ -189,10 +191,12 @@ public partial class MainForm : Form
 
             await UpdateStatus();
             await UpdatePlayers();
-            await UpdateAuctions();
             await CheckNotifications(true);
+            await _items.Load();
             UpdateTrayUpdatedTime();
+            await UpdateAuctions();
         });
+        _itemCache = itemCache;
     }
 
 

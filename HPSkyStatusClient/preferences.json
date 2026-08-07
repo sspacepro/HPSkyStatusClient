@@ -1,6 +1,6 @@
 {
-  "ServerUrl": "",
-  "NotificationHistoryMinutes": 69,
+  "ServerUrl": "http://localhost:5123",
+  "NotificationHistoryMinutes": 60,
   "PlayerNotifications": true,
   "AuctionNotifications": true,
   "StartupNotificationHistory": true,

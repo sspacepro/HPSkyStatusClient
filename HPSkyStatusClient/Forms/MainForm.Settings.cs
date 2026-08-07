@@ -7,10 +7,10 @@ public partial class MainForm
     private void LoadClientSettings()
     {
         txtServerUrl.Text =
-            _preferences.Preferences.ServerUrl;
+            _localSettings.Settings.ServerUrl;
 
         txtServerUrl.PlaceholderText =
-            _apiSettings.Value.Url;
+    ClientSettingsService.DefaultServerUrl;
 
         numNotificationHistory.Value =
             _preferences.Preferences.NotificationHistoryMinutes;
@@ -45,8 +45,10 @@ public partial class MainForm
     }
     private void btnSaveSettings_Click(object sender, EventArgs e)
     {
-        _preferences.Preferences.ServerUrl =
-            txtServerUrl.Text.Trim();
+        _localSettings.Settings.ServerUrl =
+    txtServerUrl.Text.Trim();
+
+        _localSettings.Save();
 
         _preferences.Preferences.NotificationHistoryMinutes =
             (int)numNotificationHistory.Value;

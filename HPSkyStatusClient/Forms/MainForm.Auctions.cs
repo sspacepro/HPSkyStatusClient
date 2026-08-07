@@ -3,6 +3,7 @@ using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.RegularExpressions;
 
 namespace HPSkyStatusClient;
 
@@ -17,7 +18,16 @@ public partial class MainForm
         foreach (var auction in auctions)
         {
             var item = new ListViewItem(
-                auction.ItemTag);
+                _itemCache.GetDisplayName(
+                    auction.ItemTag));
+            var tier =
+    auction.Tier ??
+    _itemCache.GetTier(auction.ItemTag);
+
+            item.ForeColor =
+                RarityColorService.GetColor(
+                    tier,
+                    auction.Recombobulated == true);
 
             item.SubItems.Add(
                 auction.Tier);
@@ -41,6 +51,8 @@ public partial class MainForm
 
             item.SubItems.Add(
                 auction.LastLowestBin.ToString("N0"));
+            item.SubItems.Add(
+                auction.DisplayItemName ?? "-");
 
             item.SubItems.Add(
                 auction.NotifyBelow.ToString("N0"));

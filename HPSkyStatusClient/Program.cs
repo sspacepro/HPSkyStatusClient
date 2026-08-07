@@ -15,14 +15,9 @@ internal static class Program
         ApplicationConfiguration.Initialize();
 
         using IHost host = Host.CreateDefaultBuilder()
-            .ConfigureAppConfiguration(config =>
-            {
-                config.AddJsonFile("appsettings.json", optional: false);
-            })
+
             .ConfigureServices((context, services) =>
             {
-                services.Configure<ApiSettings>(
-                    context.Configuration.GetSection("Server"));
 
                 services.AddSingleton<ClientSettingsService>();
 
@@ -59,26 +54,33 @@ internal static class Program
                 services.AddSingleton<ClientPreferencesService>();
 
                 services.AddSingleton<AdminApiService>();
+
+                services.AddSingleton<ItemCacheService>();
             })
             .Build();
 
-        var auth = host.Services.GetRequiredService<AuthenticationService>();
-
-        if (!auth.IsRegistered())
-        {
-            var login = host.Services.GetRequiredService<LoginForm>();
-
-            if (login.ShowDialog() != DialogResult.OK)
-                return;
-        }
-
         try
         {
-            Application.Run(host.Services.GetRequiredService<MainForm>());
+            var auth = host.Services.GetRequiredService<AuthenticationService>();
+
+            if (!auth.IsRegistered())
+            {
+                var login = host.Services.GetRequiredService<LoginForm>();
+
+                if (login.ShowDialog() != DialogResult.OK)
+                    return;
+            }
+
+            Application.Run(
+                host.Services.GetRequiredService<MainForm>());
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.ToString());
+            MessageBox.Show(
+                ex.ToString(),
+                "HPSkyStatus Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
     }
 }

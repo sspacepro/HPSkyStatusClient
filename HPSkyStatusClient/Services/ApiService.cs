@@ -8,23 +8,22 @@ public class ApiService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ClientSettingsService _clientSettings;
-    private readonly ApiSettings _apiSettings;
+
 
     public ApiService(
         IHttpClientFactory httpClientFactory,
-        ClientSettingsService clientSettings,
-        IOptions<ApiSettings> apiSettings)
+        ClientSettingsService clientSettings)
     {
         _httpClientFactory = httpClientFactory;
         _clientSettings = clientSettings;
-        _apiSettings = apiSettings.Value;
     }
 
     private HttpClient CreateClient()
     {
         var client = _httpClientFactory.CreateClient();
 
-        client.BaseAddress = new Uri(_apiSettings.Url);
+        client.BaseAddress = new Uri(
+            _clientSettings.Settings.ServerUrl);
 
         if (!string.IsNullOrWhiteSpace(_clientSettings.Settings.ClientId))
         {

@@ -9,7 +9,8 @@ public class ClientSettingsService
     private readonly string _path = Path.Combine(AppContext.BaseDirectory, FileName);
 
     public ClientSettings Settings { get; }
-
+    public const string DefaultServerUrl =
+    "http://localhost:5122";
     public ClientSettingsService()
     {
         if (File.Exists(_path))
@@ -20,7 +21,16 @@ public class ClientSettingsService
         }
         else
         {
-            Settings = new ClientSettings();
+            Settings = new ClientSettings
+            {
+                ServerUrl = DefaultServerUrl
+            };
+
+            Save();
+        }
+        if (string.IsNullOrWhiteSpace(Settings.ServerUrl))
+        {
+            Settings.ServerUrl = DefaultServerUrl;
             Save();
         }
     }

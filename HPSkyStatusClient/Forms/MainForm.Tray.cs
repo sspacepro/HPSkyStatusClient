@@ -25,10 +25,15 @@ public partial class MainForm
             if (auction.LastLowestBin <= auction.NotifyBelow && auction.LastLowestBin > 0)
                 text = "⚠ " + text;
 
+            var tier =
+                auction.Tier ??
+                _itemCache.GetTier(auction.ItemTag);
+
             var item = new ToolStripMenuItem(text)
             {
-                Tag = RarityColorService.GetColor(
-        auction.Tier)
+                ForeColor = RarityColorService.GetColor(
+                    tier,
+                    auction.Recombobulated == true)
             };
 
             item.Click += (_, _) =>

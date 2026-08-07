@@ -1,4 +1,5 @@
-﻿using HPSkyStatusClient.Services;
+﻿using HPSkyStatusClient.Models;
+using HPSkyStatusClient.Services;
 
 namespace HPSkyStatusClient;
 
@@ -30,7 +31,7 @@ public partial class MainForm
         }
 
         await LoadAdminSettings();
-        //await RefreshUsers();
+        await RefreshUsers();
     }
 
     private async Task LoadAdminSettings()
@@ -62,6 +63,9 @@ public partial class MainForm
         numWatchExpiration.Text =
             (await _adminApi.GetString(
                 "/api/admin/settings/watch-expiration-days")) ?? "";
+        numItemCacheUpdatteMinutes.Text =
+            (await _adminApi.GetString(
+                "/api/admin/settings/item-cache-update-minutes")) ?? "";
     }
 
     private async Task SaveAdminSetting(
@@ -142,9 +146,12 @@ public partial class MainForm
             $"/api/admin/settings/watch-expiration-days/{numWatchExpiration.Text}");
     }
 
-    private void numPurgeInactive_KeyDown(object sender, KeyEventArgs e)
+    private async void numItemCacheUpdatteMinutes_KeyDown(object sender, KeyEventArgs e)
     {
-
+        if (e.KeyCode != Keys.Enter)
+            return;
+        await SaveAdminSetting(
+            $"/api/admin/settings/item-cache-update-minutes/{numItemCacheUpdatteMinutes.Text}");
     }
 
     private async void txtUpdateApiKey_KeyDown(object sender, KeyEventArgs e)
@@ -167,5 +174,183 @@ public partial class MainForm
 
         MessageBox.Show(
             "Hypixel API key updated.");
+    }
+    private async Task RefreshUsers()
+    {
+        lvUsers.Items.Clear();
+
+        var users =
+            await _adminApi.GetUsers();
+
+        foreach (var user in users)
+        {
+            var item =
+                new ListViewItem(user.Username);
+
+            item.SubItems.Add(
+                user.Blocked
+                    ? "Yes"
+                    : "No");
+
+            item.SubItems.Add(
+                user.LastSeen == default
+                    ? "-"
+                    : user.LastSeen.ToLocalTime()
+                        .ToString("g"));
+
+            item.Tag = user;
+
+            lvUsers.Items.Add(item);
+        }
+    }
+    private async void btnRefreshUsers_Click(
+        object sender,
+        EventArgs e)
+    {
+        await RefreshUsers();
+    }
+
+    private async void btnBlock_Click(
+        object sender,
+        EventArgs e)
+    {
+        if (lvUsers.SelectedItems.Count == 0)
+            return;
+        var user =
+            lvUsers.SelectedItems[0].Tag as AdminUser;
+
+        if (user == null)
+            return;
+        if (user.Username.Equals(
+        _localSettings.Settings.Username,
+        StringComparison.OrdinalIgnoreCase))
+        {
+            MessageBox.Show(
+                "You cannot block yourself.");
+
+            return;
+        }
+
+        if (await _adminApi.BlockUser(user.Username))
+        {
+            await RefreshUsers();
+        }
+        else
+        {
+            MessageBox.Show(
+                "Failed to block user.");
+        }
+    }
+    private async void btnUnblock_Click(
+    object sender,
+    EventArgs e)
+    {
+        if (lvUsers.SelectedItems.Count == 0)
+            return;
+
+        var user =
+            lvUsers.SelectedItems[0].Tag as AdminUser;
+
+        if (user == null)
+            return;
+
+        if (await _adminApi.UnblockUser(user.Username))
+        {
+            await RefreshUsers();
+        }
+        else
+        {
+            MessageBox.Show(
+                "Failed to unblock user.");
+        }
+    }
+    private async void btnDelete_Click(
+    object sender,
+    EventArgs e)
+    {
+        if (lvUsers.SelectedItems.Count == 0)
+            return;
+
+        var user =
+            lvUsers.SelectedItems[0].Tag as AdminUser;
+
+        if (user == null)
+            return;
+
+        if (user.Username.Equals(
+                _localSettings.Settings.Username,
+                StringComparison.OrdinalIgnoreCase))
+        {
+            MessageBox.Show(
+                "You cannot delete yourself.");
+
+            return;
+        }
+
+        var result = MessageBox.Show(
+            $"Delete '{user.Username}'?",
+            "Delete User",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+            return;
+
+        if (await _adminApi.DeleteUser(user.ClientId))
+        {
+            await RefreshUsers();
+        }
+        else
+        {
+            MessageBox.Show(
+                "Failed to delete user.");
+        }
+    }
+    private async void btnPurgeInactive_Click(
+        object sender,
+        EventArgs e)
+    {
+        int days = (int)numPurgeInactive.Value;
+
+        var removed =
+            await _adminApi.PurgeInactiveUsers(days);
+
+        if (removed == null)
+        {
+            MessageBox.Show(
+                "Failed to purge users.");
+
+            return;
+        }
+
+        MessageBox.Show(
+            $"Removed {removed} inactive users.");
+
+        await RefreshUsers();
+    }
+    private async void btnShutdownServer_Click(
+    object sender,
+    EventArgs e)
+    {
+        var result =
+            MessageBox.Show(
+                "Are you sure you want to shut down the server?",
+                "Shutdown Server",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+        if (result != DialogResult.Yes)
+            return;
+
+        if (await _adminApi.ShutdownServer())
+        {
+            MessageBox.Show(
+                "The server is shutting down.");
+        }
+        else
+        {
+            MessageBox.Show(
+                "Failed to shut down the server.");
+        }
     }
 }

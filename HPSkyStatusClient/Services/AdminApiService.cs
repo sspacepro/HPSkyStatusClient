@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Headers;
-
+using System.Text.Json;
+using HPSkyStatusClient.Models;
 namespace HPSkyStatusClient.Services;
 
 public class AdminApiService
@@ -75,5 +76,75 @@ public class AdminApiService
             return null;
 
         return await response.Content.ReadAsStringAsync();
+    }
+
+    public async Task<List<AdminUser>> GetUsers()
+    {
+        var response = await Get("/api/admin/users");
+
+        if (response == null || !response.IsSuccessStatusCode)
+            return new();
+
+        return JsonSerializer.Deserialize<List<AdminUser>>(
+            await response.Content.ReadAsStringAsync(),
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new();
+    }
+    public async Task<bool> BlockUser(string username)
+    {
+        var response =
+            await Post($"/api/admin/users/{username}/block");
+
+        return response != null &&
+               response.IsSuccessStatusCode;
+    }
+    public async Task<bool> UnblockUser(string username)
+    {
+        var response =
+            await Post($"/api/admin/users/{username}/unblock");
+
+        return response != null &&
+               response.IsSuccessStatusCode;
+    }
+    public async Task<bool> DeleteUser(string clientId)
+    {
+        using var request =
+            CreateRequest(
+                HttpMethod.Delete,
+                $"/api/admin/users/{clientId}");
+
+        var response =
+            await _api.SendAsync(request);
+
+        return response != null &&
+               response.IsSuccessStatusCode;
+    }
+    public async Task<int?> PurgeInactiveUsers(int days)
+    {
+        var response =
+            await Post($"/api/admin/users/purge-inactive/{days}");
+
+        if (response == null || !response.IsSuccessStatusCode)
+            return null;
+
+        var json =
+            await response.Content.ReadAsStringAsync();
+
+        using var document =
+            JsonDocument.Parse(json);
+
+        return document.RootElement
+            .GetProperty("removed")
+            .GetInt32();
+    }
+    public async Task<bool> ShutdownServer()
+    {
+        var response =
+            await Post("/api/admin/shutdown");
+
+        return response != null &&
+               response.IsSuccessStatusCode;
     }
 }
