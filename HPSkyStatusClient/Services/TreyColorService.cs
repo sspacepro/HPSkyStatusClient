@@ -1,17 +1,20 @@
 ﻿
 using System.Drawing;
 
+
 namespace HPSkyStatusClient.Services;
 
-public static class RarityColorService
+public static class TrayColorService
 {
     public static Color GetColor(
         string? rarity,
         bool recombobulated = false)
     {
+        // Let the normal rarity service handle
+        // recombobulation and rarity progression.
         if (recombobulated)
         {
-            rarity = rarity?.ToUpper() switch
+            rarity = rarity?.ToUpperInvariant() switch
             {
                 "COMMON" => "UNCOMMON",
                 "UNCOMMON" => "RARE",
@@ -24,19 +27,22 @@ public static class RarityColorService
             };
         }
 
-        return rarity?.ToUpper() switch
+        return rarity?.ToUpperInvariant() switch
         {
-            "COMMON" => Color.White,
-            "UNCOMMON" => Color.LimeGreen,
-            "RARE" => Color.DeepSkyBlue,
+            // Darker versions that remain readable
+            // in both light and dark Windows menus.
+            "COMMON" => Color.Gray,
+            "UNCOMMON" => Color.Green,
+            "RARE" => Color.RoyalBlue,
             "EPIC" => Color.MediumPurple,
-            "LEGENDARY" => Color.Gold,
-            "MYTHIC" => Color.HotPink,
+            "LEGENDARY" => Color.DarkGoldenrod,
+            "MYTHIC" => Color.DeepPink,
             "DIVINE" => Color.OrangeRed,
             "SPECIAL" => Color.Red,
             "VERY SPECIAL" => Color.Red,
 
-            _ => Color.White
+            _ => Color.Black
         };
     }
 }
+

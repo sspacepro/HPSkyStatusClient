@@ -29,7 +29,6 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         pgAdmin = new TabPage();
         btnStatus = new Button();
         txtUpdateApiKey = new TextBox();
@@ -98,7 +97,7 @@ partial class MainForm
         btnRefresh = new ReaLTaiizor.Controls.SkyButton();
         btnAddAuction = new ReaLTaiizor.Controls.SkyButton();
         btnRemoveAuction = new ReaLTaiizor.Controls.SkyButton();
-        tabMain = new TabControl();
+        tabMain = new ReaLTaiizor.Controls.DungeonTabPage();
         pgAdmin.SuspendLayout();
         grpUsers.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
@@ -125,6 +124,7 @@ partial class MainForm
         // 
         // pgAdmin
         // 
+        pgAdmin.BackColor = Color.FromArgb(247, 186, 54);
         pgAdmin.Controls.Add(btnStatus);
         pgAdmin.Controls.Add(txtUpdateApiKey);
         pgAdmin.Controls.Add(btnShutdownServer);
@@ -132,13 +132,12 @@ partial class MainForm
         pgAdmin.Controls.Add(grpCleanup);
         pgAdmin.Controls.Add(grpClientLimits);
         pgAdmin.Controls.Add(grpServerSettings);
-        pgAdmin.Location = new Point(4, 24);
+        pgAdmin.Location = new Point(4, 28);
         pgAdmin.Name = "pgAdmin";
         pgAdmin.Padding = new Padding(3);
-        pgAdmin.Size = new Size(906, 444);
+        pgAdmin.Size = new Size(906, 440);
         pgAdmin.TabIndex = 4;
         pgAdmin.Text = "Admin";
-        pgAdmin.UseVisualStyleBackColor = true;
         // 
         // btnStatus
         // 
@@ -466,19 +465,19 @@ partial class MainForm
         // 
         // pgSettings
         // 
+        pgSettings.BackColor = Color.FromArgb(247, 186, 54);
         pgSettings.Controls.Add(btnHealth);
         pgSettings.Controls.Add(txtAdminKey);
         pgSettings.Controls.Add(btnReloadSettings);
         pgSettings.Controls.Add(btnSaveSettings);
         pgSettings.Controls.Add(grpClientSettings);
         pgSettings.Controls.Add(grpServer);
-        pgSettings.Location = new Point(4, 24);
+        pgSettings.Location = new Point(4, 28);
         pgSettings.Name = "pgSettings";
         pgSettings.Padding = new Padding(3);
-        pgSettings.Size = new Size(906, 444);
+        pgSettings.Size = new Size(906, 440);
         pgSettings.TabIndex = 3;
         pgSettings.Text = "Settings";
-        pgSettings.UseVisualStyleBackColor = true;
         // 
         // btnHealth
         // 
@@ -626,14 +625,14 @@ partial class MainForm
         // 
         // pgAuctions
         // 
+        pgAuctions.BackColor = Color.FromArgb(247, 186, 54);
         pgAuctions.Controls.Add(grpAuctions);
-        pgAuctions.Location = new Point(4, 24);
+        pgAuctions.Location = new Point(4, 28);
         pgAuctions.Name = "pgAuctions";
         pgAuctions.Padding = new Padding(3);
-        pgAuctions.Size = new Size(906, 444);
+        pgAuctions.Size = new Size(906, 440);
         pgAuctions.TabIndex = 2;
         pgAuctions.Text = "Status";
-        pgAuctions.UseVisualStyleBackColor = true;
         // 
         // grpAuctions
         // 
@@ -643,17 +642,17 @@ partial class MainForm
         grpAuctions.Font = new Font("Minecraft", 8.25F);
         grpAuctions.Location = new Point(3, 3);
         grpAuctions.Name = "grpAuctions";
-        grpAuctions.Size = new Size(900, 438);
+        grpAuctions.Size = new Size(900, 434);
         grpAuctions.TabIndex = 0;
         grpAuctions.TabStop = false;
         grpAuctions.Text = "Status";
         // 
         // lvAuctions
         // 
-        lvAuctions.BackColor = Color.FromArgb(205, 181, 131);
-        lvAuctions.BackgroundImage = (Image)resources.GetObject("lvAuctions.BackgroundImage");
+        lvAuctions.BackColor = Color.Black;
         lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, PetLevel, Stars, Recomb, CheapestAuction, AuctionName, NotifyBelow });
         lvAuctions.Font = new Font("Minecraft", 8.25F);
+        lvAuctions.ForeColor = Color.Black;
         lvAuctions.FullRowSelect = true;
         lvAuctions.GridLines = true;
         lvAuctions.Location = new Point(3, 76);
@@ -721,8 +720,8 @@ partial class MainForm
         parrotGradientPanel1.Location = new Point(3, 17);
         parrotGradientPanel1.Name = "parrotGradientPanel1";
         parrotGradientPanel1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-        parrotGradientPanel1.PrimerColor = Color.White;
-        parrotGradientPanel1.Size = new Size(894, 418);
+        parrotGradientPanel1.PrimerColor = Color.Black;
+        parrotGradientPanel1.Size = new Size(894, 414);
         parrotGradientPanel1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
         parrotGradientPanel1.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
         parrotGradientPanel1.TabIndex = 13;
@@ -772,7 +771,7 @@ partial class MainForm
         lblLastUpdate.BackColor = Color.Transparent;
         lblLastUpdate.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
         lblLastUpdate.ForeColor = SystemColors.ActiveCaptionText;
-        lblLastUpdate.Location = new Point(142, 6);
+        lblLastUpdate.Location = new Point(234, 6);
         lblLastUpdate.Name = "lblLastUpdate";
         lblLastUpdate.Size = new Size(89, 13);
         lblLastUpdate.TabIndex = 15;
@@ -800,7 +799,7 @@ partial class MainForm
         btnRefresh.HoverBorderColorD = Color.White;
         btnRefresh.HoverForeColor = Color.White;
         btnRefresh.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
-        btnRefresh.Location = new Point(142, 22);
+        btnRefresh.Location = new Point(234, 22);
         btnRefresh.Name = "btnRefresh";
         btnRefresh.NormalBGColorA = Color.FromArgb(107, 107, 107);
         btnRefresh.NormalBGColorB = Color.FromArgb(123, 123, 123);
@@ -894,13 +893,22 @@ partial class MainForm
         // 
         // tabMain
         // 
+        tabMain.ActivePageBackColor = Color.FromArgb(76, 51, 11);
+        tabMain.ActivePageBorderColor = Color.FromArgb(201, 198, 195);
+        tabMain.ActivePageTextColor = Color.White;
+        tabMain.BaseColor = Color.FromArgb(184, 139, 59);
         tabMain.Controls.Add(pgAuctions);
         tabMain.Controls.Add(pgSettings);
         tabMain.Controls.Add(pgAdmin);
+        tabMain.DeactivePageTextColor = SystemColors.ScrollBar;
         tabMain.Dock = DockStyle.Fill;
+        tabMain.ItemSize = new Size(80, 24);
         tabMain.Location = new Point(0, 0);
         tabMain.Multiline = true;
         tabMain.Name = "tabMain";
+        tabMain.PageBackColor = Color.FromArgb(247, 186, 54);
+        tabMain.PageEdgeBorderColor = Color.Cyan;
+        tabMain.PageEdgeColor = Color.FromArgb(209, 170, 87);
         tabMain.SelectedIndex = 0;
         tabMain.Size = new Size(914, 472);
         tabMain.TabIndex = 2;
@@ -1007,7 +1015,7 @@ partial class MainForm
     private ColumnHeader CheapestAuction;
     private ColumnHeader AuctionName;
     private ColumnHeader NotifyBelow;
-    private TabControl tabMain;
+    private ReaLTaiizor.Controls.DungeonTabPage tabMain;
     private GroupBox grpServer;
     private Label lblMaxAuctions;
     private ReaLTaiizor.Controls.SkyButton btnRemoveAuction;

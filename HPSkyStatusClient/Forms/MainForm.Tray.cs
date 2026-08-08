@@ -35,7 +35,7 @@ public partial class MainForm
 
             var item = new ToolStripMenuItem(text)
             {
-                ForeColor = RarityColorService.GetColor(
+                ForeColor = TrayColorService.GetColor(
                     tier,
                     auction.Recombobulated == true)
             };
