@@ -1,4 +1,6 @@
-﻿using HPSkyStatusClient.Services;
+﻿using HPSkyStatusClient.Models;
+using HPSkyStatusClient.Services;
+using System.Net.Http.Json;
 
 namespace HPSkyStatusClient;
 
@@ -81,5 +83,34 @@ public partial class MainForm
 
         LoadClientSettings();
         LoadServerSettings();
+    }
+    private async void btnHealth_Click(object sender, EventArgs e)
+    {
+        HttpResponseMessage? response = await _apiService.GetAsync("/api/v1/health");
+
+        if (response == null || !response.IsSuccessStatusCode)
+        {
+            MessageBox.Show("Unable to contact server.");
+            return;
+        }
+
+        HealthResponse? health = await response.Content.ReadFromJsonAsync<HealthResponse>();
+
+        if (health == null)
+        {
+            MessageBox.Show("Invalid response.");
+            return;
+        }
+
+        MessageBox.Show(
+    $@"Status: {health.Status}
+
+Uptime: {health.UptimeSeconds:N0} seconds
+Hypixel Online: {health.HypixelOnline}
+SkyBlock Players: {health.SkyBlockPlayers:N0}
+Cached Auctions: {health.CachedAuctions:N0}
+Cached Items: {health.CachedItems:N0}
+Queued Notifications: {health.QueuedNotifications:N0}",
+        "Health");
     }
 }

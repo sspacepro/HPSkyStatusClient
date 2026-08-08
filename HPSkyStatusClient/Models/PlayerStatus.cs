@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿/*
+using System.Text.Json.Serialization;
 
 namespace HPSkyStatusClient.Models;
 
@@ -12,3 +13,4 @@ public class PlayerStatus
     [JsonPropertyName("displayMode")]
     public string Mode { get; set; } = "";
 }
+*/

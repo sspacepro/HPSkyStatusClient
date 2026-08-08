@@ -15,9 +15,8 @@ public partial class MainForm : Form
     private readonly Icon _yellowIcon;
     private readonly Icon _redIcon;
     private readonly StatusService _statusService;
-    private readonly PlayerWatchService _playerWatchService;
+    //private readonly PlayerWatchService _playerWatchService;
     private readonly AuctionWatchService _auctionWatchService;
-    private bool _serverOnline;
     private readonly IServiceProvider _serviceProvider;
     private readonly ApiErrorService _errorService;
     private readonly ClientSettingsApiService _clientSettings;
@@ -35,9 +34,10 @@ public partial class MainForm : Form
     private readonly AdminApiService _adminApi;
     private readonly ItemCacheService _items;
     private readonly ItemCacheService _itemCache;
+    private readonly ApiService _apiService;
     public MainForm(
         StatusService statusService,
-        PlayerWatchService playerWatchService,
+        //PlayerWatchService playerWatchService,
         AuctionWatchService auctionWatchService,
         IServiceProvider serviceProvider,
         ApiErrorService errorService,
@@ -48,10 +48,11 @@ public partial class MainForm : Form
         ClientPreferencesService preferences,
         AdminApiService adminApi,
         ItemCacheService items,
-        ItemCacheService itemCache)
+        ItemCacheService itemCache,
+        ApiService apiService)
     {
         _statusService = statusService;
-        _playerWatchService = playerWatchService;
+        //_playerWatchService = playerWatchService;
         _auctionWatchService = auctionWatchService;
         _serviceProvider = serviceProvider;
         _errorService = errorService;
@@ -63,6 +64,7 @@ public partial class MainForm : Form
         _adminApi = adminApi;
         _items = items;
         _itemCache = itemCache;
+        _apiService = apiService;
 
 
 
@@ -118,7 +120,7 @@ public partial class MainForm : Form
             try
             {
                 await UpdateStatus();
-                await UpdatePlayers();
+                //await UpdatePlayers();
                 await CheckNotifications(false);
 
                 UpdateTrayUpdatedTime();
@@ -172,7 +174,7 @@ public partial class MainForm : Form
         timer.Tick += async (_, _) =>
         {
             await UpdateStatus();
-            await UpdatePlayers();
+            //await UpdatePlayers();
             await UpdateAuctions();
             await CheckNotifications(false);
             UpdateTrayUpdatedTime();
@@ -190,7 +192,7 @@ public partial class MainForm : Form
             });
 
             await UpdateStatus();
-            await UpdatePlayers();
+            //await UpdatePlayers();
             await CheckNotifications(true);
             await _items.Load();
             UpdateTrayUpdatedTime();
@@ -221,5 +223,9 @@ public partial class MainForm : Form
 
     }
 
+    private void txtServerUrl_TextChanged(object sender, EventArgs e)
+    {
+
+    }
 
 }

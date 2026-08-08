@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Windows.Forms;
 
 namespace HPSkyStatusClient.Forms;
@@ -31,3 +32,4 @@ public partial class AddPlayerForm : Form
 
 
 }
+*/

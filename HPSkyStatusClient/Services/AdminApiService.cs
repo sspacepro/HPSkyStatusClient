@@ -1,6 +1,7 @@
-﻿using System.Net.Http.Headers;
+﻿using HPSkyStatusClient.Models;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
-using HPSkyStatusClient.Models;
 namespace HPSkyStatusClient.Services;
 
 public class AdminApiService
@@ -146,5 +147,14 @@ public class AdminApiService
 
         return response != null &&
                response.IsSuccessStatusCode;
+    }
+    public async Task<AdminStatusResponse?> GetStatus()
+    {
+        var response = await Get("/api/admin/status");
+
+        if (response == null || !response.IsSuccessStatusCode)
+            return null;
+
+        return await response.Content.ReadFromJsonAsync<AdminStatusResponse>();
     }
 }

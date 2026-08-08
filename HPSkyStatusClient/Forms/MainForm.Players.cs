@@ -1,5 +1,7 @@
 ﻿
-using HPSkyStatusClient.Forms;
+/*
+ using HPSkyStatusClient.Forms;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HPSkyStatusClient;
@@ -94,3 +96,4 @@ public partial class MainForm
     }
 
 }
+*/

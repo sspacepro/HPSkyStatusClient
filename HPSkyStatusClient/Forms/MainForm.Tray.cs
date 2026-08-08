@@ -13,9 +13,13 @@ public partial class MainForm
 
         _trayAuctionItems.Clear();
 
+        var menu = _trayIcon.ContextMenuStrip;
+
+        if (menu == null)
+            return;
+
         int insertIndex =
-            _trayIcon.ContextMenuStrip.Items.IndexOf(
-                _trayAuctionSeparator) + 1;
+            menu.Items.IndexOf(_trayAuctionSeparator) + 1;
 
         foreach (var auction in auctions.Take(5))
         {
@@ -44,7 +48,7 @@ public partial class MainForm
 
             _trayAuctionItems.Add(item);
 
-            _trayIcon.ContextMenuStrip.Items.Insert(
+            menu.Items.Insert(
                 insertIndex++,
                 item);
         }
@@ -64,7 +68,7 @@ public partial class MainForm
 
             _trayAuctionItems.Add(more);
 
-            _trayIcon.ContextMenuStrip.Items.Insert(
+            menu.Items.Insert(
                 insertIndex,
                 more);
         }

@@ -6,8 +6,6 @@ public class ClientPreferences
 
     public int NotificationHistoryMinutes { get; set; } = 60;
 
-    public bool PlayerNotifications { get; set; } = true;
-
     public bool AuctionNotifications { get; set; } = true;
 
     public bool StartupNotificationHistory { get; set; } = true;

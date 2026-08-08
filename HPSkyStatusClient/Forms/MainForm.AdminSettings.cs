@@ -1,5 +1,6 @@
 ﻿using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
+using System.Net.Http.Json;
 
 namespace HPSkyStatusClient;
 
@@ -352,5 +353,29 @@ public partial class MainForm
             MessageBox.Show(
                 "Failed to shut down the server.");
         }
+    }
+    private async void btnStatus_Click(object sender, EventArgs e)
+    {
+        var status = await _adminApi.GetStatus();
+
+        if (status == null)
+        {
+            MessageBox.Show("Unable to retrieve server status.");
+            return;
+        }
+
+        MessageBox.Show(
+    $@"Status: {status.Status}
+
+Users: {status.Users}
+Uptime: {status.UptimeSeconds:N0} seconds
+Hypixel Online: {status.HypixelOnline}
+SkyBlock Players: {status.SkyBlockPlayers:N0}
+Cached Auctions: {status.CachedAuctions:N0}
+Cached Items: {status.CachedItems:N0}
+Queued Notifications: {status.QueuedNotifications:N0}",
+        "Server Status",
+        MessageBoxButtons.OK,
+        MessageBoxIcon.Information);
     }
 }

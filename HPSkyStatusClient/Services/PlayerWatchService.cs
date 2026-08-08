@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿/*
+using System.Text.Json;
 using HPSkyStatusClient.Models;
 using System.Net;
 
@@ -64,3 +65,4 @@ public class PlayerWatchService
             await response.Content.ReadAsStringAsync());
     }
 }
+*/

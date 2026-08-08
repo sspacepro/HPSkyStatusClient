@@ -27,7 +27,7 @@ internal static class Program
 
                 services.AddSingleton<StatusService>();
 
-                services.AddSingleton<PlayerWatchService>();
+                //services.AddSingleton<PlayerWatchService>();
 
                 services.AddSingleton<AuctionWatchService>();
 
@@ -43,7 +43,7 @@ internal static class Program
 
                 services.AddSingleton<ApiErrorService>();
 
-                services.AddTransient<AddPlayerForm>();
+                //services.AddTransient<AddPlayerForm>();
 
                 services.AddSingleton<ClientSettingsApiService>();
 

@@ -11,7 +11,6 @@ public partial class MainForm
 
         if (status == null)
         {
-            _serverOnline = false;
 
             _trayIcon.Icon = _redIcon;
             _trayIcon.Text = "Unable to connect to HPSkyStatus";
@@ -26,7 +25,6 @@ public partial class MainForm
             return;
         }
 
-        _serverOnline = true;
 
         lblUsername.Text = $"Username: {status.Username}";
         lblPlayerCount.Text = $"Players: {status.SkyblockPlayers}";
