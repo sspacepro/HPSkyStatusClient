@@ -17,8 +17,7 @@ public partial class MainForm
         numNotificationHistory.Value =
             _preferences.Preferences.NotificationHistoryMinutes;
 
-        chkPlayerNotifications.Checked =
-            _preferences.Preferences.PlayerNotifications;
+        //chkPlayerNotifications.Checked = _preferences.Preferences.PlayerNotifications;
 
         chkAuctionNotifications.Checked =
             _preferences.Preferences.AuctionNotifications;
@@ -34,13 +33,13 @@ public partial class MainForm
     {
         if (_clientSettings.Settings == null)
         {
-            lblMaxPlayers.Text = "Max Players: Unknown";
+            //lblMaxPlayers.Text = "Max Players: Unknown";
             lblMaxAuctions.Text = "Max Auctions: Unknown";
             return;
         }
 
-        lblMaxPlayers.Text =
-            $"Max Players: {_clientSettings.Settings.MaxWatchedPlayers}";
+        //lblMaxPlayers.Text =
+        //    $"Max Players: {_clientSettings.Settings.MaxWatchedPlayers}";
 
         lblMaxAuctions.Text =
             $"Max Auctions: {_clientSettings.Settings.MaxAuctionWatchesPerClient}";
@@ -55,8 +54,8 @@ public partial class MainForm
         _preferences.Preferences.NotificationHistoryMinutes =
             (int)numNotificationHistory.Value;
 
-        _preferences.Preferences.PlayerNotifications =
-            chkPlayerNotifications.Checked;
+       // _preferences.Preferences.PlayerNotifications =
+          //  chkPlayerNotifications.Checked;
 
         _preferences.Preferences.AuctionNotifications =
             chkAuctionNotifications.Checked;

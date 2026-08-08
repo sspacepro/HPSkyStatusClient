@@ -43,13 +43,13 @@ public partial class MainForm
     private bool ShouldShowNotification(
         ClientNotification notification)
     {
-        if (notification.Type.Equals(
-                "player",
-                StringComparison.OrdinalIgnoreCase)
-            && !_preferences.Preferences.PlayerNotifications)
-        {
-            return false;
-        }
+        //if (notification.Type.Equals(
+        //        "player",
+        //        StringComparison.OrdinalIgnoreCase)
+        //    && !_preferences.Preferences.PlayerNotifications)
+        //{
+        //    return false;
+        //}
 
 
         if (notification.Type.Equals(

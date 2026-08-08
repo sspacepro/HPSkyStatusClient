@@ -28,7 +28,7 @@ public partial class MainForm
 
         if (!tabMain.TabPages.Contains(pgAdmin))
         {
-            tabMain.TabPages.Insert(4, pgAdmin);
+            tabMain.TabPages.Insert(2, pgAdmin);
         }
 
         await LoadAdminSettings();

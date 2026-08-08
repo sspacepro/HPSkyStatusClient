@@ -1,5 +1,6 @@
 ﻿namespace HPSkyStatusClient;
 
+using ReaLTaiizor;
 partial class MainForm
 {
     /// <summary>
@@ -28,53 +29,56 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         pgAdmin = new TabPage();
-        grpServerSettings = new GroupBox();
-        lblHypixelUpdateInterval = new Label();
-        munHypixelUpdateInterval = new NumericUpDown();
-        lblAuctionCacheRefrsh = new Label();
-        numAuctionCacheRefresh = new NumericUpDown();
-        lblAuctionCheckInterval = new Label();
-        numAuctionCheckInterval = new NumericUpDown();
-        lblItemCacheUpdateMinutes = new Label();
-        numItemCacheUpdatteMinutes = new NumericUpDown();
-        grpClientLimits = new GroupBox();
-        lblMaxAuctionWatches = new Label();
-        numMaxAuctionWatches = new NumericUpDown();
-        lblMaxPlayerRequestsPerMinute = new Label();
-        numMaxPlayerRequestsPerMinute = new NumericUpDown();
-        grpCleanup = new GroupBox();
-        lblWatchCleanupInterval = new Label();
-        numWatchCleanupInterval = new NumericUpDown();
-        lblWatchExpiration = new Label();
-        numWatchExpiration = new NumericUpDown();
+        btnStatus = new Button();
+        txtUpdateApiKey = new TextBox();
+        btnShutdownServer = new Button();
         grpUsers = new GroupBox();
-        btnRefreshUsers = new Button();
+        numPurgeInactive = new NumericUpDown();
+        btnPurgeInactive = new Button();
+        btnDelete = new Button();
+        btnUnblock = new Button();
+        btnBlock = new Button();
         lvUsers = new ListView();
         clmUsername = new ColumnHeader();
         clmBlocked = new ColumnHeader();
         clmLastRequest = new ColumnHeader();
-        btnBlock = new Button();
-        btnUnblock = new Button();
-        btnDelete = new Button();
-        btnPurgeInactive = new Button();
-        numPurgeInactive = new NumericUpDown();
-        btnShutdownServer = new Button();
-        txtUpdateApiKey = new TextBox();
-        btnStatus = new Button();
+        btnRefreshUsers = new Button();
+        grpCleanup = new GroupBox();
+        numWatchExpiration = new NumericUpDown();
+        lblWatchExpiration = new Label();
+        numWatchCleanupInterval = new NumericUpDown();
+        lblWatchCleanupInterval = new Label();
+        grpClientLimits = new GroupBox();
+        numMaxPlayerRequestsPerMinute = new NumericUpDown();
+        lblMaxPlayerRequestsPerMinute = new Label();
+        numMaxAuctionWatches = new NumericUpDown();
+        lblMaxAuctionWatches = new Label();
+        grpServerSettings = new GroupBox();
+        numItemCacheUpdatteMinutes = new NumericUpDown();
+        lblItemCacheUpdateMinutes = new Label();
+        numAuctionCheckInterval = new NumericUpDown();
+        lblAuctionCheckInterval = new Label();
+        numAuctionCacheRefresh = new NumericUpDown();
+        lblAuctionCacheRefrsh = new Label();
+        munHypixelUpdateInterval = new NumericUpDown();
+        lblHypixelUpdateInterval = new Label();
         pgSettings = new TabPage();
-        grpClientSettings = new GroupBox();
-        txtServerUrl = new TextBox();
-        numNotificationHistory = new NumericUpDown();
-        chkAuctionNotifications = new CheckBox();
-        chkStartupNotificationHistory = new CheckBox();
-        lblLogtime = new Label();
-        chkMinimizeToTray = new CheckBox();
-        lblServerUrl = new Label();
-        btnSaveSettings = new Button();
-        btnReloadSettings = new Button();
-        txtAdminKey = new TextBox();
         btnHealth = new Button();
+        txtAdminKey = new TextBox();
+        btnReloadSettings = new Button();
+        btnSaveSettings = new Button();
+        grpClientSettings = new GroupBox();
+        lblServerUrl = new Label();
+        chkMinimizeToTray = new CheckBox();
+        lblLogtime = new Label();
+        chkStartupNotificationHistory = new CheckBox();
+        chkAuctionNotifications = new CheckBox();
+        numNotificationHistory = new NumericUpDown();
+        txtServerUrl = new TextBox();
+        grpServer = new GroupBox();
+        lblMaxAuctions = new Label();
         pgAuctions = new TabPage();
         grpAuctions = new GroupBox();
         lvAuctions = new ListView();
@@ -86,37 +90,37 @@ partial class MainForm
         CheapestAuction = new ColumnHeader();
         AuctionName = new ColumnHeader();
         NotifyBelow = new ColumnHeader();
-        btnAddAuction = new Button();
-        btnRemoveAuction = new Button();
+        parrotGradientPanel1 = new ReaLTaiizor.Controls.ParrotGradientPanel();
+        lblServer = new ReaLTaiizor.Controls.SkyLabel();
+        lblPlayerCount = new ReaLTaiizor.Controls.SkyLabel();
+        lblUsername = new ReaLTaiizor.Controls.SkyLabel();
+        lblLastUpdate = new ReaLTaiizor.Controls.SkyLabel();
+        btnRefresh = new ReaLTaiizor.Controls.SkyButton();
+        btnAddAuction = new ReaLTaiizor.Controls.SkyButton();
+        btnRemoveAuction = new ReaLTaiizor.Controls.SkyButton();
         tabMain = new TabControl();
-        btnRefresh = new Button();
-        lblLastUpdate = new Label();
-        lblServer = new Label();
-        lblPlayerCount = new Label();
-        lblUsername = new Label();
-        lblMaxAuctions = new Label();
-        grpServer = new GroupBox();
         pgAdmin.SuspendLayout();
-        grpServerSettings.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).BeginInit();
-        grpClientLimits.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).BeginInit();
-        grpCleanup.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).BeginInit();
         grpUsers.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
+        grpCleanup.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).BeginInit();
+        grpClientLimits.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).BeginInit();
+        grpServerSettings.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).BeginInit();
         pgSettings.SuspendLayout();
         grpClientSettings.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
+        grpServer.SuspendLayout();
         pgAuctions.SuspendLayout();
         grpAuctions.SuspendLayout();
+        parrotGradientPanel1.SuspendLayout();
         tabMain.SuspendLayout();
-        grpServer.SuspendLayout();
         SuspendLayout();
         // 
         // pgAdmin
@@ -131,203 +135,39 @@ partial class MainForm
         pgAdmin.Location = new Point(4, 24);
         pgAdmin.Name = "pgAdmin";
         pgAdmin.Padding = new Padding(3);
-        pgAdmin.Size = new Size(792, 444);
+        pgAdmin.Size = new Size(906, 444);
         pgAdmin.TabIndex = 4;
         pgAdmin.Text = "Admin";
         pgAdmin.UseVisualStyleBackColor = true;
         // 
-        // grpServerSettings
+        // btnStatus
         // 
-        grpServerSettings.Controls.Add(numItemCacheUpdatteMinutes);
-        grpServerSettings.Controls.Add(lblItemCacheUpdateMinutes);
-        grpServerSettings.Controls.Add(numAuctionCheckInterval);
-        grpServerSettings.Controls.Add(lblAuctionCheckInterval);
-        grpServerSettings.Controls.Add(numAuctionCacheRefresh);
-        grpServerSettings.Controls.Add(lblAuctionCacheRefrsh);
-        grpServerSettings.Controls.Add(munHypixelUpdateInterval);
-        grpServerSettings.Controls.Add(lblHypixelUpdateInterval);
-        grpServerSettings.Location = new Point(6, 6);
-        grpServerSettings.Name = "grpServerSettings";
-        grpServerSettings.Size = new Size(251, 200);
-        grpServerSettings.TabIndex = 0;
-        grpServerSettings.TabStop = false;
-        grpServerSettings.Text = "Server Settings";
+        btnStatus.Location = new Point(344, 351);
+        btnStatus.Name = "btnStatus";
+        btnStatus.Size = new Size(75, 23);
+        btnStatus.TabIndex = 6;
+        btnStatus.Text = "Status";
+        btnStatus.UseVisualStyleBackColor = true;
+        btnStatus.Click += btnStatus_Click;
         // 
-        // lblHypixelUpdateInterval
+        // txtUpdateApiKey
         // 
-        lblHypixelUpdateInterval.AutoSize = true;
-        lblHypixelUpdateInterval.Location = new Point(6, 19);
-        lblHypixelUpdateInterval.Name = "lblHypixelUpdateInterval";
-        lblHypixelUpdateInterval.Size = new Size(179, 15);
-        lblHypixelUpdateInterval.TabIndex = 0;
-        lblHypixelUpdateInterval.Text = "Hypixel Update Interval Seconds:";
+        txtUpdateApiKey.Location = new Point(263, 322);
+        txtUpdateApiKey.Name = "txtUpdateApiKey";
+        txtUpdateApiKey.PlaceholderText = "Update Api Key";
+        txtUpdateApiKey.Size = new Size(238, 23);
+        txtUpdateApiKey.TabIndex = 5;
+        txtUpdateApiKey.KeyDown += txtUpdateApiKey_KeyDown;
         // 
-        // munHypixelUpdateInterval
+        // btnShutdownServer
         // 
-        munHypixelUpdateInterval.Location = new Point(6, 37);
-        munHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-        munHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.Name = "munHypixelUpdateInterval";
-        munHypixelUpdateInterval.Size = new Size(120, 23);
-        munHypixelUpdateInterval.TabIndex = 1;
-        munHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.KeyDown += munHypixelUpdateInterval_KeyDown;
-        // 
-        // lblAuctionCacheRefrsh
-        // 
-        lblAuctionCacheRefrsh.AutoSize = true;
-        lblAuctionCacheRefrsh.Location = new Point(6, 63);
-        lblAuctionCacheRefrsh.Name = "lblAuctionCacheRefrsh";
-        lblAuctionCacheRefrsh.Size = new Size(188, 15);
-        lblAuctionCacheRefrsh.TabIndex = 2;
-        lblAuctionCacheRefrsh.Text = "Refresh Hypixel Auctions Seconds:";
-        // 
-        // numAuctionCacheRefresh
-        // 
-        numAuctionCacheRefresh.Location = new Point(6, 81);
-        numAuctionCacheRefresh.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-        numAuctionCacheRefresh.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        numAuctionCacheRefresh.Name = "numAuctionCacheRefresh";
-        numAuctionCacheRefresh.Size = new Size(120, 23);
-        numAuctionCacheRefresh.TabIndex = 3;
-        numAuctionCacheRefresh.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        numAuctionCacheRefresh.KeyDown += numAuctionCacheRefresh_KeyDown;
-        // 
-        // lblAuctionCheckInterval
-        // 
-        lblAuctionCheckInterval.AutoSize = true;
-        lblAuctionCheckInterval.Location = new Point(6, 107);
-        lblAuctionCheckInterval.Name = "lblAuctionCheckInterval";
-        lblAuctionCheckInterval.Size = new Size(188, 15);
-        lblAuctionCheckInterval.TabIndex = 4;
-        lblAuctionCheckInterval.Text = "Scan Cache For Auctions Seconds:";
-        // 
-        // numAuctionCheckInterval
-        // 
-        numAuctionCheckInterval.Location = new Point(6, 125);
-        numAuctionCheckInterval.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-        numAuctionCheckInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        numAuctionCheckInterval.Name = "numAuctionCheckInterval";
-        numAuctionCheckInterval.Size = new Size(120, 23);
-        numAuctionCheckInterval.TabIndex = 5;
-        numAuctionCheckInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        numAuctionCheckInterval.KeyDown += numAuctionCheckInterval_KeyDown;
-        // 
-        // lblItemCacheUpdateMinutes
-        // 
-        lblItemCacheUpdateMinutes.AutoSize = true;
-        lblItemCacheUpdateMinutes.Location = new Point(0, 151);
-        lblItemCacheUpdateMinutes.Name = "lblItemCacheUpdateMinutes";
-        lblItemCacheUpdateMinutes.Size = new Size(192, 15);
-        lblItemCacheUpdateMinutes.TabIndex = 6;
-        lblItemCacheUpdateMinutes.Text = "Item Name Cache Update Minutes:";
-        // 
-        // numItemCacheUpdatteMinutes
-        // 
-        numItemCacheUpdatteMinutes.Location = new Point(6, 169);
-        numItemCacheUpdatteMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Name = "numItemCacheUpdatteMinutes";
-        numItemCacheUpdatteMinutes.Size = new Size(120, 23);
-        numItemCacheUpdatteMinutes.TabIndex = 7;
-        numItemCacheUpdatteMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.KeyDown += numItemCacheUpdatteMinutes_KeyDown;
-        // 
-        // grpClientLimits
-        // 
-        grpClientLimits.Controls.Add(numMaxPlayerRequestsPerMinute);
-        grpClientLimits.Controls.Add(lblMaxPlayerRequestsPerMinute);
-        grpClientLimits.Controls.Add(numMaxAuctionWatches);
-        grpClientLimits.Controls.Add(lblMaxAuctionWatches);
-        grpClientLimits.Location = new Point(6, 212);
-        grpClientLimits.Name = "grpClientLimits";
-        grpClientLimits.Size = new Size(251, 112);
-        grpClientLimits.TabIndex = 1;
-        grpClientLimits.TabStop = false;
-        grpClientLimits.Text = "Client Limits";
-        // 
-        // lblMaxAuctionWatches
-        // 
-        lblMaxAuctionWatches.AutoSize = true;
-        lblMaxAuctionWatches.Location = new Point(6, 19);
-        lblMaxAuctionWatches.Name = "lblMaxAuctionWatches";
-        lblMaxAuctionWatches.Size = new Size(125, 15);
-        lblMaxAuctionWatches.TabIndex = 0;
-        lblMaxAuctionWatches.Text = "Max Auction Watches:";
-        // 
-        // numMaxAuctionWatches
-        // 
-        numMaxAuctionWatches.Location = new Point(6, 37);
-        numMaxAuctionWatches.Name = "numMaxAuctionWatches";
-        numMaxAuctionWatches.Size = new Size(120, 23);
-        numMaxAuctionWatches.TabIndex = 1;
-        numMaxAuctionWatches.KeyDown += numMaxAuctionWatches_KeyDown;
-        // 
-        // lblMaxPlayerRequestsPerMinute
-        // 
-        lblMaxPlayerRequestsPerMinute.AutoSize = true;
-        lblMaxPlayerRequestsPerMinute.Location = new Point(6, 63);
-        lblMaxPlayerRequestsPerMinute.Name = "lblMaxPlayerRequestsPerMinute";
-        lblMaxPlayerRequestsPerMinute.Size = new Size(177, 15);
-        lblMaxPlayerRequestsPerMinute.TabIndex = 2;
-        lblMaxPlayerRequestsPerMinute.Text = "Max Client Requests Per Minute:";
-        // 
-        // numMaxPlayerRequestsPerMinute
-        // 
-        numMaxPlayerRequestsPerMinute.Location = new Point(6, 81);
-        numMaxPlayerRequestsPerMinute.Name = "numMaxPlayerRequestsPerMinute";
-        numMaxPlayerRequestsPerMinute.Size = new Size(120, 23);
-        numMaxPlayerRequestsPerMinute.TabIndex = 3;
-        numMaxPlayerRequestsPerMinute.KeyDown += numMaxPlayerRequestsPerMinute_KeyDown;
-        // 
-        // grpCleanup
-        // 
-        grpCleanup.Controls.Add(numWatchExpiration);
-        grpCleanup.Controls.Add(lblWatchExpiration);
-        grpCleanup.Controls.Add(numWatchCleanupInterval);
-        grpCleanup.Controls.Add(lblWatchCleanupInterval);
-        grpCleanup.Location = new Point(6, 330);
-        grpCleanup.Name = "grpCleanup";
-        grpCleanup.Size = new Size(251, 111);
-        grpCleanup.TabIndex = 2;
-        grpCleanup.TabStop = false;
-        grpCleanup.Text = "Cleanup";
-        // 
-        // lblWatchCleanupInterval
-        // 
-        lblWatchCleanupInterval.AutoSize = true;
-        lblWatchCleanupInterval.Location = new Point(2, 19);
-        lblWatchCleanupInterval.Name = "lblWatchCleanupInterval";
-        lblWatchCleanupInterval.Size = new Size(231, 15);
-        lblWatchCleanupInterval.TabIndex = 0;
-        lblWatchCleanupInterval.Text = "Cleanup Expired Watches Interval minutes:";
-        // 
-        // numWatchCleanupInterval
-        // 
-        numWatchCleanupInterval.Location = new Point(6, 37);
-        numWatchCleanupInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-        numWatchCleanupInterval.Name = "numWatchCleanupInterval";
-        numWatchCleanupInterval.Size = new Size(120, 23);
-        numWatchCleanupInterval.TabIndex = 1;
-        numWatchCleanupInterval.KeyDown += numWatchCleanupInterval_KeyDown;
-        // 
-        // lblWatchExpiration
-        // 
-        lblWatchExpiration.AutoSize = true;
-        lblWatchExpiration.Location = new Point(6, 63);
-        lblWatchExpiration.Name = "lblWatchExpiration";
-        lblWatchExpiration.Size = new Size(127, 15);
-        lblWatchExpiration.TabIndex = 2;
-        lblWatchExpiration.Text = "Watch Expiration Days:";
-        // 
-        // numWatchExpiration
-        // 
-        numWatchExpiration.Location = new Point(6, 81);
-        numWatchExpiration.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-        numWatchExpiration.Name = "numWatchExpiration";
-        numWatchExpiration.Size = new Size(120, 23);
-        numWatchExpiration.TabIndex = 3;
-        numWatchExpiration.KeyDown += numWatchExpiration_KeyDown;
+        btnShutdownServer.Location = new Point(263, 351);
+        btnShutdownServer.Name = "btnShutdownServer";
+        btnShutdownServer.Size = new Size(75, 23);
+        btnShutdownServer.TabIndex = 4;
+        btnShutdownServer.Text = "Shutdown Server";
+        btnShutdownServer.UseVisualStyleBackColor = true;
+        btnShutdownServer.Click += btnShutdownServer_Click;
         // 
         // grpUsers
         // 
@@ -345,15 +185,53 @@ partial class MainForm
         grpUsers.TabStop = false;
         grpUsers.Text = "Users";
         // 
-        // btnRefreshUsers
+        // numPurgeInactive
         // 
-        btnRefreshUsers.Location = new Point(6, 15);
-        btnRefreshUsers.Name = "btnRefreshUsers";
-        btnRefreshUsers.Size = new Size(75, 23);
-        btnRefreshUsers.TabIndex = 0;
-        btnRefreshUsers.Text = "Refresh Users";
-        btnRefreshUsers.UseVisualStyleBackColor = true;
-        btnRefreshUsers.Click += btnRefreshUsers_Click;
+        numPurgeInactive.Location = new Point(6, 256);
+        numPurgeInactive.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
+        numPurgeInactive.Name = "numPurgeInactive";
+        numPurgeInactive.Size = new Size(120, 23);
+        numPurgeInactive.TabIndex = 4;
+        // 
+        // btnPurgeInactive
+        // 
+        btnPurgeInactive.Location = new Point(6, 285);
+        btnPurgeInactive.Name = "btnPurgeInactive";
+        btnPurgeInactive.Size = new Size(158, 23);
+        btnPurgeInactive.TabIndex = 5;
+        btnPurgeInactive.Text = "Purge inactive Users Days";
+        btnPurgeInactive.UseVisualStyleBackColor = true;
+        btnPurgeInactive.Click += btnPurgeInactive_Click;
+        // 
+        // btnDelete
+        // 
+        btnDelete.Location = new Point(163, 227);
+        btnDelete.Name = "btnDelete";
+        btnDelete.Size = new Size(75, 23);
+        btnDelete.TabIndex = 4;
+        btnDelete.Text = "Delete";
+        btnDelete.UseVisualStyleBackColor = true;
+        btnDelete.Click += btnDelete_Click;
+        // 
+        // btnUnblock
+        // 
+        btnUnblock.Location = new Point(87, 227);
+        btnUnblock.Name = "btnUnblock";
+        btnUnblock.Size = new Size(75, 23);
+        btnUnblock.TabIndex = 3;
+        btnUnblock.Text = "Unblock";
+        btnUnblock.UseVisualStyleBackColor = true;
+        btnUnblock.Click += btnUnblock_Click;
+        // 
+        // btnBlock
+        // 
+        btnBlock.Location = new Point(6, 227);
+        btnBlock.Name = "btnBlock";
+        btnBlock.Size = new Size(75, 23);
+        btnBlock.TabIndex = 2;
+        btnBlock.Text = "Block";
+        btnBlock.UseVisualStyleBackColor = true;
+        btnBlock.Click += btnBlock_Click;
         // 
         // lvUsers
         // 
@@ -383,82 +261,208 @@ partial class MainForm
         clmLastRequest.Text = "Last Request";
         clmLastRequest.Width = 115;
         // 
-        // btnBlock
+        // btnRefreshUsers
         // 
-        btnBlock.Location = new Point(6, 227);
-        btnBlock.Name = "btnBlock";
-        btnBlock.Size = new Size(75, 23);
-        btnBlock.TabIndex = 2;
-        btnBlock.Text = "Block";
-        btnBlock.UseVisualStyleBackColor = true;
-        btnBlock.Click += btnBlock_Click;
+        btnRefreshUsers.Location = new Point(6, 15);
+        btnRefreshUsers.Name = "btnRefreshUsers";
+        btnRefreshUsers.Size = new Size(75, 23);
+        btnRefreshUsers.TabIndex = 0;
+        btnRefreshUsers.Text = "Refresh Users";
+        btnRefreshUsers.UseVisualStyleBackColor = true;
+        btnRefreshUsers.Click += btnRefreshUsers_Click;
         // 
-        // btnUnblock
+        // grpCleanup
         // 
-        btnUnblock.Location = new Point(87, 227);
-        btnUnblock.Name = "btnUnblock";
-        btnUnblock.Size = new Size(75, 23);
-        btnUnblock.TabIndex = 3;
-        btnUnblock.Text = "Unblock";
-        btnUnblock.UseVisualStyleBackColor = true;
-        btnUnblock.Click += btnUnblock_Click;
+        grpCleanup.Controls.Add(numWatchExpiration);
+        grpCleanup.Controls.Add(lblWatchExpiration);
+        grpCleanup.Controls.Add(numWatchCleanupInterval);
+        grpCleanup.Controls.Add(lblWatchCleanupInterval);
+        grpCleanup.Location = new Point(6, 330);
+        grpCleanup.Name = "grpCleanup";
+        grpCleanup.Size = new Size(251, 111);
+        grpCleanup.TabIndex = 2;
+        grpCleanup.TabStop = false;
+        grpCleanup.Text = "Cleanup";
         // 
-        // btnDelete
+        // numWatchExpiration
         // 
-        btnDelete.Location = new Point(163, 227);
-        btnDelete.Name = "btnDelete";
-        btnDelete.Size = new Size(75, 23);
-        btnDelete.TabIndex = 4;
-        btnDelete.Text = "Delete";
-        btnDelete.UseVisualStyleBackColor = true;
-        btnDelete.Click += btnDelete_Click;
+        numWatchExpiration.Location = new Point(6, 81);
+        numWatchExpiration.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numWatchExpiration.Name = "numWatchExpiration";
+        numWatchExpiration.Size = new Size(120, 23);
+        numWatchExpiration.TabIndex = 3;
+        numWatchExpiration.KeyDown += numWatchExpiration_KeyDown;
         // 
-        // btnPurgeInactive
+        // lblWatchExpiration
         // 
-        btnPurgeInactive.Location = new Point(6, 285);
-        btnPurgeInactive.Name = "btnPurgeInactive";
-        btnPurgeInactive.Size = new Size(158, 23);
-        btnPurgeInactive.TabIndex = 5;
-        btnPurgeInactive.Text = "Purge inactive Users Days";
-        btnPurgeInactive.UseVisualStyleBackColor = true;
-        btnPurgeInactive.Click += btnPurgeInactive_Click;
+        lblWatchExpiration.AutoSize = true;
+        lblWatchExpiration.Location = new Point(6, 63);
+        lblWatchExpiration.Name = "lblWatchExpiration";
+        lblWatchExpiration.Size = new Size(127, 15);
+        lblWatchExpiration.TabIndex = 2;
+        lblWatchExpiration.Text = "Watch Expiration Days:";
         // 
-        // numPurgeInactive
+        // numWatchCleanupInterval
         // 
-        numPurgeInactive.Location = new Point(6, 256);
-        numPurgeInactive.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
-        numPurgeInactive.Name = "numPurgeInactive";
-        numPurgeInactive.Size = new Size(120, 23);
-        numPurgeInactive.TabIndex = 4;
+        numWatchCleanupInterval.Location = new Point(6, 37);
+        numWatchCleanupInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numWatchCleanupInterval.Name = "numWatchCleanupInterval";
+        numWatchCleanupInterval.Size = new Size(120, 23);
+        numWatchCleanupInterval.TabIndex = 1;
+        numWatchCleanupInterval.KeyDown += numWatchCleanupInterval_KeyDown;
         // 
-        // btnShutdownServer
+        // lblWatchCleanupInterval
         // 
-        btnShutdownServer.Location = new Point(263, 351);
-        btnShutdownServer.Name = "btnShutdownServer";
-        btnShutdownServer.Size = new Size(75, 23);
-        btnShutdownServer.TabIndex = 4;
-        btnShutdownServer.Text = "Shutdown Server";
-        btnShutdownServer.UseVisualStyleBackColor = true;
-        btnShutdownServer.Click += btnShutdownServer_Click;
+        lblWatchCleanupInterval.AutoSize = true;
+        lblWatchCleanupInterval.Location = new Point(2, 19);
+        lblWatchCleanupInterval.Name = "lblWatchCleanupInterval";
+        lblWatchCleanupInterval.Size = new Size(231, 15);
+        lblWatchCleanupInterval.TabIndex = 0;
+        lblWatchCleanupInterval.Text = "Cleanup Expired Watches Interval minutes:";
         // 
-        // txtUpdateApiKey
+        // grpClientLimits
         // 
-        txtUpdateApiKey.Location = new Point(263, 322);
-        txtUpdateApiKey.Name = "txtUpdateApiKey";
-        txtUpdateApiKey.PlaceholderText = "Update Api Key";
-        txtUpdateApiKey.Size = new Size(238, 23);
-        txtUpdateApiKey.TabIndex = 5;
-        txtUpdateApiKey.KeyDown += txtUpdateApiKey_KeyDown;
+        grpClientLimits.Controls.Add(numMaxPlayerRequestsPerMinute);
+        grpClientLimits.Controls.Add(lblMaxPlayerRequestsPerMinute);
+        grpClientLimits.Controls.Add(numMaxAuctionWatches);
+        grpClientLimits.Controls.Add(lblMaxAuctionWatches);
+        grpClientLimits.Location = new Point(6, 212);
+        grpClientLimits.Name = "grpClientLimits";
+        grpClientLimits.Size = new Size(251, 112);
+        grpClientLimits.TabIndex = 1;
+        grpClientLimits.TabStop = false;
+        grpClientLimits.Text = "Client Limits";
         // 
-        // btnStatus
+        // numMaxPlayerRequestsPerMinute
         // 
-        btnStatus.Location = new Point(344, 351);
-        btnStatus.Name = "btnStatus";
-        btnStatus.Size = new Size(75, 23);
-        btnStatus.TabIndex = 6;
-        btnStatus.Text = "Status";
-        btnStatus.UseVisualStyleBackColor = true;
-        btnStatus.Click += btnStatus_Click;
+        numMaxPlayerRequestsPerMinute.Location = new Point(6, 81);
+        numMaxPlayerRequestsPerMinute.Name = "numMaxPlayerRequestsPerMinute";
+        numMaxPlayerRequestsPerMinute.Size = new Size(120, 23);
+        numMaxPlayerRequestsPerMinute.TabIndex = 3;
+        numMaxPlayerRequestsPerMinute.KeyDown += numMaxPlayerRequestsPerMinute_KeyDown;
+        // 
+        // lblMaxPlayerRequestsPerMinute
+        // 
+        lblMaxPlayerRequestsPerMinute.AutoSize = true;
+        lblMaxPlayerRequestsPerMinute.Location = new Point(6, 63);
+        lblMaxPlayerRequestsPerMinute.Name = "lblMaxPlayerRequestsPerMinute";
+        lblMaxPlayerRequestsPerMinute.Size = new Size(177, 15);
+        lblMaxPlayerRequestsPerMinute.TabIndex = 2;
+        lblMaxPlayerRequestsPerMinute.Text = "Max Client Requests Per Minute:";
+        // 
+        // numMaxAuctionWatches
+        // 
+        numMaxAuctionWatches.Location = new Point(6, 37);
+        numMaxAuctionWatches.Name = "numMaxAuctionWatches";
+        numMaxAuctionWatches.Size = new Size(120, 23);
+        numMaxAuctionWatches.TabIndex = 1;
+        numMaxAuctionWatches.KeyDown += numMaxAuctionWatches_KeyDown;
+        // 
+        // lblMaxAuctionWatches
+        // 
+        lblMaxAuctionWatches.AutoSize = true;
+        lblMaxAuctionWatches.Location = new Point(6, 19);
+        lblMaxAuctionWatches.Name = "lblMaxAuctionWatches";
+        lblMaxAuctionWatches.Size = new Size(125, 15);
+        lblMaxAuctionWatches.TabIndex = 0;
+        lblMaxAuctionWatches.Text = "Max Auction Watches:";
+        // 
+        // grpServerSettings
+        // 
+        grpServerSettings.Controls.Add(numItemCacheUpdatteMinutes);
+        grpServerSettings.Controls.Add(lblItemCacheUpdateMinutes);
+        grpServerSettings.Controls.Add(numAuctionCheckInterval);
+        grpServerSettings.Controls.Add(lblAuctionCheckInterval);
+        grpServerSettings.Controls.Add(numAuctionCacheRefresh);
+        grpServerSettings.Controls.Add(lblAuctionCacheRefrsh);
+        grpServerSettings.Controls.Add(munHypixelUpdateInterval);
+        grpServerSettings.Controls.Add(lblHypixelUpdateInterval);
+        grpServerSettings.Location = new Point(6, 6);
+        grpServerSettings.Name = "grpServerSettings";
+        grpServerSettings.Size = new Size(251, 200);
+        grpServerSettings.TabIndex = 0;
+        grpServerSettings.TabStop = false;
+        grpServerSettings.Text = "Server Settings";
+        // 
+        // numItemCacheUpdatteMinutes
+        // 
+        numItemCacheUpdatteMinutes.Location = new Point(6, 169);
+        numItemCacheUpdatteMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numItemCacheUpdatteMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdatteMinutes.Name = "numItemCacheUpdatteMinutes";
+        numItemCacheUpdatteMinutes.Size = new Size(120, 23);
+        numItemCacheUpdatteMinutes.TabIndex = 7;
+        numItemCacheUpdatteMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdatteMinutes.KeyDown += numItemCacheUpdatteMinutes_KeyDown;
+        // 
+        // lblItemCacheUpdateMinutes
+        // 
+        lblItemCacheUpdateMinutes.AutoSize = true;
+        lblItemCacheUpdateMinutes.Location = new Point(0, 151);
+        lblItemCacheUpdateMinutes.Name = "lblItemCacheUpdateMinutes";
+        lblItemCacheUpdateMinutes.Size = new Size(192, 15);
+        lblItemCacheUpdateMinutes.TabIndex = 6;
+        lblItemCacheUpdateMinutes.Text = "Item Name Cache Update Minutes:";
+        // 
+        // numAuctionCheckInterval
+        // 
+        numAuctionCheckInterval.Location = new Point(6, 125);
+        numAuctionCheckInterval.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numAuctionCheckInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCheckInterval.Name = "numAuctionCheckInterval";
+        numAuctionCheckInterval.Size = new Size(120, 23);
+        numAuctionCheckInterval.TabIndex = 5;
+        numAuctionCheckInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCheckInterval.KeyDown += numAuctionCheckInterval_KeyDown;
+        // 
+        // lblAuctionCheckInterval
+        // 
+        lblAuctionCheckInterval.AutoSize = true;
+        lblAuctionCheckInterval.Location = new Point(6, 107);
+        lblAuctionCheckInterval.Name = "lblAuctionCheckInterval";
+        lblAuctionCheckInterval.Size = new Size(188, 15);
+        lblAuctionCheckInterval.TabIndex = 4;
+        lblAuctionCheckInterval.Text = "Scan Cache For Auctions Seconds:";
+        // 
+        // numAuctionCacheRefresh
+        // 
+        numAuctionCacheRefresh.Location = new Point(6, 81);
+        numAuctionCacheRefresh.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numAuctionCacheRefresh.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCacheRefresh.Name = "numAuctionCacheRefresh";
+        numAuctionCacheRefresh.Size = new Size(120, 23);
+        numAuctionCacheRefresh.TabIndex = 3;
+        numAuctionCacheRefresh.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numAuctionCacheRefresh.KeyDown += numAuctionCacheRefresh_KeyDown;
+        // 
+        // lblAuctionCacheRefrsh
+        // 
+        lblAuctionCacheRefrsh.AutoSize = true;
+        lblAuctionCacheRefrsh.Location = new Point(6, 63);
+        lblAuctionCacheRefrsh.Name = "lblAuctionCacheRefrsh";
+        lblAuctionCacheRefrsh.Size = new Size(188, 15);
+        lblAuctionCacheRefrsh.TabIndex = 2;
+        lblAuctionCacheRefrsh.Text = "Refresh Hypixel Auctions Seconds:";
+        // 
+        // munHypixelUpdateInterval
+        // 
+        munHypixelUpdateInterval.Location = new Point(6, 37);
+        munHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        munHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        munHypixelUpdateInterval.Name = "munHypixelUpdateInterval";
+        munHypixelUpdateInterval.Size = new Size(120, 23);
+        munHypixelUpdateInterval.TabIndex = 1;
+        munHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        munHypixelUpdateInterval.KeyDown += munHypixelUpdateInterval_KeyDown;
+        // 
+        // lblHypixelUpdateInterval
+        // 
+        lblHypixelUpdateInterval.AutoSize = true;
+        lblHypixelUpdateInterval.Location = new Point(6, 19);
+        lblHypixelUpdateInterval.Name = "lblHypixelUpdateInterval";
+        lblHypixelUpdateInterval.Size = new Size(179, 15);
+        lblHypixelUpdateInterval.TabIndex = 0;
+        lblHypixelUpdateInterval.Text = "Hypixel Update Interval Seconds:";
         // 
         // pgSettings
         // 
@@ -471,10 +475,50 @@ partial class MainForm
         pgSettings.Location = new Point(4, 24);
         pgSettings.Name = "pgSettings";
         pgSettings.Padding = new Padding(3);
-        pgSettings.Size = new Size(792, 444);
+        pgSettings.Size = new Size(906, 444);
         pgSettings.TabIndex = 3;
         pgSettings.Text = "Settings";
         pgSettings.UseVisualStyleBackColor = true;
+        // 
+        // btnHealth
+        // 
+        btnHealth.Location = new Point(11, 292);
+        btnHealth.Name = "btnHealth";
+        btnHealth.Size = new Size(75, 23);
+        btnHealth.TabIndex = 5;
+        btnHealth.Text = "Health";
+        btnHealth.UseVisualStyleBackColor = true;
+        btnHealth.Click += btnHealth_Click;
+        // 
+        // txtAdminKey
+        // 
+        txtAdminKey.Location = new Point(6, 263);
+        txtAdminKey.Name = "txtAdminKey";
+        txtAdminKey.PlaceholderText = "Admin Key";
+        txtAdminKey.Size = new Size(272, 23);
+        txtAdminKey.TabIndex = 4;
+        txtAdminKey.UseSystemPasswordChar = true;
+        txtAdminKey.KeyDown += txtAdminKey_KeyDown;
+        // 
+        // btnReloadSettings
+        // 
+        btnReloadSettings.Location = new Point(92, 234);
+        btnReloadSettings.Name = "btnReloadSettings";
+        btnReloadSettings.Size = new Size(75, 23);
+        btnReloadSettings.TabIndex = 3;
+        btnReloadSettings.Text = "Reload";
+        btnReloadSettings.UseVisualStyleBackColor = true;
+        btnReloadSettings.Click += btnReloadSettings_Click;
+        // 
+        // btnSaveSettings
+        // 
+        btnSaveSettings.Location = new Point(11, 234);
+        btnSaveSettings.Name = "btnSaveSettings";
+        btnSaveSettings.Size = new Size(75, 23);
+        btnSaveSettings.TabIndex = 2;
+        btnSaveSettings.Text = "Save";
+        btnSaveSettings.UseVisualStyleBackColor = true;
+        btnSaveSettings.Click += btnSaveSettings_Click;
         // 
         // grpClientSettings
         // 
@@ -492,34 +536,33 @@ partial class MainForm
         grpClientSettings.TabStop = false;
         grpClientSettings.Text = "Client Settings";
         // 
-        // txtServerUrl
+        // lblServerUrl
         // 
-        txtServerUrl.Location = new Point(5, 37);
-        txtServerUrl.Name = "txtServerUrl";
-        txtServerUrl.PlaceholderText = "test";
-        txtServerUrl.Size = new Size(261, 23);
-        txtServerUrl.TabIndex = 0;
-        txtServerUrl.Text = "test";
-        txtServerUrl.TextChanged += txtServerUrl_TextChanged;
+        lblServerUrl.AutoSize = true;
+        lblServerUrl.Location = new Point(5, 19);
+        lblServerUrl.Name = "lblServerUrl";
+        lblServerUrl.Size = new Size(92, 15);
+        lblServerUrl.TabIndex = 7;
+        lblServerUrl.Text = "Server adress url";
         // 
-        // numNotificationHistory
+        // chkMinimizeToTray
         // 
-        numNotificationHistory.Location = new Point(6, 131);
-        numNotificationHistory.Name = "numNotificationHistory";
-        numNotificationHistory.Size = new Size(120, 23);
-        numNotificationHistory.TabIndex = 1;
+        chkMinimizeToTray.AutoSize = true;
+        chkMinimizeToTray.Location = new Point(6, 160);
+        chkMinimizeToTray.Name = "chkMinimizeToTray";
+        chkMinimizeToTray.Size = new Size(112, 19);
+        chkMinimizeToTray.TabIndex = 6;
+        chkMinimizeToTray.Text = "Minimize to tray";
+        chkMinimizeToTray.UseVisualStyleBackColor = true;
         // 
-        // chkAuctionNotifications
+        // lblLogtime
         // 
-        chkAuctionNotifications.AutoSize = true;
-        chkAuctionNotifications.Checked = true;
-        chkAuctionNotifications.CheckState = CheckState.Checked;
-        chkAuctionNotifications.Location = new Point(5, 64);
-        chkAuctionNotifications.Name = "chkAuctionNotifications";
-        chkAuctionNotifications.Size = new Size(178, 19);
-        chkAuctionNotifications.TabIndex = 3;
-        chkAuctionNotifications.Text = "Receive auction notifications";
-        chkAuctionNotifications.UseVisualStyleBackColor = true;
+        lblLogtime.AutoSize = true;
+        lblLogtime.Location = new Point(6, 111);
+        lblLogtime.Name = "lblLogtime";
+        lblLogtime.Size = new Size(163, 15);
+        lblLogtime.TabIndex = 5;
+        lblLogtime.Text = "Notification history (minutes)";
         // 
         // chkStartupNotificationHistory
         // 
@@ -533,73 +576,53 @@ partial class MainForm
         chkStartupNotificationHistory.Text = "Receive recent notifications on startup";
         chkStartupNotificationHistory.UseVisualStyleBackColor = true;
         // 
-        // lblLogtime
+        // chkAuctionNotifications
         // 
-        lblLogtime.AutoSize = true;
-        lblLogtime.Location = new Point(6, 111);
-        lblLogtime.Name = "lblLogtime";
-        lblLogtime.Size = new Size(163, 15);
-        lblLogtime.TabIndex = 5;
-        lblLogtime.Text = "Notification history (minutes)";
+        chkAuctionNotifications.AutoSize = true;
+        chkAuctionNotifications.Checked = true;
+        chkAuctionNotifications.CheckState = CheckState.Checked;
+        chkAuctionNotifications.Location = new Point(5, 64);
+        chkAuctionNotifications.Name = "chkAuctionNotifications";
+        chkAuctionNotifications.Size = new Size(178, 19);
+        chkAuctionNotifications.TabIndex = 3;
+        chkAuctionNotifications.Text = "Receive auction notifications";
+        chkAuctionNotifications.UseVisualStyleBackColor = true;
         // 
-        // chkMinimizeToTray
+        // numNotificationHistory
         // 
-        chkMinimizeToTray.AutoSize = true;
-        chkMinimizeToTray.Location = new Point(6, 160);
-        chkMinimizeToTray.Name = "chkMinimizeToTray";
-        chkMinimizeToTray.Size = new Size(112, 19);
-        chkMinimizeToTray.TabIndex = 6;
-        chkMinimizeToTray.Text = "Minimize to tray";
-        chkMinimizeToTray.UseVisualStyleBackColor = true;
+        numNotificationHistory.Location = new Point(6, 131);
+        numNotificationHistory.Name = "numNotificationHistory";
+        numNotificationHistory.Size = new Size(120, 23);
+        numNotificationHistory.TabIndex = 1;
         // 
-        // lblServerUrl
+        // txtServerUrl
         // 
-        lblServerUrl.AutoSize = true;
-        lblServerUrl.Location = new Point(5, 19);
-        lblServerUrl.Name = "lblServerUrl";
-        lblServerUrl.Size = new Size(92, 15);
-        lblServerUrl.TabIndex = 7;
-        lblServerUrl.Text = "Server adress url";
+        txtServerUrl.Location = new Point(5, 37);
+        txtServerUrl.Name = "txtServerUrl";
+        txtServerUrl.PlaceholderText = "test";
+        txtServerUrl.Size = new Size(261, 23);
+        txtServerUrl.TabIndex = 0;
+        txtServerUrl.Text = "test";
+        txtServerUrl.TextChanged += txtServerUrl_TextChanged;
         // 
-        // btnSaveSettings
+        // grpServer
         // 
-        btnSaveSettings.Location = new Point(11, 234);
-        btnSaveSettings.Name = "btnSaveSettings";
-        btnSaveSettings.Size = new Size(75, 23);
-        btnSaveSettings.TabIndex = 2;
-        btnSaveSettings.Text = "Save";
-        btnSaveSettings.UseVisualStyleBackColor = true;
-        btnSaveSettings.Click += btnSaveSettings_Click;
+        grpServer.Controls.Add(lblMaxAuctions);
+        grpServer.Location = new Point(1, 1);
+        grpServer.Name = "grpServer";
+        grpServer.Size = new Size(274, 41);
+        grpServer.TabIndex = 0;
+        grpServer.TabStop = false;
+        grpServer.Text = "Server Limits";
         // 
-        // btnReloadSettings
+        // lblMaxAuctions
         // 
-        btnReloadSettings.Location = new Point(92, 234);
-        btnReloadSettings.Name = "btnReloadSettings";
-        btnReloadSettings.Size = new Size(75, 23);
-        btnReloadSettings.TabIndex = 3;
-        btnReloadSettings.Text = "Reload";
-        btnReloadSettings.UseVisualStyleBackColor = true;
-        btnReloadSettings.Click += btnReloadSettings_Click;
-        // 
-        // txtAdminKey
-        // 
-        txtAdminKey.Location = new Point(6, 263);
-        txtAdminKey.Name = "txtAdminKey";
-        txtAdminKey.PlaceholderText = "Admin Key";
-        txtAdminKey.Size = new Size(272, 23);
-        txtAdminKey.TabIndex = 4;
-        txtAdminKey.UseSystemPasswordChar = true;
-        txtAdminKey.KeyDown += txtAdminKey_KeyDown;
-        // 
-        // btnHealth
-        // 
-        btnHealth.Location = new Point(11, 292);
-        btnHealth.Name = "btnHealth";
-        btnHealth.Size = new Size(75, 23);
-        btnHealth.TabIndex = 5;
-        btnHealth.Text = "Health";
-        btnHealth.UseVisualStyleBackColor = true;
-        btnHealth.Click += btnHealth_Click;
+        lblMaxAuctions.AutoSize = true;
+        lblMaxAuctions.Location = new Point(7, 19);
+        lblMaxAuctions.Name = "lblMaxAuctions";
+        lblMaxAuctions.Size = new Size(82, 15);
+        lblMaxAuctions.TabIndex = 1;
+        lblMaxAuctions.Text = "Max Auctions:";
         // 
         // pgAuctions
         // 
@@ -607,38 +630,36 @@ partial class MainForm
         pgAuctions.Location = new Point(4, 24);
         pgAuctions.Name = "pgAuctions";
         pgAuctions.Padding = new Padding(3);
-        pgAuctions.Size = new Size(792, 444);
+        pgAuctions.Size = new Size(906, 444);
         pgAuctions.TabIndex = 2;
         pgAuctions.Text = "Status";
         pgAuctions.UseVisualStyleBackColor = true;
         // 
         // grpAuctions
         // 
-        grpAuctions.Controls.Add(btnRefresh);
-        grpAuctions.Controls.Add(lblLastUpdate);
-        grpAuctions.Controls.Add(lblServer);
-        grpAuctions.Controls.Add(lblPlayerCount);
-        grpAuctions.Controls.Add(lblUsername);
-        grpAuctions.Controls.Add(btnRemoveAuction);
-        grpAuctions.Controls.Add(btnAddAuction);
         grpAuctions.Controls.Add(lvAuctions);
+        grpAuctions.Controls.Add(parrotGradientPanel1);
         grpAuctions.Dock = DockStyle.Fill;
+        grpAuctions.Font = new Font("Minecraft", 8.25F);
         grpAuctions.Location = new Point(3, 3);
         grpAuctions.Name = "grpAuctions";
-        grpAuctions.Size = new Size(786, 438);
+        grpAuctions.Size = new Size(900, 438);
         grpAuctions.TabIndex = 0;
         grpAuctions.TabStop = false;
         grpAuctions.Text = "Status";
         // 
         // lvAuctions
         // 
+        lvAuctions.BackColor = Color.FromArgb(205, 181, 131);
+        lvAuctions.BackgroundImage = (Image)resources.GetObject("lvAuctions.BackgroundImage");
         lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, PetLevel, Stars, Recomb, CheapestAuction, AuctionName, NotifyBelow });
+        lvAuctions.Font = new Font("Minecraft", 8.25F);
         lvAuctions.FullRowSelect = true;
         lvAuctions.GridLines = true;
         lvAuctions.Location = new Point(3, 76);
         lvAuctions.MultiSelect = false;
         lvAuctions.Name = "lvAuctions";
-        lvAuctions.Size = new Size(783, 142);
+        lvAuctions.Size = new Size(890, 142);
         lvAuctions.TabIndex = 0;
         lvAuctions.UseCompatibleStateImageBehavior = false;
         lvAuctions.View = View.Details;
@@ -647,7 +668,7 @@ partial class MainForm
         // Item
         // 
         Item.Text = "Item";
-        Item.Width = 130;
+        Item.Width = 140;
         // 
         // Tier
         // 
@@ -657,11 +678,12 @@ partial class MainForm
         // PetLevel
         // 
         PetLevel.Text = "Pet Level";
+        PetLevel.Width = 75;
         // 
         // Stars
         // 
         Stars.Text = "Stars";
-        Stars.Width = 45;
+        Stars.Width = 55;
         // 
         // Recomb
         // 
@@ -670,36 +692,204 @@ partial class MainForm
         // CheapestAuction
         // 
         CheapestAuction.Text = "Cheapest Auction";
-        CheapestAuction.Width = 110;
+        CheapestAuction.Width = 130;
         // 
         // AuctionName
         // 
         AuctionName.Text = "Auction Name";
-        AuctionName.Width = 177;
+        AuctionName.Width = 210;
         // 
         // NotifyBelow
         // 
         NotifyBelow.Text = "Notify Below";
-        NotifyBelow.Width = 110;
+        NotifyBelow.Width = 130;
+        // 
+        // parrotGradientPanel1
+        // 
+        parrotGradientPanel1.BottomLeft = Color.FromArgb(255, 190, 55);
+        parrotGradientPanel1.BottomRight = Color.FromArgb(35, 180, 110);
+        parrotGradientPanel1.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel1.Controls.Add(lblServer);
+        parrotGradientPanel1.Controls.Add(lblPlayerCount);
+        parrotGradientPanel1.Controls.Add(lblUsername);
+        parrotGradientPanel1.Controls.Add(lblLastUpdate);
+        parrotGradientPanel1.Controls.Add(btnRefresh);
+        parrotGradientPanel1.Controls.Add(btnAddAuction);
+        parrotGradientPanel1.Controls.Add(btnRemoveAuction);
+        parrotGradientPanel1.Dock = DockStyle.Fill;
+        parrotGradientPanel1.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel1.Location = new Point(3, 17);
+        parrotGradientPanel1.Name = "parrotGradientPanel1";
+        parrotGradientPanel1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel1.PrimerColor = Color.White;
+        parrotGradientPanel1.Size = new Size(894, 418);
+        parrotGradientPanel1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel1.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel1.TabIndex = 13;
+        parrotGradientPanel1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel1.TopLeft = Color.DodgerBlue;
+        parrotGradientPanel1.TopRight = Color.FromArgb(123, 63, 170);
+        // 
+        // lblServer
+        // 
+        lblServer.AutoSize = true;
+        lblServer.BackColor = Color.Transparent;
+        lblServer.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblServer.ForeColor = SystemColors.ActiveCaptionText;
+        lblServer.Location = new Point(7, 32);
+        lblServer.Name = "lblServer";
+        lblServer.Size = new Size(58, 13);
+        lblServer.TabIndex = 18;
+        lblServer.Text = "Server:";
+        // 
+        // lblPlayerCount
+        // 
+        lblPlayerCount.AutoSize = true;
+        lblPlayerCount.BackColor = Color.Transparent;
+        lblPlayerCount.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblPlayerCount.ForeColor = SystemColors.ActiveCaptionText;
+        lblPlayerCount.Location = new Point(7, 19);
+        lblPlayerCount.Name = "lblPlayerCount";
+        lblPlayerCount.Size = new Size(62, 13);
+        lblPlayerCount.TabIndex = 17;
+        lblPlayerCount.Text = "Players:";
+        // 
+        // lblUsername
+        // 
+        lblUsername.AutoSize = true;
+        lblUsername.BackColor = Color.Transparent;
+        lblUsername.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblUsername.ForeColor = SystemColors.ActiveCaptionText;
+        lblUsername.Location = new Point(7, 6);
+        lblUsername.Name = "lblUsername";
+        lblUsername.Size = new Size(74, 13);
+        lblUsername.TabIndex = 16;
+        lblUsername.Text = "Username:";
+        // 
+        // lblLastUpdate
+        // 
+        lblLastUpdate.AutoSize = true;
+        lblLastUpdate.BackColor = Color.Transparent;
+        lblLastUpdate.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblLastUpdate.ForeColor = SystemColors.ActiveCaptionText;
+        lblLastUpdate.Location = new Point(142, 6);
+        lblLastUpdate.Name = "lblLastUpdate";
+        lblLastUpdate.Size = new Size(89, 13);
+        lblLastUpdate.TabIndex = 15;
+        lblLastUpdate.Text = "Last Update:";
+        // 
+        // btnRefresh
+        // 
+        btnRefresh.BackColor = Color.Black;
+        btnRefresh.Cursor = Cursors.Hand;
+        btnRefresh.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnRefresh.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnRefresh.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnRefresh.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnRefresh.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnRefresh.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnRefresh.DownForeColor = Color.White;
+        btnRefresh.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnRefresh.Font = new Font("Minecraft", 8.25F);
+        btnRefresh.ForeColor = Color.White;
+        btnRefresh.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnRefresh.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnRefresh.HoverBorderColorA = Color.White;
+        btnRefresh.HoverBorderColorB = Color.White;
+        btnRefresh.HoverBorderColorC = Color.White;
+        btnRefresh.HoverBorderColorD = Color.White;
+        btnRefresh.HoverForeColor = Color.White;
+        btnRefresh.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnRefresh.Location = new Point(142, 22);
+        btnRefresh.Name = "btnRefresh";
+        btnRefresh.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnRefresh.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnRefresh.NormalBorderColorA = Color.DarkGray;
+        btnRefresh.NormalBorderColorB = Color.DarkGray;
+        btnRefresh.NormalBorderColorC = Color.Black;
+        btnRefresh.NormalBorderColorD = Color.Black;
+        btnRefresh.NormalForeColor = Color.White;
+        btnRefresh.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnRefresh.Size = new Size(121, 23);
+        btnRefresh.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnRefresh.TabIndex = 14;
+        btnRefresh.Text = "Refresh";
+        btnRefresh.Click += btnRefresh_Click;
         // 
         // btnAddAuction
         // 
-        btnAddAuction.Location = new Point(6, 224);
+        btnAddAuction.BackColor = Color.Black;
+        btnAddAuction.Cursor = Cursors.Hand;
+        btnAddAuction.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnAddAuction.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnAddAuction.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnAddAuction.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnAddAuction.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnAddAuction.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnAddAuction.DownForeColor = Color.White;
+        btnAddAuction.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnAddAuction.Font = new Font("Minecraft", 8.25F);
+        btnAddAuction.ForeColor = Color.White;
+        btnAddAuction.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnAddAuction.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnAddAuction.HoverBorderColorA = Color.White;
+        btnAddAuction.HoverBorderColorB = Color.White;
+        btnAddAuction.HoverBorderColorC = Color.White;
+        btnAddAuction.HoverBorderColorD = Color.White;
+        btnAddAuction.HoverForeColor = Color.White;
+        btnAddAuction.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnAddAuction.Location = new Point(20, 205);
         btnAddAuction.Name = "btnAddAuction";
-        btnAddAuction.Size = new Size(75, 23);
-        btnAddAuction.TabIndex = 1;
-        btnAddAuction.Text = "Add Auction";
-        btnAddAuction.UseVisualStyleBackColor = true;
+        btnAddAuction.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnAddAuction.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnAddAuction.NormalBorderColorA = Color.DarkGray;
+        btnAddAuction.NormalBorderColorB = Color.DarkGray;
+        btnAddAuction.NormalBorderColorC = Color.Black;
+        btnAddAuction.NormalBorderColorD = Color.Black;
+        btnAddAuction.NormalForeColor = Color.White;
+        btnAddAuction.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnAddAuction.Size = new Size(121, 23);
+        btnAddAuction.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnAddAuction.TabIndex = 13;
+        btnAddAuction.Text = "Add";
         btnAddAuction.Click += btnAddAuction_Click;
         // 
         // btnRemoveAuction
         // 
-        btnRemoveAuction.Location = new Point(87, 224);
+        btnRemoveAuction.BackColor = Color.Black;
+        btnRemoveAuction.Cursor = Cursors.Hand;
+        btnRemoveAuction.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnRemoveAuction.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnRemoveAuction.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnRemoveAuction.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnRemoveAuction.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnRemoveAuction.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnRemoveAuction.DownForeColor = Color.White;
+        btnRemoveAuction.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnRemoveAuction.Font = new Font("Minecraft", 8.25F);
+        btnRemoveAuction.ForeColor = Color.White;
+        btnRemoveAuction.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnRemoveAuction.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnRemoveAuction.HoverBorderColorA = Color.White;
+        btnRemoveAuction.HoverBorderColorB = Color.White;
+        btnRemoveAuction.HoverBorderColorC = Color.White;
+        btnRemoveAuction.HoverBorderColorD = Color.White;
+        btnRemoveAuction.HoverForeColor = Color.White;
+        btnRemoveAuction.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnRemoveAuction.Location = new Point(162, 205);
         btnRemoveAuction.Name = "btnRemoveAuction";
-        btnRemoveAuction.Size = new Size(75, 23);
-        btnRemoveAuction.TabIndex = 2;
-        btnRemoveAuction.Text = "Remove Auction";
-        btnRemoveAuction.UseVisualStyleBackColor = true;
+        btnRemoveAuction.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnRemoveAuction.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnRemoveAuction.NormalBorderColorA = Color.DarkGray;
+        btnRemoveAuction.NormalBorderColorB = Color.DarkGray;
+        btnRemoveAuction.NormalBorderColorC = Color.Black;
+        btnRemoveAuction.NormalBorderColorD = Color.Black;
+        btnRemoveAuction.NormalForeColor = Color.White;
+        btnRemoveAuction.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnRemoveAuction.Size = new Size(121, 23);
+        btnRemoveAuction.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnRemoveAuction.TabIndex = 12;
+        btnRemoveAuction.Text = "Remove";
         btnRemoveAuction.Click += btnRemoveAuction_Click;
         // 
         // tabMain
@@ -712,111 +902,48 @@ partial class MainForm
         tabMain.Multiline = true;
         tabMain.Name = "tabMain";
         tabMain.SelectedIndex = 0;
-        tabMain.Size = new Size(800, 472);
+        tabMain.Size = new Size(914, 472);
         tabMain.TabIndex = 2;
-        // 
-        // btnRefresh
-        // 
-        btnRefresh.Location = new Point(145, 37);
-        btnRefresh.Name = "btnRefresh";
-        btnRefresh.Size = new Size(75, 23);
-        btnRefresh.TabIndex = 9;
-        btnRefresh.Text = "Refresh";
-        btnRefresh.UseVisualStyleBackColor = true;
-        // 
-        // lblLastUpdate
-        // 
-        lblLastUpdate.AutoSize = true;
-        lblLastUpdate.Location = new Point(145, 19);
-        lblLastUpdate.Name = "lblLastUpdate";
-        lblLastUpdate.Size = new Size(72, 15);
-        lblLastUpdate.TabIndex = 8;
-        lblLastUpdate.Text = "Last Update:";
-        // 
-        // lblServer
-        // 
-        lblServer.AutoSize = true;
-        lblServer.Location = new Point(6, 49);
-        lblServer.Name = "lblServer";
-        lblServer.Size = new Size(42, 15);
-        lblServer.TabIndex = 7;
-        lblServer.Text = "Server:";
-        // 
-        // lblPlayerCount
-        // 
-        lblPlayerCount.AutoSize = true;
-        lblPlayerCount.Location = new Point(6, 34);
-        lblPlayerCount.Name = "lblPlayerCount";
-        lblPlayerCount.Size = new Size(47, 15);
-        lblPlayerCount.TabIndex = 6;
-        lblPlayerCount.Text = "Players:";
-        // 
-        // lblUsername
-        // 
-        lblUsername.AutoSize = true;
-        lblUsername.Location = new Point(5, 19);
-        lblUsername.Name = "lblUsername";
-        lblUsername.Size = new Size(63, 15);
-        lblUsername.TabIndex = 5;
-        lblUsername.Text = "Username:";
-        // 
-        // lblMaxAuctions
-        // 
-        lblMaxAuctions.AutoSize = true;
-        lblMaxAuctions.Location = new Point(7, 19);
-        lblMaxAuctions.Name = "lblMaxAuctions";
-        lblMaxAuctions.Size = new Size(82, 15);
-        lblMaxAuctions.TabIndex = 1;
-        lblMaxAuctions.Text = "Max Auctions:";
-        // 
-        // grpServer
-        // 
-        grpServer.Controls.Add(lblMaxAuctions);
-        grpServer.Location = new Point(1, 1);
-        grpServer.Name = "grpServer";
-        grpServer.Size = new Size(274, 41);
-        grpServer.TabIndex = 0;
-        grpServer.TabStop = false;
-        grpServer.Text = "Server Limits";
         // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 472);
+        ClientSize = new Size(914, 472);
         Controls.Add(tabMain);
         Name = "MainForm";
-        Text = "MainForm";
+        Text = "Hypixel Skyblock Status";
         Load += MainForm_Load;
         pgAdmin.ResumeLayout(false);
         pgAdmin.PerformLayout();
-        grpServerSettings.ResumeLayout(false);
-        grpServerSettings.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).EndInit();
-        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).EndInit();
-        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).EndInit();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).EndInit();
-        grpClientLimits.ResumeLayout(false);
-        grpClientLimits.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).EndInit();
-        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).EndInit();
-        grpCleanup.ResumeLayout(false);
-        grpCleanup.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).EndInit();
-        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).EndInit();
         grpUsers.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).EndInit();
+        grpCleanup.ResumeLayout(false);
+        grpCleanup.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numWatchExpiration).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numWatchCleanupInterval).EndInit();
+        grpClientLimits.ResumeLayout(false);
+        grpClientLimits.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).EndInit();
+        grpServerSettings.ResumeLayout(false);
+        grpServerSettings.PerformLayout();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).EndInit();
+        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).EndInit();
         pgSettings.ResumeLayout(false);
         pgSettings.PerformLayout();
         grpClientSettings.ResumeLayout(false);
         grpClientSettings.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
-        pgAuctions.ResumeLayout(false);
-        grpAuctions.ResumeLayout(false);
-        grpAuctions.PerformLayout();
-        tabMain.ResumeLayout(false);
         grpServer.ResumeLayout(false);
         grpServer.PerformLayout();
+        pgAuctions.ResumeLayout(false);
+        grpAuctions.ResumeLayout(false);
+        parrotGradientPanel1.ResumeLayout(false);
+        parrotGradientPanel1.PerformLayout();
+        tabMain.ResumeLayout(false);
         ResumeLayout(false);
     }
 
@@ -871,13 +998,6 @@ partial class MainForm
     private TextBox txtServerUrl;
     private TabPage pgAuctions;
     private GroupBox grpAuctions;
-    private Button btnRefresh;
-    private Label lblLastUpdate;
-    private Label lblServer;
-    private Label lblPlayerCount;
-    private Label lblUsername;
-    private Button btnRemoveAuction;
-    private Button btnAddAuction;
     private ListView lvAuctions;
     private ColumnHeader Item;
     private ColumnHeader Tier;
@@ -890,4 +1010,12 @@ partial class MainForm
     private TabControl tabMain;
     private GroupBox grpServer;
     private Label lblMaxAuctions;
+    private ReaLTaiizor.Controls.SkyButton btnRemoveAuction;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel1;
+    private ReaLTaiizor.Controls.SkyButton btnAddAuction;
+    private ReaLTaiizor.Controls.SkyButton btnRefresh;
+    private ReaLTaiizor.Controls.SkyLabel lblLastUpdate;
+    private ReaLTaiizor.Controls.SkyLabel lblUsername;
+    private ReaLTaiizor.Controls.SkyLabel lblServer;
+    private ReaLTaiizor.Controls.SkyLabel lblPlayerCount;
 }

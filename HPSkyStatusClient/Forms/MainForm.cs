@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 namespace HPSkyStatusClient;
 
+using System.Drawing.Text;
 
 public partial class MainForm : Form
 {
@@ -74,6 +75,11 @@ public partial class MainForm : Form
         _redIcon = new Icon("skyblock-red.ico");
 
         InitializeComponent();
+        var font = CustomFontService.LoadFont(
+    "minecraft_font.ttf",
+    7.5f);
+
+        ApplyFont(this, font);
 
         _trayIcon = new NotifyIcon
         {
@@ -227,5 +233,16 @@ public partial class MainForm : Form
     {
 
     }
+
+    private static void ApplyFont(
+    Control control,
+    Font font)
+    {
+        control.Font = font;
+
+        foreach (Control child in control.Controls)
+            ApplyFont(child, font);
+    }
+
 
 }

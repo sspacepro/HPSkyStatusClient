@@ -1,4 +1,5 @@
-﻿namespace HPSkyStatusClient.Forms
+﻿/*
+namespace HPSkyStatusClient.Forms
 {
     partial class AddPlayerForm
     {
@@ -80,3 +81,4 @@
         private TextBox txtUsername;
     }
 }
+*/
