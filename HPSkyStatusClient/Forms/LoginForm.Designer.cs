@@ -47,7 +47,7 @@
             btnRegister.TabIndex = 1;
             btnRegister.Text = "Register";
             btnRegister.UseVisualStyleBackColor = true;
-            btnRegister.Click += btnRegister_Click_1;
+            btnRegister.Click += btnRegister_Click;
             // 
             // LoginForm
             // 

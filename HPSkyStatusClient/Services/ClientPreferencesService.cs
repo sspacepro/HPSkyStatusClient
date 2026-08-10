@@ -6,18 +6,19 @@ namespace HPSkyStatusClient.Services;
 public class ClientPreferencesService
 {
     private const string FileName = "preferences.json";
+    private readonly string _path = Path.Combine(AppContext.BaseDirectory, FileName);
 
     public ClientPreferences Preferences { get; private set; } = new();
 
     public void Load()
     {
-        if (!File.Exists(FileName))
+        if (!File.Exists(_path))
         {
             Save();
             return;
         }
 
-        var json = File.ReadAllText(FileName);
+        var json = File.ReadAllText(_path);
 
         Preferences =
             JsonSerializer.Deserialize<ClientPreferences>(json)
@@ -33,6 +34,6 @@ public class ClientPreferencesService
                 WriteIndented = true
             });
 
-        File.WriteAllText(FileName, json);
+        File.WriteAllText(_path, json);
     }
 }

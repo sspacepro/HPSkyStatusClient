@@ -1,7 +1,5 @@
-using HPSkyStatusClient.Configuration;
 using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -15,10 +13,8 @@ internal static class Program
         ApplicationConfiguration.Initialize();
 
         using IHost host = Host.CreateDefaultBuilder()
-
             .ConfigureServices((context, services) =>
             {
-
                 services.AddSingleton<ClientSettingsService>();
 
                 services.AddHttpClient();
@@ -26,8 +22,6 @@ internal static class Program
                 services.AddSingleton<ApiService>();
 
                 services.AddSingleton<StatusService>();
-
-                //services.AddSingleton<PlayerWatchService>();
 
                 services.AddSingleton<AuctionWatchService>();
 
@@ -40,10 +34,6 @@ internal static class Program
                 services.AddTransient<AddAuctionForm>();
 
                 services.AddTransient<AuctionDetailsForm>();
-
-                services.AddSingleton<ApiErrorService>();
-
-                //services.AddTransient<AddPlayerForm>();
 
                 services.AddSingleton<ClientSettingsApiService>();
 
@@ -71,8 +61,7 @@ internal static class Program
                     return;
             }
 
-            Application.Run(
-                host.Services.GetRequiredService<MainForm>());
+            Application.Run(host.Services.GetRequiredService<MainForm>());
         }
         catch (Exception ex)
         {

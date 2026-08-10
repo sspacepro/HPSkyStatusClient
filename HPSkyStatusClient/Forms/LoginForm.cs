@@ -12,7 +12,7 @@ public partial class LoginForm : Form
         _auth = auth;
     }
 
-    private async void btnRegister_Click_1(object sender, EventArgs e)
+    private async void btnRegister_Click(object sender, EventArgs e)
     {
         string username = txtUsername.Text.Trim();
 
@@ -37,8 +37,4 @@ public partial class LoginForm : Form
             btnRegister.Enabled = true;
         }
     }
-
-
-
-
 }

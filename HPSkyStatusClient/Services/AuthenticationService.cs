@@ -19,8 +19,7 @@ public class AuthenticationService
 
     public bool IsRegistered()
     {
-        return !string.IsNullOrWhiteSpace(
-            _settings.Settings.ClientId);
+        return !string.IsNullOrWhiteSpace(_settings.Settings.ClientId);
     }
 
     public async Task<bool> Register(string username)
@@ -35,24 +34,20 @@ public class AuthenticationService
             Encoding.UTF8,
             "application/json");
 
-        var response = await _api.PostAsync(
-            "/api/v1/register",
-            content);
+        var response = await _api.PostAsync("/api/v1/register", content);
 
-        if (!response.IsSuccessStatusCode)
+        if (response == null || !response.IsSuccessStatusCode)
             return false;
 
         var responseText = await response.Content.ReadAsStringAsync();
 
-
         var result = JsonSerializer.Deserialize<RegisterResponse>(
-    responseText,
-    new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true
-    });
+            responseText,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
 
-       
         if (result == null)
             return false;
 

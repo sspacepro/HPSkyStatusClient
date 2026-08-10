@@ -5,6 +5,7 @@ namespace HPSkyStatusClient.Services;
 public static class CustomFontService
 {
     private static readonly PrivateFontCollection Fonts = new();
+    private static readonly Dictionary<string, FontFamily> LoadedFonts = new(StringComparer.OrdinalIgnoreCase);
 
     public static Font LoadFont(
         string fileName,
@@ -16,11 +17,16 @@ public static class CustomFontService
             "Fonts",
             fileName);
 
-        Fonts.AddFontFile(path);
+        if (!File.Exists(path))
+            throw new FileNotFoundException($"Font file not found: {path}");
 
-        return new Font(
-            Fonts.Families[^1],
-            size,
-            style);
+        if (!LoadedFonts.TryGetValue(path, out var family))
+        {
+            Fonts.AddFontFile(path);
+            family = Fonts.Families[^1];
+            LoadedFonts[path] = family;
+        }
+
+        return new Font(family, size, style);
     }
 }

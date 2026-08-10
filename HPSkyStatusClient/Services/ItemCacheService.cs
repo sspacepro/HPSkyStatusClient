@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using HPSkyStatusClient.Models;
 
 namespace HPSkyStatusClient.Services;
@@ -14,15 +15,12 @@ public class ItemCacheService
         _api = api;
     }
 
-
     public async Task Load()
     {
-        var response =
-            await _api.GetAsync("/api/v1/items");
+        var response = await _api.GetAsync("/api/v1/items");
 
-        if (response == null)
+        if (response == null || !response.IsSuccessStatusCode)
             return;
-
 
         Items =
             JsonSerializer.Deserialize<List<HypixelItem>>(
@@ -34,53 +32,53 @@ public class ItemCacheService
             ?? new();
     }
 
-
     public List<HypixelItem> Search(string text)
     {
         if (string.IsNullOrWhiteSpace(text))
             return new();
 
-
         return Items
             .Where(x =>
                 StripColors(x.Name)
-                .Contains(
-                    text,
-                    StringComparison.OrdinalIgnoreCase))
+                .Contains(text, StringComparison.OrdinalIgnoreCase))
             .Take(10)
             .ToList();
     }
-
 
     public static string StripColors(string text)
     {
         if (string.IsNullOrEmpty(text))
             return text;
 
-        for (int i = 0; i < text.Length - 1; i++)
-        {
-            if (text[i] == '§')
-            {
-                text =
-                    text.Remove(i, 2);
+        var sb = new StringBuilder(text.Length);
 
-                i--;
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '§' && i + 1 < text.Length)
+            {
+                i++; // Skip the color code character
+                continue;
             }
+
+            sb.Append(text[i]);
         }
 
-        return text;
+        return sb.ToString();
     }
+
     public HypixelItem? GetById(string id)
     {
         return Items.FirstOrDefault(x =>
             string.Equals(x.Id, id, StringComparison.OrdinalIgnoreCase));
     }
+
     public string GetDisplayName(string id)
     {
         var item = GetById(id);
 
         return item?.DisplayName ?? id;
     }
+
     public string? GetTier(string itemId)
     {
         return GetById(itemId)?.Tier;

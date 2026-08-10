@@ -1,16 +1,11 @@
-using HPSkyStatusClient.Configuration;
-using HPSkyStatusClient.Forms;
-using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-namespace HPSkyStatusClient;
 
-using System.Drawing.Text;
+namespace HPSkyStatusClient;
 
 public partial class MainForm : Form
 {
     private NotifyIcon _trayIcon;
+    private readonly System.Windows.Forms.Timer _timer;
 
     private readonly Icon _greenIcon;
     private readonly Icon _yellowIcon;
@@ -21,12 +16,10 @@ public partial class MainForm : Form
 
     private bool _auctionAlertActive;
     private readonly StatusService _statusService;
-    //private readonly PlayerWatchService _playerWatchService;
     private readonly AuctionWatchService _auctionWatchService;
     private readonly IServiceProvider _serviceProvider;
-    private readonly ApiErrorService _errorService;
     private readonly ClientSettingsApiService _clientSettings;
-    private NotificationService _notifications;
+    private readonly NotificationService _notifications;
     private readonly NotificationApiService _notificationApiService;
     private readonly NotificationTimeService _notificationTime;
     private readonly ClientSettingsService _localSettings;
@@ -38,85 +31,70 @@ public partial class MainForm : Form
     private ToolStripMenuItem _trayUpdatedItem = null!;
     private ToolStripMenuItem _trayRefreshItem = null!;
     private readonly AdminApiService _adminApi;
-    private readonly ItemCacheService _items;
     private readonly ItemCacheService _itemCache;
     private readonly ApiService _apiService;
+    private readonly CancellationTokenSource _shutdownCts = new();
+
     public MainForm(
         StatusService statusService,
-        //PlayerWatchService playerWatchService,
         AuctionWatchService auctionWatchService,
         IServiceProvider serviceProvider,
-        ApiErrorService errorService,
         ClientSettingsApiService clientSettings,
         NotificationApiService notificationApiService,
         NotificationTimeService notificationTime,
         ClientSettingsService localSettings,
         ClientPreferencesService preferences,
         AdminApiService adminApi,
-        ItemCacheService items,
         ItemCacheService itemCache,
         ApiService apiService)
     {
         _statusService = statusService;
-        //_playerWatchService = playerWatchService;
         _auctionWatchService = auctionWatchService;
         _serviceProvider = serviceProvider;
-        _errorService = errorService;
         _clientSettings = clientSettings;
         _notificationApiService = notificationApiService;
         _notificationTime = notificationTime;
         _localSettings = localSettings;
         _preferences = preferences;
         _adminApi = adminApi;
-        _items = items;
         _itemCache = itemCache;
         _apiService = apiService;
 
-
-
         _preferences.Load();
-        _greenIcon = new Icon("skyblock-green.ico");
-        _yellowIcon = new Icon("skyblock-yellow.ico");
-        _redIcon = new Icon("skyblock-red.ico");
-        _greenNotifyIcon = new Icon("skyblock-green-notify.ico");
-        _yellowNotifyIcon = new Icon("skyblock-yellow-notify.ico");
-        _redNotifyIcon = new Icon("skyblock-red-notify.ico");
+
+        string baseDir = AppContext.BaseDirectory;
+        _greenIcon = new Icon(Path.Combine(baseDir, "skyblock-green.ico"));
+        _yellowIcon = new Icon(Path.Combine(baseDir, "skyblock-yellow.ico"));
+        _redIcon = new Icon(Path.Combine(baseDir, "skyblock-red.ico"));
+        _greenNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-green-notify.ico"));
+        _yellowNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-yellow-notify.ico"));
+        _redNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-red-notify.ico"));
 
         InitializeComponent();
-        var font = CustomFontService.LoadFont(
-    "minecraft_font.ttf",
-    7.5f);
 
+        var font = CustomFontService.LoadFont("minecraft_font.ttf", 7.5f);
         ApplyFont(this, font);
 
         _trayIcon = new NotifyIcon
         {
-            Icon = new Icon("skyblock.ico"),
+            Icon = new Icon(Path.Combine(baseDir, "skyblock.ico")),
             Text = "HPSkyStatus",
             Visible = true
         };
         _notifications = new NotificationService(_trayIcon);
 
-
         var menu = new ContextMenuStrip();
         menu.Renderer = new SkyBlockMenuRenderer();
 
         _trayServerItem = new ToolStripMenuItem("SkyBlock: Unknown");
-
-        _trayServerItem.Click += (_, _) => { };
-
         _trayPlayersItem = new ToolStripMenuItem("Players: ?");
-        _trayPlayersItem.Click += (_, _) => { };
-
         _trayUpdatedItem = new ToolStripMenuItem("Updated: Never");
-        _trayUpdatedItem.Click += (_, _) => { };
 
         menu.Items.Add(_trayServerItem);
         menu.Items.Add(_trayPlayersItem);
         menu.Items.Add(_trayUpdatedItem);
 
         _trayAuctionSeparator = new ToolStripSeparator();
-
         menu.Items.Add(_trayAuctionSeparator);
 
         menu.Items.Add("Open", null, (_, _) =>
@@ -126,29 +104,20 @@ public partial class MainForm : Form
         });
 
         _trayRefreshItem = new ToolStripMenuItem("Refresh Now");
-
         _trayRefreshItem.Click += async (_, _) =>
         {
             _trayRefreshItem.Text = "Refreshing...";
-            var position = Cursor.Position;
             try
             {
                 await UpdateStatus();
-                //await UpdatePlayers();
                 await CheckNotifications(false);
-
-                UpdateTrayUpdatedTime();
                 await UpdateAuctions();
+                UpdateTrayUpdatedTime();
             }
             finally
             {
                 _trayRefreshItem.Text = "Refresh Now";
             }
-            //hu
-            BeginInvoke(() =>
-            {
-                _trayIcon.ContextMenuStrip?.Show(position);
-            });
         };
 
         menu.Items.Add(_trayRefreshItem);
@@ -170,51 +139,59 @@ public partial class MainForm : Form
 
         _trayIcon.ContextMenuStrip = menu;
 
-
-
-
-        _trayIcon.ContextMenuStrip = menu;
-
         _trayIcon.DoubleClick += (_, _) =>
         {
             Show();
             WindowState = FormWindowState.Normal;
         };
 
-        var timer = new System.Windows.Forms.Timer();
-
-        timer.Interval = 60000;
-
-        timer.Tick += async (_, _) =>
+        _timer = new System.Windows.Forms.Timer();
+        _timer.Interval = 60000;
+        _timer.Tick += async (_, _) =>
         {
             await UpdateStatus();
-            //await UpdatePlayers();
             await UpdateAuctions();
             await CheckNotifications(false);
             UpdateTrayUpdatedTime();
         };
+        _timer.Start();
 
-        timer.Start();
-
+        // Initial load on a background thread, then marshal UI updates to the UI thread
         _ = Task.Run(async () =>
         {
-            await _clientSettings.Refresh();
-            Invoke(() =>
+            try
             {
-                LoadClientSettings();
-                LoadServerSettings();
-            });
+                await _clientSettings.Refresh();
+                await _itemCache.Load();
 
-            await UpdateStatus();
-            //await UpdatePlayers();
-            await CheckNotifications(true);
-            await _items.Load();
-            UpdateTrayUpdatedTime();
-            await UpdateAuctions();
+                await InvokeAsync(
+                    async (cancellationToken) =>
+                    {
+                        await UpdateStatus();
+                        await CheckNotifications(true);
+                        UpdateTrayUpdatedTime();
+                        await UpdateAuctions();
+                    },
+                    _shutdownCts.Token);
+            }
+            catch (Exception ex)
+            {
+                if (IsHandleCreated)
+                {
+                    await InvokeAsync(
+                        () =>
+                        {
+                            MessageBox.Show(
+                                $"Failed to initialize: {ex.Message}",
+                                "HPSkyStatus",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                        },
+                        _shutdownCts.Token);
+                }
+            }
         });
-        _itemCache = itemCache;
     }
-
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
@@ -225,77 +202,57 @@ public partial class MainForm : Form
             Hide();
             return;
         }
+        _shutdownCts.Cancel();
+        _shutdownCts.Dispose();
+
+        _timer?.Stop();
+        _timer?.Dispose();
+        _trayIcon?.Dispose();
 
         base.OnFormClosing(e);
     }
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        //Place to test thins on startup.
-        this.pgAdmin.Hide();
         tabMain.TabPages.Remove(pgAdmin);
-
     }
 
     private void txtServerUrl_TextChanged(object sender, EventArgs e)
     {
-
+        // Server URL changes are saved via the Save button
     }
 
-    private static void ApplyFont(
-    Control control,
-    Font font)
+    private static void ApplyFont(Control control, Font font)
     {
         control.Font = font;
 
         foreach (Control child in control.Controls)
             ApplyFont(child, font);
     }
-    private void UpdateTrayIcon(
-    bool online,
-    bool maintenance,
-    int playerCount)
+
+    private void UpdateTrayIcon(bool online, bool maintenance, int playerCount)
     {
         if (!online)
         {
-            _trayIcon.Icon =
-                _auctionAlertActive
-                    ? _redNotifyIcon
-                    : _redIcon;
-
-            _trayIcon.Text =
-                _auctionAlertActive
-                    ? "Hypixel Offline - Auction Alert"
-                    : "Unable to connect to Hypixel";
-
+            _trayIcon.Icon = _auctionAlertActive ? _redNotifyIcon : _redIcon;
+            _trayIcon.Text = _auctionAlertActive
+                ? "Hypixel Offline - Auction Alert"
+                : "Unable to connect to Hypixel";
             return;
         }
 
         if (maintenance)
         {
-            _trayIcon.Icon =
-                _auctionAlertActive
-                    ? _yellowNotifyIcon
-                    : _yellowIcon;
-
-            _trayIcon.Text =
-                _auctionAlertActive
-                    ? $"SkyBlock Maintenance - Auction Alert"
-                    : $"SkyBlock Maintenance - {playerCount} players";
-
+            _trayIcon.Icon = _auctionAlertActive ? _yellowNotifyIcon : _yellowIcon;
+            _trayIcon.Text = _auctionAlertActive
+                ? "SkyBlock Maintenance - Auction Alert"
+                : $"SkyBlock Maintenance - {playerCount} players";
             return;
         }
 
-        _trayIcon.Icon =
-            _auctionAlertActive
-                ? _greenNotifyIcon
-                : _greenIcon;
-
-        _trayIcon.Text =
-            _auctionAlertActive
-                ? $"SkyBlock Online - Auction Alert"
-                : $"SkyBlock Online - {playerCount} players";
+        _trayIcon.Icon = _auctionAlertActive ? _greenNotifyIcon : _greenIcon;
+        _trayIcon.Text = _auctionAlertActive
+            ? "SkyBlock Online - Auction Alert"
+            : $"SkyBlock Online - {playerCount} players";
     }
-
-
 }

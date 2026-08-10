@@ -61,7 +61,7 @@
             txtItem.Name = "txtItem";
             txtItem.Size = new Size(194, 23);
             txtItem.TabIndex = 1;
-            txtItem.TextChanged += txtItem_TextChanged_1;
+            txtItem.TextChanged += txtItem_TextChanged;
             // 
             // lblTier
             // 
@@ -152,7 +152,7 @@
             btnAdd.TabIndex = 11;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click_1;
+            btnAdd.Click += btnAdd_Click;
             // 
             // lstItems
             // 
@@ -163,7 +163,7 @@
             lstItems.Name = "lstItems";
             lstItems.Size = new Size(194, 124);
             lstItems.TabIndex = 13;
-            lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged_1;
+            lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged;
             // 
             // AddAuctionForm
             // 

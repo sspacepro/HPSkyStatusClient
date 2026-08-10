@@ -1,9 +1,7 @@
-﻿
-using HPSkyStatusClient.Forms;
+﻿using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text.RegularExpressions;
 
 namespace HPSkyStatusClient;
 
@@ -18,50 +16,35 @@ public partial class MainForm
         foreach (var auction in auctions)
         {
             var item = new ListViewItem(
-                _itemCache.GetDisplayName(
-                    auction.ItemTag));
-            var tier =
-    auction.Tier ??
-    _itemCache.GetTier(auction.ItemTag);
+                _itemCache.GetDisplayName(auction.ItemTag));
 
-            item.ForeColor =
-                RarityColorService.GetColor(
-                    tier,
-                    auction.Recombobulated == true);
+            var tier = auction.Tier ?? _itemCache.GetTier(auction.ItemTag);
 
-            item.SubItems.Add(
-                auction.Tier);
+            item.ForeColor = RarityColorService.GetColor(
+                tier,
+                auction.Recombobulated == true);
+
+            item.SubItems.Add(auction.Tier ?? "-");
 
             item.SubItems.Add(
-                auction.PetXp.HasValue
-                    ? PetLevelCalculator
-                        .XpToLevel(
-                            auction.Tier!,
-                            auction.PetXp.Value)
-                        .ToString()
+                auction.PetXp.HasValue && !string.IsNullOrEmpty(auction.Tier)
+                    ? PetLevelCalculator.XpToLevel(auction.Tier!, auction.PetXp.Value).ToString()
                     : "-");
 
-            item.SubItems.Add(
-                auction.Stars?.ToString() ?? "-");
+            item.SubItems.Add(auction.Stars?.ToString() ?? "-");
 
-            item.SubItems.Add(
-                auction.Recombobulated == true
-                    ? "Yes"
-                    : "-");
+            item.SubItems.Add(auction.Recombobulated == true ? "Yes" : "-");
 
-            item.SubItems.Add(
-                auction.LastLowestBin.ToString("N0"));
-            item.SubItems.Add(
-                auction.DisplayItemName ?? "-");
+            item.SubItems.Add(auction.LastLowestBin.ToString("N0"));
+            item.SubItems.Add(auction.DisplayItemName ?? "-");
 
-            item.SubItems.Add(
-                auction.NotifyBelow.ToString("N0"));
-
+            item.SubItems.Add(auction.NotifyBelow.ToString("N0"));
 
             item.Tag = auction;
 
             lvAuctions.Items.Add(item);
         }
+
         UpdateTrayAuctions(auctions);
         UpdateAuctionAlert(auctions);
     }
@@ -69,26 +52,22 @@ public partial class MainForm
     private async void btnAddAuction_Click(object sender, EventArgs e)
     {
         if (_clientSettings.Settings != null &&
-    lvAuctions.Items.Count >= _clientSettings.Settings.MaxAuctionWatchesPerClient)
+            lvAuctions.Items.Count >= _clientSettings.Settings.MaxAuctionWatchesPerClient)
         {
             MessageBox.Show(
                 $"You may only watch {_clientSettings.Settings.MaxAuctionWatchesPerClient} auctions.",
                 "HPSkyStatus",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-
             return;
         }
 
-
-        using var dialog =
-            _serviceProvider.GetRequiredService<AddAuctionForm>();
+        using var dialog = _serviceProvider.GetRequiredService<AddAuctionForm>();
 
         if (dialog.ShowDialog() != DialogResult.OK)
             return;
 
-        var result =
-            await _auctionWatchService.AddWatch(dialog.Watch);
+        var result = await _auctionWatchService.AddWatch(dialog.Watch);
 
         if (!result.Success)
         {
@@ -97,7 +76,6 @@ public partial class MainForm
                 "HPSkyStatus",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-
             return;
         }
 
@@ -113,7 +91,6 @@ public partial class MainForm
                 "HPSkyStatus",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-
             return;
         }
 
@@ -122,9 +99,7 @@ public partial class MainForm
         if (auction == null)
             return;
 
-        var result =
-            await _auctionWatchService.RemoveWatch(
-                auction.WatchId);
+        var result = await _auctionWatchService.RemoveWatch(auction.WatchId);
 
         if (!result.Success)
         {
@@ -133,7 +108,6 @@ public partial class MainForm
                 "HPSkyStatus",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-
             return;
         }
 
@@ -150,18 +124,16 @@ public partial class MainForm
         if (auction == null)
             return;
 
-        var form =
-            new AuctionDetailsForm(auction);
-
+        using var form = new AuctionDetailsForm(auction);
         form.ShowDialog();
     }
-    private void UpdateAuctionAlert(
-    List<AuctionWatch> auctions)
+
+    private void UpdateAuctionAlert(List<AuctionWatch> auctions)
     {
         _auctionAlertActive = auctions.Any(
-    auction =>
-        auction.LastLowestBin > 0 &&
-        auction.LastLowestBin <= auction.NotifyBelow);
+            auction =>
+                auction.LastLowestBin > 0 &&
+                auction.LastLowestBin <= auction.NotifyBelow);
 
         UpdateTrayIconFromCurrentStatus();
     }

@@ -5,36 +5,57 @@ namespace HPSkyStatusClient.Forms;
 
 public partial class AddAuctionForm : Form
 {
-    public AuctionWatch Watch { get; private set; } = new();
+    private readonly ItemCacheService _items;
+    private HypixelItem? _selectedItem;
     private bool _updatingSelection;
-    private void btnAdd_Click_1(object sender, EventArgs e)
+
+    public AuctionWatch Watch { get; private set; } = new();
+
+    public AddAuctionForm(ItemCacheService items)
+    {
+        InitializeComponent();
+
+        _items = items;
+
+        cmbTier.Items.AddRange(new[]
+        {
+            "COMMON",
+            "UNCOMMON",
+            "RARE",
+            "EPIC",
+            "LEGENDARY",
+            "MYTHIC"
+        });
+
+        cmbTier.SelectedIndex = -1;
+        cmbTier.Text = "";
+
+        lstItems.DisplayMember = nameof(HypixelItem.DisplayName);
+    }
+
+    private void btnAdd_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(txtItem.Text))
         {
-            MessageBox.Show(
-                "Enter an item name.");
-
+            MessageBox.Show("Enter an item name.");
             return;
         }
-        if (numPetLevel.Value > 0 &&
-    string.IsNullOrWhiteSpace(cmbTier.Text))
+
+        if (numPetLevel.Value > 0 && string.IsNullOrWhiteSpace(cmbTier.Text))
         {
             MessageBox.Show(
                 "Please select a pet rarity when entering a pet level.",
                 "HPSkyStatus",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-
             return;
         }
+
         Watch = new AuctionWatch
         {
-            ItemTag = SelectedItem != null
-                ? SelectedItem.Id
-                : txtItem.Text
-                    .Trim()
-                    .Replace(" ", "_")
-                    .ToUpper(),
+            ItemTag = _selectedItem != null
+                ? _selectedItem.Id
+                : txtItem.Text.Trim().Replace(" ", "_").ToUpper(),
 
             Tier = string.IsNullOrWhiteSpace(cmbTier.Text)
                 ? null
@@ -49,9 +70,7 @@ public partial class AddAuctionForm : Form
                 : null,
 
             PetXp = numPetLevel.Value > 0
-                ? (int)PetLevelCalculator.LevelToXp(
-                    cmbTier.Text,
-                    (int)numPetLevel.Value)
+                ? (int)PetLevelCalculator.LevelToXp(cmbTier.Text, (int)numPetLevel.Value)
                 : null,
 
             NotifyBelow = (long)numNotify.Value
@@ -59,82 +78,44 @@ public partial class AddAuctionForm : Form
 
         DialogResult = DialogResult.OK;
         Close();
-
-
-    }
-    private readonly ItemCacheService _items;
-
-    public AddAuctionForm(
-        ItemCacheService items)
-    {
-        InitializeComponent();
-
-        _items = items;
-
-        cmbTier.Items.AddRange(new[]
-        {
-        "COMMON",
-        "UNCOMMON",
-        "RARE",
-        "EPIC",
-        "LEGENDARY",
-        "MYTHIC"
-    });
-
-        cmbTier.SelectedIndex = -1;
-        cmbTier.Text = "";
-
-        lstItems.DisplayMember = nameof(HypixelItem.DisplayName);
     }
 
-    private void txtItem_TextChanged_1(
-    object sender,
-    EventArgs e)
+    private void txtItem_TextChanged(object sender, EventArgs e)
     {
         if (_updatingSelection)
             return;
-        SelectedItem = null;
+
+        _selectedItem = null;
 
         lstItems.Items.Clear();
-
 
         foreach (var item in _items.Search(txtItem.Text))
         {
             lstItems.Items.Add(item);
         }
-
     }
-    private HypixelItem? SelectedItem;
-    private void lstItems_SelectedIndexChanged_1(
-    object sender,
-    EventArgs e)
+
+    private void lstItems_SelectedIndexChanged(object sender, EventArgs e)
     {
-        SelectedItem =
-            lstItems.SelectedItem as HypixelItem;
+        _selectedItem = lstItems.SelectedItem as HypixelItem;
 
-
-        if (SelectedItem == null)
+        if (_selectedItem == null)
             return;
 
         _updatingSelection = true;
-        txtItem.Text = SelectedItem.DisplayName;
-
+        txtItem.Text = _selectedItem.DisplayName;
         _updatingSelection = false;
+
         UpdateItemOptions();
     }
+
     private void UpdateItemOptions()
     {
-        if (SelectedItem == null)
+        if (_selectedItem == null)
             return;
 
+        bool isPet = _selectedItem.Id.EndsWith("_PET", StringComparison.OrdinalIgnoreCase);
 
-        bool isPet =
-            SelectedItem.Id.EndsWith(
-                "_PET",
-                StringComparison.OrdinalIgnoreCase);
-
-
-        // PET
         if (isPet)
         {
             numStars.Visible = false;
@@ -158,14 +139,6 @@ public partial class AddAuctionForm : Form
             lblStars.Visible = true;
         }
 
-
-        chkRecomb.Visible =
-            SelectedItem.CanRecombobulate != false;
-
-
+        chkRecomb.Visible = _selectedItem.CanRecombobulate != false;
     }
-
-
-
-
 }

@@ -1,6 +1,4 @@
 using System.Net.Http.Headers;
-using HPSkyStatusClient.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace HPSkyStatusClient.Services;
 
@@ -8,7 +6,6 @@ public class ApiService
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ClientSettingsService _clientSettings;
-
 
     public ApiService(
         IHttpClientFactory httpClientFactory,
@@ -22,14 +19,11 @@ public class ApiService
     {
         var client = _httpClientFactory.CreateClient();
 
-        client.BaseAddress = new Uri(
-            _clientSettings.Settings.ServerUrl);
+        client.BaseAddress = new Uri(_clientSettings.Settings.ServerUrl);
 
         if (!string.IsNullOrWhiteSpace(_clientSettings.Settings.ClientId))
         {
-            client.DefaultRequestHeaders.Add(
-                "Client-ID",
-                _clientSettings.Settings.ClientId);
+            client.DefaultRequestHeaders.Add("Client-ID", _clientSettings.Settings.ClientId);
         }
 
         client.DefaultRequestHeaders.Accept.Add(
@@ -51,20 +45,33 @@ public class ApiService
         }
     }
 
-
-    public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content)
+    public async Task<HttpResponseMessage?> PostAsync(string url, HttpContent content)
     {
-        using var client = CreateClient();
-        return await client.PostAsync(url, content);
+        try
+        {
+            using var client = CreateClient();
+            return await client.PostAsync(url, content);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
-    public async Task<HttpResponseMessage> DeleteAsync(string url)
+    public async Task<HttpResponseMessage?> DeleteAsync(string url)
     {
-        using var client = CreateClient();
-        return await client.DeleteAsync(url);
+        try
+        {
+            using var client = CreateClient();
+            return await client.DeleteAsync(url);
+        }
+        catch
+        {
+            return null;
+        }
     }
-    public async Task<HttpResponseMessage?> SendAsync(
-    HttpRequestMessage request)
+
+    public async Task<HttpResponseMessage?> SendAsync(HttpRequestMessage request)
     {
         try
         {
@@ -73,9 +80,7 @@ public class ApiService
             if (request.RequestUri is not null &&
                 !request.RequestUri.IsAbsoluteUri)
             {
-                request.RequestUri = new Uri(
-                    client.BaseAddress!,
-                    request.RequestUri);
+                request.RequestUri = new Uri(client.BaseAddress!, request.RequestUri);
             }
 
             return await client.SendAsync(request);

@@ -64,13 +64,13 @@ partial class MainForm
         numMaxAuctionWatches = new NumericUpDown();
         lblMaxAuctionWatches = new Label();
         grpServerSettings = new GroupBox();
-        numItemCacheUpdatteMinutes = new NumericUpDown();
+        numItemCacheUpdateMinutes = new NumericUpDown();
         lblItemCacheUpdateMinutes = new Label();
         numAuctionCheckInterval = new NumericUpDown();
         lblAuctionCheckInterval = new Label();
         numAuctionCacheRefresh = new NumericUpDown();
         lblAuctionCacheRefrsh = new Label();
-        munHypixelUpdateInterval = new NumericUpDown();
+        numHypixelUpdateInterval = new NumericUpDown();
         lblHypixelUpdateInterval = new Label();
         pgSettings = new TabPage();
         btnHealth = new Button();
@@ -117,10 +117,10 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).BeginInit();
         grpServerSettings.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdateMinutes).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numHypixelUpdateInterval).BeginInit();
         pgSettings.SuspendLayout();
         grpClientSettings.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
@@ -478,13 +478,13 @@ partial class MainForm
         // 
         // grpServerSettings
         // 
-        grpServerSettings.Controls.Add(numItemCacheUpdatteMinutes);
+        grpServerSettings.Controls.Add(numItemCacheUpdateMinutes);
         grpServerSettings.Controls.Add(lblItemCacheUpdateMinutes);
         grpServerSettings.Controls.Add(numAuctionCheckInterval);
         grpServerSettings.Controls.Add(lblAuctionCheckInterval);
         grpServerSettings.Controls.Add(numAuctionCacheRefresh);
         grpServerSettings.Controls.Add(lblAuctionCacheRefrsh);
-        grpServerSettings.Controls.Add(munHypixelUpdateInterval);
+        grpServerSettings.Controls.Add(numHypixelUpdateInterval);
         grpServerSettings.Controls.Add(lblHypixelUpdateInterval);
         grpServerSettings.Location = new Point(6, 6);
         grpServerSettings.Name = "grpServerSettings";
@@ -493,16 +493,16 @@ partial class MainForm
         grpServerSettings.TabStop = false;
         grpServerSettings.Text = "Server Settings";
         // 
-        // numItemCacheUpdatteMinutes
+        // numItemCacheUpdateMinutes
         // 
-        numItemCacheUpdatteMinutes.Location = new Point(6, 169);
-        numItemCacheUpdatteMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Name = "numItemCacheUpdatteMinutes";
-        numItemCacheUpdatteMinutes.Size = new Size(120, 23);
-        numItemCacheUpdatteMinutes.TabIndex = 7;
-        numItemCacheUpdatteMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.KeyDown += numItemCacheUpdatteMinutes_KeyDown;
+        numItemCacheUpdateMinutes.Location = new Point(6, 169);
+        numItemCacheUpdateMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numItemCacheUpdateMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdateMinutes.Name = "numItemCacheUpdateMinutes";
+        numItemCacheUpdateMinutes.Size = new Size(120, 23);
+        numItemCacheUpdateMinutes.TabIndex = 7;
+        numItemCacheUpdateMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdateMinutes.KeyDown += numItemCacheUpdateMinutes_KeyDown;
         // 
         // lblItemCacheUpdateMinutes
         // 
@@ -553,16 +553,16 @@ partial class MainForm
         lblAuctionCacheRefrsh.TabIndex = 2;
         lblAuctionCacheRefrsh.Text = "Refresh Hypixel Auctions Seconds:";
         // 
-        // munHypixelUpdateInterval
+        // numHypixelUpdateInterval
         // 
-        munHypixelUpdateInterval.Location = new Point(6, 37);
-        munHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-        munHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.Name = "munHypixelUpdateInterval";
-        munHypixelUpdateInterval.Size = new Size(120, 23);
-        munHypixelUpdateInterval.TabIndex = 1;
-        munHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.KeyDown += munHypixelUpdateInterval_KeyDown;
+        numHypixelUpdateInterval.Location = new Point(6, 37);
+        numHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numHypixelUpdateInterval.Name = "numHypixelUpdateInterval";
+        numHypixelUpdateInterval.Size = new Size(120, 23);
+        numHypixelUpdateInterval.TabIndex = 1;
+        numHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numHypixelUpdateInterval.KeyDown += numHypixelUpdateInterval_KeyDown;
         // 
         // lblHypixelUpdateInterval
         // 
@@ -652,7 +652,7 @@ partial class MainForm
         lblServerUrl.Name = "lblServerUrl";
         lblServerUrl.Size = new Size(92, 15);
         lblServerUrl.TabIndex = 7;
-        lblServerUrl.Text = "Server adress url";
+        lblServerUrl.Text = "Server address URL";
         // 
         // chkMinimizeToTray
         // 
@@ -708,10 +708,9 @@ partial class MainForm
         // 
         txtServerUrl.Location = new Point(5, 37);
         txtServerUrl.Name = "txtServerUrl";
-        txtServerUrl.PlaceholderText = "test";
+        txtServerUrl.PlaceholderText = "http://localhost:5122";
         txtServerUrl.Size = new Size(261, 23);
         txtServerUrl.TabIndex = 0;
-        txtServerUrl.Text = "test";
         txtServerUrl.TextChanged += txtServerUrl_TextChanged;
         // 
         // grpServer
@@ -1047,10 +1046,10 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).EndInit();
         grpServerSettings.ResumeLayout(false);
         grpServerSettings.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdateMinutes).EndInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).EndInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).EndInit();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numHypixelUpdateInterval).EndInit();
         pgSettings.ResumeLayout(false);
         pgSettings.PerformLayout();
         grpClientSettings.ResumeLayout(false);
@@ -1094,13 +1093,13 @@ partial class MainForm
     private NumericUpDown numMaxAuctionWatches;
     private Label lblMaxAuctionWatches;
     private GroupBox grpServerSettings;
-    private NumericUpDown numItemCacheUpdatteMinutes;
+    private NumericUpDown numItemCacheUpdateMinutes;
     private Label lblItemCacheUpdateMinutes;
     private NumericUpDown numAuctionCheckInterval;
     private Label lblAuctionCheckInterval;
     private NumericUpDown numAuctionCacheRefresh;
     private Label lblAuctionCacheRefrsh;
-    private NumericUpDown munHypixelUpdateInterval;
+    private NumericUpDown numHypixelUpdateInterval;
     private Label lblHypixelUpdateInterval;
     private TabPage pgSettings;
     private Button btnHealth;

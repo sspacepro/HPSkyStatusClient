@@ -1,96 +1,90 @@
 ﻿using HPSkyStatusClient.Models;
-using HPSkyStatusClient.Services;
-using System.Net.Http.Json;
 
 namespace HPSkyStatusClient;
 
 public partial class MainForm
 {
-
-
     private async void txtAdminKey_KeyDown(object sender, KeyEventArgs e)
     {
-
-
         if (e.KeyCode != Keys.Enter)
             return;
 
-        _adminApi.SetKey(txtAdminKey.Text);
-
-        var response =
-            await _adminApi.Get("/api/admin/validate");
-
-        if (response == null || !response.IsSuccessStatusCode)
+        try
         {
-            MessageBox.Show("Invalid admin key.");
-            return;
-        }
+            _adminApi.SetKey(txtAdminKey.Text);
 
-        if (!tabMain.TabPages.Contains(pgAdmin))
+            var response = await _adminApi.Get("/api/admin/validate");
+
+            if (response == null || !response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Invalid admin key.");
+                return;
+            }
+
+            if (!tabMain.TabPages.Contains(pgAdmin))
+            {
+                tabMain.TabPages.Insert(2, pgAdmin);
+            }
+
+            await LoadAdminSettings();
+            await RefreshUsers();
+        }
+        catch (Exception ex)
         {
-            tabMain.TabPages.Insert(2, pgAdmin);
+            MessageBox.Show(
+                $"Failed to validate admin key: {ex.Message}",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
-
-        await LoadAdminSettings();
-        await RefreshUsers();
     }
 
     private async Task LoadAdminSettings()
     {
-        munHypixelUpdateInterval.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/hypixel-update-interval-seconds")) ?? "";
+        numHypixelUpdateInterval.Text =
+            (await _adminApi.GetString("/api/admin/settings/hypixel-update-interval-seconds")) ?? "";
 
         numAuctionCacheRefresh.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/auction-cache-refresh")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/auction-cache-refresh")) ?? "";
 
         numAuctionCheckInterval.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/auction-check-interval")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/auction-check-interval")) ?? "";
 
         numMaxAuctionWatches.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/max-auction-watches")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/max-auction-watches")) ?? "";
 
         numMaxPlayerRequestsPerMinute.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/max-requests-per-minute")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/max-requests-per-minute")) ?? "";
 
         numWatchCleanupInterval.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/watch-cleanup-interval-minutes")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/watch-cleanup-interval-minutes")) ?? "";
 
         numWatchExpiration.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/watch-expiration-days")) ?? "";
-        numItemCacheUpdatteMinutes.Text =
-            (await _adminApi.GetString(
-                "/api/admin/settings/item-cache-update-minutes")) ?? "";
+            (await _adminApi.GetString("/api/admin/settings/watch-expiration-days")) ?? "";
+
+        numItemCacheUpdateMinutes.Text =
+            (await _adminApi.GetString("/api/admin/settings/item-cache-update-minutes")) ?? "";
     }
 
-    private async Task SaveAdminSetting(
-    string endpoint)
+    private async Task SaveAdminSetting(string endpoint)
     {
         var response = await _adminApi.Post(endpoint);
 
         if (response == null || !response.IsSuccessStatusCode)
         {
-            MessageBox.Show(
-                "Failed to save setting.");
-
+            MessageBox.Show("Failed to save setting.");
             return;
         }
+
         await LoadAdminSettings();
     }
 
-    private async void munHypixelUpdateInterval_KeyDown(object sender, KeyEventArgs e)
+    private async void numHypixelUpdateInterval_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/hypixel-update-interval-seconds/{munHypixelUpdateInterval.Text}");
+        await SaveAdminSetting($"/api/admin/settings/hypixel-update-interval-seconds/{numHypixelUpdateInterval.Text}");
     }
 
     private async void numAuctionCacheRefresh_KeyDown(object sender, KeyEventArgs e)
@@ -98,8 +92,7 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/auction-cache-refresh/{numAuctionCacheRefresh.Text}");
+        await SaveAdminSetting($"/api/admin/settings/auction-cache-refresh/{numAuctionCacheRefresh.Text}");
     }
 
     private async void numAuctionCheckInterval_KeyDown(object sender, KeyEventArgs e)
@@ -107,8 +100,7 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/auction-check-interval/{numAuctionCheckInterval.Text}");
+        await SaveAdminSetting($"/api/admin/settings/auction-check-interval/{numAuctionCheckInterval.Text}");
     }
 
     private async void numMaxAuctionWatches_KeyDown(object sender, KeyEventArgs e)
@@ -116,8 +108,7 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/max-auction-watches/{numMaxAuctionWatches.Text}");
+        await SaveAdminSetting($"/api/admin/settings/max-auction-watches/{numMaxAuctionWatches.Text}");
     }
 
     private async void numMaxPlayerRequestsPerMinute_KeyDown(object sender, KeyEventArgs e)
@@ -125,8 +116,7 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/max-requests-per-minute/{numMaxPlayerRequestsPerMinute.Text}");
+        await SaveAdminSetting($"/api/admin/settings/max-requests-per-minute/{numMaxPlayerRequestsPerMinute.Text}");
     }
 
     private async void numWatchCleanupInterval_KeyDown(object sender, KeyEventArgs e)
@@ -134,8 +124,7 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/watch-cleanup-interval-minutes/{numWatchCleanupInterval.Text}");
+        await SaveAdminSetting($"/api/admin/settings/watch-cleanup-interval-minutes/{numWatchCleanupInterval.Text}");
     }
 
     private async void numWatchExpiration_KeyDown(object sender, KeyEventArgs e)
@@ -143,16 +132,15 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        await SaveAdminSetting(
-            $"/api/admin/settings/watch-expiration-days/{numWatchExpiration.Text}");
+        await SaveAdminSetting($"/api/admin/settings/watch-expiration-days/{numWatchExpiration.Text}");
     }
 
-    private async void numItemCacheUpdatteMinutes_KeyDown(object sender, KeyEventArgs e)
+    private async void numItemCacheUpdateMinutes_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode != Keys.Enter)
             return;
-        await SaveAdminSetting(
-            $"/api/admin/settings/item-cache-update-minutes/{numItemCacheUpdatteMinutes.Text}");
+
+        await SaveAdminSetting($"/api/admin/settings/item-cache-update-minutes/{numItemCacheUpdateMinutes.Text}");
     }
 
     private async void txtUpdateApiKey_KeyDown(object sender, KeyEventArgs e)
@@ -160,75 +148,83 @@ public partial class MainForm
         if (e.KeyCode != Keys.Enter)
             return;
 
-        var response = await _adminApi.Post(
-            $"/api/admin/settings/HypixelApiKey?value={Uri.EscapeDataString(txtUpdateApiKey.Text)}");
+        try
+        {
+            var response = await _adminApi.Post(
+                $"/api/admin/settings/HypixelApiKey?value={Uri.EscapeDataString(txtUpdateApiKey.Text)}");
 
-        if (response == null || !response.IsSuccessStatusCode)
+            if (response == null || !response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Failed to update API key.");
+                return;
+            }
+
+            txtUpdateApiKey.Clear();
+
+            MessageBox.Show("Hypixel API key updated.");
+        }
+        catch (Exception ex)
         {
             MessageBox.Show(
-                "Failed to update API key.");
-
-            return;
+                $"Failed to update API key: {ex.Message}",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
-
-        txtUpdateApiKey.Clear();
-
-        MessageBox.Show(
-            "Hypixel API key updated.");
     }
+
     private async Task RefreshUsers()
     {
         lvUsers.Items.Clear();
 
-        var users =
-            await _adminApi.GetUsers();
+        var users = await _adminApi.GetUsers();
 
         foreach (var user in users)
         {
-            var item =
-                new ListViewItem(user.Username);
+            var item = new ListViewItem(user.Username);
 
-            item.SubItems.Add(
-                user.Blocked
-                    ? "Yes"
-                    : "No");
+            item.SubItems.Add(user.Blocked ? "Yes" : "No");
 
             item.SubItems.Add(
                 user.LastSeen == default
                     ? "-"
-                    : user.LastSeen.ToLocalTime()
-                        .ToString("g"));
+                    : user.LastSeen.ToLocalTime().ToString("g"));
 
             item.Tag = user;
 
             lvUsers.Items.Add(item);
         }
     }
-    private async void btnRefreshUsers_Click(
-        object sender,
-        EventArgs e)
+
+    private async void btnRefreshUsers_Click(object sender, EventArgs e)
     {
-        await RefreshUsers();
+        try
+        {
+            await RefreshUsers();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                $"Failed to refresh users: {ex.Message}",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
     }
 
-    private async void btnBlock_Click(
-        object sender,
-        EventArgs e)
+    private async void btnBlock_Click(object sender, EventArgs e)
     {
         if (lvUsers.SelectedItems.Count == 0)
             return;
-        var user =
-            lvUsers.SelectedItems[0].Tag as AdminUser;
+
+        var user = lvUsers.SelectedItems[0].Tag as AdminUser;
 
         if (user == null)
             return;
-        if (user.Username.Equals(
-        _localSettings.Settings.Username,
-        StringComparison.OrdinalIgnoreCase))
-        {
-            MessageBox.Show(
-                "You cannot block yourself.");
 
+        if (user.Username.Equals(_localSettings.Settings.Username, StringComparison.OrdinalIgnoreCase))
+        {
+            MessageBox.Show("You cannot block yourself.");
             return;
         }
 
@@ -238,19 +234,16 @@ public partial class MainForm
         }
         else
         {
-            MessageBox.Show(
-                "Failed to block user.");
+            MessageBox.Show("Failed to block user.");
         }
     }
-    private async void btnUnblock_Click(
-    object sender,
-    EventArgs e)
+
+    private async void btnUnblock_Click(object sender, EventArgs e)
     {
         if (lvUsers.SelectedItems.Count == 0)
             return;
 
-        var user =
-            lvUsers.SelectedItems[0].Tag as AdminUser;
+        var user = lvUsers.SelectedItems[0].Tag as AdminUser;
 
         if (user == null)
             return;
@@ -261,30 +254,23 @@ public partial class MainForm
         }
         else
         {
-            MessageBox.Show(
-                "Failed to unblock user.");
+            MessageBox.Show("Failed to unblock user.");
         }
     }
-    private async void btnDelete_Click(
-    object sender,
-    EventArgs e)
+
+    private async void btnDelete_Click(object sender, EventArgs e)
     {
         if (lvUsers.SelectedItems.Count == 0)
             return;
 
-        var user =
-            lvUsers.SelectedItems[0].Tag as AdminUser;
+        var user = lvUsers.SelectedItems[0].Tag as AdminUser;
 
         if (user == null)
             return;
 
-        if (user.Username.Equals(
-                _localSettings.Settings.Username,
-                StringComparison.OrdinalIgnoreCase))
+        if (user.Username.Equals(_localSettings.Settings.Username, StringComparison.OrdinalIgnoreCase))
         {
-            MessageBox.Show(
-                "You cannot delete yourself.");
-
+            MessageBox.Show("You cannot delete yourself.");
             return;
         }
 
@@ -303,72 +289,78 @@ public partial class MainForm
         }
         else
         {
-            MessageBox.Show(
-                "Failed to delete user.");
+            MessageBox.Show("Failed to delete user.");
         }
     }
-    private async void btnPurgeInactive_Click(
-        object sender,
-        EventArgs e)
+
+    private async void btnPurgeInactive_Click(object sender, EventArgs e)
     {
         int days = (int)numPurgeInactive.Value;
 
-        var removed =
-            await _adminApi.PurgeInactiveUsers(days);
+        var removed = await _adminApi.PurgeInactiveUsers(days);
 
         if (removed == null)
         {
-            MessageBox.Show(
-                "Failed to purge users.");
-
+            MessageBox.Show("Failed to purge users.");
             return;
         }
 
-        MessageBox.Show(
-            $"Removed {removed} inactive users.");
+        MessageBox.Show($"Removed {removed} inactive users.");
 
         await RefreshUsers();
     }
-    private async void btnShutdownServer_Click(
-    object sender,
-    EventArgs e)
+
+    private async void btnShutdownServer_Click(object sender, EventArgs e)
     {
-        var result =
-            MessageBox.Show(
-                "Are you sure you want to shut down the server?",
-                "Shutdown Server",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
+        var result = MessageBox.Show(
+            "Are you sure you want to shut down the server?",
+            "Shutdown Server",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Warning);
 
         if (result != DialogResult.Yes)
             return;
 
         if (await _adminApi.ShutdownServer())
         {
-            MessageBox.Show(
-                "The server is shutting down.");
+            MessageBox.Show("The server is shutting down.");
         }
         else
         {
-            MessageBox.Show(
-                "Failed to shut down the server.");
+            MessageBox.Show("Failed to shut down the server.");
         }
     }
-    private void btnBackup_Click(object sender, EventArgs e)
+
+    private async void btnBackup_Click(object sender, EventArgs e)
     {
-        var backup = _adminApi.PostBackup();
-        if (backup == null)
+        try
         {
-            MessageBox.Show(
-                "Failed to create backup.");
-            return;
+            btnBackup.Enabled = false;
+
+            var backup = await _adminApi.PostBackup();
+
+            if (backup == null)
+            {
+                MessageBox.Show("Failed to create backup.");
+                return;
+            }
+
+            MessageBox.Show("Backup created successfully.");
         }
-        else
+        catch (Exception ex)
         {
             MessageBox.Show(
-                "Backup created successfully.");
+                $"Failed to create backup: {ex.Message}",
+                "HPSkyStatus",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+        }
+        finally
+        {
+            btnBackup.Enabled = true;
         }
     }
+
     private async void btnStatus_Click(object sender, EventArgs e)
     {
         var status = await _adminApi.GetStatus();
@@ -380,7 +372,7 @@ public partial class MainForm
         }
 
         MessageBox.Show(
-    $@"Status: {status.Status}
+            $@"Status: {status.Status}
 
 Users: {status.Users}
 Uptime: {status.UptimeSeconds:N0} seconds
@@ -389,32 +381,25 @@ SkyBlock Players: {status.SkyBlockPlayers:N0}
 Cached Auctions: {status.CachedAuctions:N0}
 Cached Items: {status.CachedItems:N0}
 Queued Notifications: {status.QueuedNotifications:N0}",
-        "Server Status",
-        MessageBoxButtons.OK,
-        MessageBoxIcon.Information);
+            "Server Status",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
     }
-    private async void btnSendNotification_Click(
-    object sender,
-    EventArgs e)
+
+    private async void btnSendNotification_Click(object sender, EventArgs e)
     {
         string title = txtNotificationTitle.Text.Trim();
         string message = txtNotificationMessage.Text.Trim();
 
         if (string.IsNullOrWhiteSpace(title))
         {
-            MessageBox.Show(
-                "Please enter a notification title.",
-                "Notification");
-
+            MessageBox.Show("Please enter a notification title.", "Notification");
             return;
         }
 
         if (string.IsNullOrWhiteSpace(message))
         {
-            MessageBox.Show(
-                "Please enter a notification message.",
-                "Notification");
-
+            MessageBox.Show("Please enter a notification message.", "Notification");
             return;
         }
 
@@ -431,19 +416,12 @@ Queued Notifications: {status.QueuedNotifications:N0}",
 
             if (clientIds.Count == 0)
             {
-                MessageBox.Show(
-                    "Select at least one user.",
-                    "Notification");
-
+                MessageBox.Show("Select at least one user.", "Notification");
                 return;
             }
         }
 
-        var success =
-            await _adminApi.SendNotification(
-                title,
-                message,
-                clientIds);
+        var success = await _adminApi.SendNotification(title, message, clientIds);
 
         if (!success)
         {
@@ -452,7 +430,6 @@ Queued Notifications: {status.QueuedNotifications:N0}",
                 "Notification",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-
             return;
         }
 
