@@ -354,6 +354,21 @@ public partial class MainForm
                 "Failed to shut down the server.");
         }
     }
+    private void btnBackup_Click(object sender, EventArgs e)
+    {
+        var backup = _adminApi.PostBackup();
+        if (backup == null)
+        {
+            MessageBox.Show(
+                "Failed to create backup.");
+            return;
+        }
+        else
+        {
+            MessageBox.Show(
+                "Backup created successfully.");
+        }
+    }
     private async void btnStatus_Click(object sender, EventArgs e)
     {
         var status = await _adminApi.GetStatus();
@@ -377,5 +392,79 @@ Queued Notifications: {status.QueuedNotifications:N0}",
         "Server Status",
         MessageBoxButtons.OK,
         MessageBoxIcon.Information);
+    }
+    private async void btnSendNotification_Click(
+    object sender,
+    EventArgs e)
+    {
+        string title = txtNotificationTitle.Text.Trim();
+        string message = txtNotificationMessage.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            MessageBox.Show(
+                "Please enter a notification title.",
+                "Notification");
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(message))
+        {
+            MessageBox.Show(
+                "Please enter a notification message.",
+                "Notification");
+
+            return;
+        }
+
+        List<string>? clientIds = null;
+
+        if (radNotificationSelected.Checked)
+        {
+            clientIds = lvUsers.SelectedItems
+                .Cast<ListViewItem>()
+                .Select(item => item.Tag as AdminUser)
+                .Where(user => user != null)
+                .Select(user => user!.ClientId)
+                .ToList();
+
+            if (clientIds.Count == 0)
+            {
+                MessageBox.Show(
+                    "Select at least one user.",
+                    "Notification");
+
+                return;
+            }
+        }
+
+        var success =
+            await _adminApi.SendNotification(
+                title,
+                message,
+                clientIds);
+
+        if (!success)
+        {
+            MessageBox.Show(
+                "Failed to send notification.",
+                "Notification",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+
+            return;
+        }
+
+        MessageBox.Show(
+            clientIds == null
+                ? "Notification sent to everyone."
+                : $"Notification sent to {clientIds.Count} user(s).",
+            "Notification",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
+
+        txtNotificationTitle.Clear();
+        txtNotificationMessage.Clear();
     }
 }

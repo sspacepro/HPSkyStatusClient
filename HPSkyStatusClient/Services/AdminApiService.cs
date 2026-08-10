@@ -157,4 +157,36 @@ public class AdminApiService
 
         return await response.Content.ReadFromJsonAsync<AdminStatusResponse>();
     }
+    public async Task<AdminStatusResponse?> PostBackup()
+    {
+        var response = await Post("/api/admin/backup");
+
+        if (response == null || !response.IsSuccessStatusCode)
+            return null;
+
+        return await response.Content.ReadFromJsonAsync<AdminStatusResponse>();
+    }
+    public async Task<bool> SendNotification(
+    string title,
+    string message,
+    List<string>? clientIds)
+    {
+        var request = new AdminNotificationRequest
+        {
+            Title = title,
+            Message = message,
+            ClientIds = clientIds
+        };
+
+        using var content =
+            JsonContent.Create(request);
+
+        var response =
+            await Post(
+                "/api/admin/notifications",
+                content);
+
+        return response != null &&
+               response.IsSuccessStatusCode;
+    }
 }

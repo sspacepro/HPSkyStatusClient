@@ -2,8 +2,6 @@
 
 public class ClientPreferences
 {
-    public string ServerUrl { get; set; } = "";
-
     public int NotificationHistoryMinutes { get; set; } = 60;
 
     public bool AuctionNotifications { get; set; } = true;

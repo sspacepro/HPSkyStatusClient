@@ -30,10 +30,19 @@ partial class MainForm
     private void InitializeComponent()
     {
         pgAdmin = new TabPage();
+        btnBackup = new Button();
         btnStatus = new Button();
         txtUpdateApiKey = new TextBox();
         btnShutdownServer = new Button();
         grpUsers = new GroupBox();
+        txtNotificationMessage = new RichTextBox();
+        aloneTextBox1 = new ReaLTaiizor.Controls.AloneTextBox();
+        btnSendNotification = new Button();
+        radNotificationSelected = new RadioButton();
+        radNotificationEveryone = new RadioButton();
+        lblNotificationMessage = new Label();
+        txtNotificationTitle = new TextBox();
+        lblNotificationTitle = new Label();
         numPurgeInactive = new NumericUpDown();
         btnPurgeInactive = new Button();
         btnDelete = new Button();
@@ -125,6 +134,7 @@ partial class MainForm
         // pgAdmin
         // 
         pgAdmin.BackColor = Color.FromArgb(247, 186, 54);
+        pgAdmin.Controls.Add(btnBackup);
         pgAdmin.Controls.Add(btnStatus);
         pgAdmin.Controls.Add(txtUpdateApiKey);
         pgAdmin.Controls.Add(btnShutdownServer);
@@ -139,9 +149,19 @@ partial class MainForm
         pgAdmin.TabIndex = 4;
         pgAdmin.Text = "Admin";
         // 
+        // btnBackup
+        // 
+        btnBackup.Location = new Point(432, 325);
+        btnBackup.Name = "btnBackup";
+        btnBackup.Size = new Size(75, 23);
+        btnBackup.TabIndex = 7;
+        btnBackup.Text = "Backup";
+        btnBackup.UseVisualStyleBackColor = true;
+        btnBackup.Click += btnBackup_Click;
+        // 
         // btnStatus
         // 
-        btnStatus.Location = new Point(344, 351);
+        btnStatus.Location = new Point(350, 325);
         btnStatus.Name = "btnStatus";
         btnStatus.Size = new Size(75, 23);
         btnStatus.TabIndex = 6;
@@ -151,16 +171,17 @@ partial class MainForm
         // 
         // txtUpdateApiKey
         // 
-        txtUpdateApiKey.Location = new Point(263, 322);
+        txtUpdateApiKey.Location = new Point(269, 354);
         txtUpdateApiKey.Name = "txtUpdateApiKey";
         txtUpdateApiKey.PlaceholderText = "Update Api Key";
         txtUpdateApiKey.Size = new Size(238, 23);
         txtUpdateApiKey.TabIndex = 5;
+        txtUpdateApiKey.Visible = false;
         txtUpdateApiKey.KeyDown += txtUpdateApiKey_KeyDown;
         // 
         // btnShutdownServer
         // 
-        btnShutdownServer.Location = new Point(263, 351);
+        btnShutdownServer.Location = new Point(269, 325);
         btnShutdownServer.Name = "btnShutdownServer";
         btnShutdownServer.Size = new Size(75, 23);
         btnShutdownServer.TabIndex = 4;
@@ -170,6 +191,14 @@ partial class MainForm
         // 
         // grpUsers
         // 
+        grpUsers.Controls.Add(txtNotificationMessage);
+        grpUsers.Controls.Add(aloneTextBox1);
+        grpUsers.Controls.Add(btnSendNotification);
+        grpUsers.Controls.Add(radNotificationSelected);
+        grpUsers.Controls.Add(radNotificationEveryone);
+        grpUsers.Controls.Add(lblNotificationMessage);
+        grpUsers.Controls.Add(txtNotificationTitle);
+        grpUsers.Controls.Add(lblNotificationTitle);
         grpUsers.Controls.Add(numPurgeInactive);
         grpUsers.Controls.Add(btnPurgeInactive);
         grpUsers.Controls.Add(btnDelete);
@@ -179,10 +208,92 @@ partial class MainForm
         grpUsers.Controls.Add(btnRefreshUsers);
         grpUsers.Location = new Point(263, 6);
         grpUsers.Name = "grpUsers";
-        grpUsers.Size = new Size(303, 313);
+        grpUsers.Size = new Size(603, 313);
         grpUsers.TabIndex = 3;
         grpUsers.TabStop = false;
         grpUsers.Text = "Users";
+        // 
+        // txtNotificationMessage
+        // 
+        txtNotificationMessage.Location = new Point(303, 88);
+        txtNotificationMessage.Name = "txtNotificationMessage";
+        txtNotificationMessage.Size = new Size(294, 129);
+        txtNotificationMessage.TabIndex = 14;
+        txtNotificationMessage.Text = "";
+        // 
+        // aloneTextBox1
+        // 
+        aloneTextBox1.BackColor = Color.Transparent;
+        aloneTextBox1.EnabledCalc = true;
+        aloneTextBox1.Font = new Font("Segoe UI", 9F);
+        aloneTextBox1.ForeColor = Color.FromArgb(124, 133, 142);
+        aloneTextBox1.Location = new Point(3, 19);
+        aloneTextBox1.MaxLength = 32767;
+        aloneTextBox1.MultiLine = false;
+        aloneTextBox1.Name = "aloneTextBox1";
+        aloneTextBox1.ReadOnly = false;
+        aloneTextBox1.Size = new Size(97, 29);
+        aloneTextBox1.TabIndex = 13;
+        aloneTextBox1.Text = "aloneTextBox1";
+        aloneTextBox1.TextAlign = HorizontalAlignment.Left;
+        aloneTextBox1.UseSystemPasswordChar = false;
+        // 
+        // btnSendNotification
+        // 
+        btnSendNotification.Location = new Point(522, 248);
+        btnSendNotification.Name = "btnSendNotification";
+        btnSendNotification.Size = new Size(75, 23);
+        btnSendNotification.TabIndex = 12;
+        btnSendNotification.Text = "Send";
+        btnSendNotification.UseVisualStyleBackColor = true;
+        btnSendNotification.Click += btnSendNotification_Click;
+        // 
+        // radNotificationSelected
+        // 
+        radNotificationSelected.AutoSize = true;
+        radNotificationSelected.Location = new Point(429, 223);
+        radNotificationSelected.Name = "radNotificationSelected";
+        radNotificationSelected.Size = new Size(100, 19);
+        radNotificationSelected.TabIndex = 11;
+        radNotificationSelected.TabStop = true;
+        radNotificationSelected.Text = "Selected Users";
+        radNotificationSelected.UseVisualStyleBackColor = true;
+        // 
+        // radNotificationEveryone
+        // 
+        radNotificationEveryone.AutoSize = true;
+        radNotificationEveryone.Location = new Point(303, 223);
+        radNotificationEveryone.Name = "radNotificationEveryone";
+        radNotificationEveryone.Size = new Size(73, 19);
+        radNotificationEveryone.TabIndex = 10;
+        radNotificationEveryone.TabStop = true;
+        radNotificationEveryone.Text = "Everyone";
+        radNotificationEveryone.UseVisualStyleBackColor = true;
+        // 
+        // lblNotificationMessage
+        // 
+        lblNotificationMessage.AutoSize = true;
+        lblNotificationMessage.Location = new Point(303, 70);
+        lblNotificationMessage.Name = "lblNotificationMessage";
+        lblNotificationMessage.Size = new Size(53, 15);
+        lblNotificationMessage.TabIndex = 8;
+        lblNotificationMessage.Text = "Message";
+        // 
+        // txtNotificationTitle
+        // 
+        txtNotificationTitle.Location = new Point(303, 44);
+        txtNotificationTitle.Name = "txtNotificationTitle";
+        txtNotificationTitle.Size = new Size(294, 23);
+        txtNotificationTitle.TabIndex = 7;
+        // 
+        // lblNotificationTitle
+        // 
+        lblNotificationTitle.AutoSize = true;
+        lblNotificationTitle.Location = new Point(303, 26);
+        lblNotificationTitle.Name = "lblNotificationTitle";
+        lblNotificationTitle.Size = new Size(30, 15);
+        lblNotificationTitle.TabIndex = 6;
+        lblNotificationTitle.Text = "Title";
         // 
         // numPurgeInactive
         // 
@@ -238,7 +349,6 @@ partial class MainForm
         lvUsers.FullRowSelect = true;
         lvUsers.GridLines = true;
         lvUsers.Location = new Point(6, 44);
-        lvUsers.MultiSelect = false;
         lvUsers.Name = "lvUsers";
         lvUsers.Size = new Size(291, 177);
         lvUsers.TabIndex = 1;
@@ -925,6 +1035,7 @@ partial class MainForm
         pgAdmin.ResumeLayout(false);
         pgAdmin.PerformLayout();
         grpUsers.ResumeLayout(false);
+        grpUsers.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).EndInit();
         grpCleanup.ResumeLayout(false);
         grpCleanup.PerformLayout();
@@ -1026,4 +1137,13 @@ partial class MainForm
     private ReaLTaiizor.Controls.SkyLabel lblUsername;
     private ReaLTaiizor.Controls.SkyLabel lblServer;
     private ReaLTaiizor.Controls.SkyLabel lblPlayerCount;
+    private Button btnBackup;
+    private Label lblNotificationTitle;
+    private TextBox txtNotificationTitle;
+    private Label lblNotificationMessage;
+    private RadioButton radNotificationSelected;
+    private RadioButton radNotificationEveryone;
+    private RichTextBox txtNotificationMessage;
+    private ReaLTaiizor.Controls.AloneTextBox aloneTextBox1;
+    private Button btnSendNotification;
 }

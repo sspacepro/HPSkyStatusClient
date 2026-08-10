@@ -63,6 +63,7 @@ public partial class MainForm
             lvAuctions.Items.Add(item);
         }
         UpdateTrayAuctions(auctions);
+        UpdateAuctionAlert(auctions);
     }
 
     private async void btnAddAuction_Click(object sender, EventArgs e)
@@ -153,5 +154,15 @@ public partial class MainForm
             new AuctionDetailsForm(auction);
 
         form.ShowDialog();
+    }
+    private void UpdateAuctionAlert(
+    List<AuctionWatch> auctions)
+    {
+        _auctionAlertActive = auctions.Any(
+    auction =>
+        auction.LastLowestBin > 0 &&
+        auction.LastLowestBin <= auction.NotifyBelow);
+
+        UpdateTrayIconFromCurrentStatus();
     }
 }

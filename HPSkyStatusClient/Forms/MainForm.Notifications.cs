@@ -37,7 +37,8 @@ public partial class MainForm
 
             _notifications.Show(
                 notification.Title,
-                message);
+                message,
+                notification.Type);
         }
     }
     private bool ShouldShowNotification(
@@ -51,7 +52,12 @@ public partial class MainForm
         //    return false;
         //}
 
-
+        if (notification.Type.Equals(
+        "admin",
+        StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
         if (notification.Type.Equals(
                 "auction",
                 StringComparison.OrdinalIgnoreCase)

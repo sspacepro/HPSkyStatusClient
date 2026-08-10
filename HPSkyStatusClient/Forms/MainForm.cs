@@ -15,6 +15,11 @@ public partial class MainForm : Form
     private readonly Icon _greenIcon;
     private readonly Icon _yellowIcon;
     private readonly Icon _redIcon;
+    private readonly Icon _greenNotifyIcon;
+    private readonly Icon _yellowNotifyIcon;
+    private readonly Icon _redNotifyIcon;
+
+    private bool _auctionAlertActive;
     private readonly StatusService _statusService;
     //private readonly PlayerWatchService _playerWatchService;
     private readonly AuctionWatchService _auctionWatchService;
@@ -73,6 +78,9 @@ public partial class MainForm : Form
         _greenIcon = new Icon("skyblock-green.ico");
         _yellowIcon = new Icon("skyblock-yellow.ico");
         _redIcon = new Icon("skyblock-red.ico");
+        _greenNotifyIcon = new Icon("skyblock-green-notify.ico");
+        _yellowNotifyIcon = new Icon("skyblock-yellow-notify.ico");
+        _redNotifyIcon = new Icon("skyblock-red-notify.ico");
 
         InitializeComponent();
         var font = CustomFontService.LoadFont(
@@ -242,6 +250,51 @@ public partial class MainForm : Form
 
         foreach (Control child in control.Controls)
             ApplyFont(child, font);
+    }
+    private void UpdateTrayIcon(
+    bool online,
+    bool maintenance,
+    int playerCount)
+    {
+        if (!online)
+        {
+            _trayIcon.Icon =
+                _auctionAlertActive
+                    ? _redNotifyIcon
+                    : _redIcon;
+
+            _trayIcon.Text =
+                _auctionAlertActive
+                    ? "Hypixel Offline - Auction Alert"
+                    : "Unable to connect to Hypixel";
+
+            return;
+        }
+
+        if (maintenance)
+        {
+            _trayIcon.Icon =
+                _auctionAlertActive
+                    ? _yellowNotifyIcon
+                    : _yellowIcon;
+
+            _trayIcon.Text =
+                _auctionAlertActive
+                    ? $"SkyBlock Maintenance - Auction Alert"
+                    : $"SkyBlock Maintenance - {playerCount} players";
+
+            return;
+        }
+
+        _trayIcon.Icon =
+            _auctionAlertActive
+                ? _greenNotifyIcon
+                : _greenIcon;
+
+        _trayIcon.Text =
+            _auctionAlertActive
+                ? $"SkyBlock Online - Auction Alert"
+                : $"SkyBlock Online - {playerCount} players";
     }
 
 
