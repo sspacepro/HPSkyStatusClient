@@ -31,6 +31,7 @@
             txtUsername = new TextBox();
             btnRegister = new Button();
             txtAdminKey = new TextBox();
+            txtServerUrl = new TextBox();
             SuspendLayout();
             // 
             // txtUsername
@@ -60,11 +61,20 @@
             txtAdminKey.UseSystemPasswordChar = true;
             txtAdminKey.KeyDown += txtAdminKey1_KeyDown;
             // 
+            // txtServerUrl
+            // 
+            txtServerUrl.Location = new Point(34, 155);
+            txtServerUrl.Name = "txtServerUrl";
+            txtServerUrl.Size = new Size(272, 23);
+            txtServerUrl.TabIndex = 6;
+            txtServerUrl.KeyDown += txtServerUrl_KeyDown;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtServerUrl);
             Controls.Add(txtAdminKey);
             Controls.Add(btnRegister);
             Controls.Add(txtUsername);
@@ -79,5 +89,6 @@
         private TextBox txtUsername;
         private Button btnRegister;
         private TextBox txtAdminKey;
+        private TextBox txtServerUrl;
     }
 }

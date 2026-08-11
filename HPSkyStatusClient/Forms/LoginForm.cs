@@ -7,13 +7,15 @@ public partial class LoginForm : Form
 {
     private readonly AuthenticationService _auth;
     private readonly AdminApiService _adminApi;
+    private readonly ClientSettingsService _localSettings;
     public bool AdminAuthenticated { get; private set; }
 
-    public LoginForm(AuthenticationService auth, AdminApiService adminApi)
+    public LoginForm(AuthenticationService auth, AdminApiService adminApi, ClientSettingsService localSettings)
     {
         InitializeComponent();
         _auth = auth;
         _adminApi = adminApi;
+        _localSettings = localSettings;
     }
 
     private async void btnRegister_Click(object sender, EventArgs e)
@@ -93,5 +95,22 @@ public partial class LoginForm : Form
         }
     }
 
+    private void txtServerUrl_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode != Keys.Enter)
+            return;
 
+        string url = txtServerUrl.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(url))
+            return;
+
+        _localSettings.Settings.ServerUrl = url;
+        _localSettings.Save();
+
+        txtServerUrl.Clear();
+
+        txtServerUrl.PlaceholderText =
+            _localSettings.Settings.ServerUrl;
+    }
 }
