@@ -18,6 +18,8 @@ public partial class MainForm
         chkStartupNotificationHistory.Checked = _preferences.Preferences.StartupNotificationHistory;
 
         chkMinimizeToTray.Checked = _preferences.Preferences.MinimizeToTray;
+
+
     }
 
     private void LoadServerSettings()

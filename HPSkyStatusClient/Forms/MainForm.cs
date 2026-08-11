@@ -73,6 +73,8 @@ public partial class MainForm : Form
         _redNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-red-notify.ico"));
 
         InitializeComponent();
+        _preferences.Load();
+        LoadClientSettings();
 
         var font = CustomFontService.LoadFont("minecraft_font.ttf", 7.5f);
         ApplyFont(this, font);
@@ -173,6 +175,7 @@ public partial class MainForm : Form
                         await CheckNotifications(true);
                         UpdateTrayUpdatedTime();
                         await UpdateAuctions();
+                        LoadServerSettings();
                     },
                     _shutdownCts.Token);
             }
