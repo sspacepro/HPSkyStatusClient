@@ -53,15 +53,28 @@ internal static class Program
         {
             var auth = host.Services.GetRequiredService<AuthenticationService>();
 
+            LoginForm? login = null;
+
             if (!auth.IsRegistered())
             {
-                var login = host.Services.GetRequiredService<LoginForm>();
+                login = host.Services.GetRequiredService<LoginForm>();
 
                 if (login.ShowDialog() != DialogResult.OK)
                     return;
             }
 
-            Application.Run(host.Services.GetRequiredService<MainForm>());
+            var mainForm =
+                host.Services.GetRequiredService<MainForm>();
+
+            if (login?.AdminAuthenticated == true)
+            {
+                mainForm.Shown += async (_, _) =>
+                {
+                    await mainForm.OpenAdminTab();
+                };
+            }
+
+            Application.Run(mainForm);
         }
         catch (Exception ex)
         {
@@ -71,5 +84,8 @@ internal static class Program
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
+
+
     }
+
 }

@@ -34,6 +34,7 @@ public partial class MainForm : Form
     private readonly ItemCacheService _itemCache;
     private readonly ApiService _apiService;
     private readonly CancellationTokenSource _shutdownCts = new();
+    private bool _isAdmin;
 
     public MainForm(
         StatusService statusService,
@@ -59,6 +60,7 @@ public partial class MainForm : Form
         _adminApi = adminApi;
         _itemCache = itemCache;
         _apiService = apiService;
+
 
         _preferences.Load();
 
@@ -195,7 +197,7 @@ public partial class MainForm : Form
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
-        if (_preferences.Preferences.MinimizeToTray &&
+        if (!_isAdmin && _preferences.Preferences.MinimizeToTray &&
             e.CloseReason == CloseReason.UserClosing)
         {
             e.Cancel = true;
@@ -255,4 +257,20 @@ public partial class MainForm : Form
             ? "SkyBlock Online - Auction Alert"
             : $"SkyBlock Online - {playerCount} players";
     }
+    public async Task OpenAdminTab()
+    {
+        _isAdmin = true;
+
+        if (!tabMain.TabPages.Contains(pgAdmin))
+        {
+            tabMain.TabPages.Insert(2, pgAdmin);
+        }
+
+        await LoadAdminSettings();
+        await RefreshUsers();
+
+        tabMain.SelectedTab = pgAdmin;
+    }
+
+
 }

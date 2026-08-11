@@ -41,6 +41,9 @@ public partial class MainForm
 
     private async Task LoadAdminSettings()
     {
+        txtAdminServerUrl.Text = "";
+        txtAdminServerUrl.PlaceholderText =
+            _localSettings.Settings.ServerUrl;
         numHypixelUpdateInterval.Text =
             (await _adminApi.GetString("/api/admin/settings/hypixel-update-interval-seconds")) ?? "";
 
@@ -443,5 +446,23 @@ Queued Notifications: {status.QueuedNotifications:N0}",
 
         txtNotificationTitle.Clear();
         txtNotificationMessage.Clear();
+    }
+    private void txtAdminServerUrl_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode != Keys.Enter)
+            return;
+
+        string url = txtAdminServerUrl.Text.Trim();
+
+        if (string.IsNullOrWhiteSpace(url))
+            return;
+
+        _localSettings.Settings.ServerUrl = url;
+        _localSettings.Save();
+
+        txtAdminServerUrl.Clear();
+
+        txtAdminServerUrl.PlaceholderText =
+            _localSettings.Settings.ServerUrl;
     }
 }

@@ -107,6 +107,7 @@ partial class MainForm
         btnAddAuction = new ReaLTaiizor.Controls.SkyButton();
         btnRemoveAuction = new ReaLTaiizor.Controls.SkyButton();
         tabMain = new ReaLTaiizor.Controls.DungeonTabPage();
+        txtAdminServerUrl = new TextBox();
         pgAdmin.SuspendLayout();
         grpUsers.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
@@ -134,6 +135,7 @@ partial class MainForm
         // pgAdmin
         // 
         pgAdmin.BackColor = Color.FromArgb(247, 186, 54);
+        pgAdmin.Controls.Add(txtAdminServerUrl);
         pgAdmin.Controls.Add(btnBackup);
         pgAdmin.Controls.Add(btnStatus);
         pgAdmin.Controls.Add(txtUpdateApiKey);
@@ -227,7 +229,7 @@ partial class MainForm
         aloneTextBox1.EnabledCalc = true;
         aloneTextBox1.Font = new Font("Segoe UI", 9F);
         aloneTextBox1.ForeColor = Color.FromArgb(124, 133, 142);
-        aloneTextBox1.Location = new Point(3, 19);
+        aloneTextBox1.Location = new Point(141, 12);
         aloneTextBox1.MaxLength = 32767;
         aloneTextBox1.MultiLine = false;
         aloneTextBox1.Name = "aloneTextBox1";
@@ -650,7 +652,7 @@ partial class MainForm
         lblServerUrl.AutoSize = true;
         lblServerUrl.Location = new Point(5, 19);
         lblServerUrl.Name = "lblServerUrl";
-        lblServerUrl.Size = new Size(92, 15);
+        lblServerUrl.Size = new Size(106, 15);
         lblServerUrl.TabIndex = 7;
         lblServerUrl.Text = "Server address URL";
         // 
@@ -1022,6 +1024,14 @@ partial class MainForm
         tabMain.Size = new Size(914, 472);
         tabMain.TabIndex = 2;
         // 
+        // txtAdminServerUrl
+        // 
+        txtAdminServerUrl.Location = new Point(269, 383);
+        txtAdminServerUrl.Name = "txtAdminServerUrl";
+        txtAdminServerUrl.Size = new Size(238, 23);
+        txtAdminServerUrl.TabIndex = 8;
+        txtAdminServerUrl.KeyDown += txtAdminServerUrl_KeyDown;
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1145,4 +1155,5 @@ partial class MainForm
     private RichTextBox txtNotificationMessage;
     private ReaLTaiizor.Controls.AloneTextBox aloneTextBox1;
     private Button btnSendNotification;
+    private TextBox txtAdminServerUrl;
 }

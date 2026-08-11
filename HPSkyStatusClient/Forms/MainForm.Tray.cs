@@ -18,39 +18,62 @@ public partial class MainForm
 
         _trayAuctionItems.Clear();
 
-        int insertIndex = menu.Items.IndexOf(_trayAuctionSeparator) + 1;
+        // Check whether there is actually an auction that
+        // should trigger the tray notification icon.
+        _auctionAlertActive = auctions.Any(
+            auction =>
+                auction.LastLowestBin > 0 &&
+                auction.LastLowestBin <= auction.NotifyBelow
+                );
+
+        int insertIndex =
+            menu.Items.IndexOf(_trayAuctionSeparator) + 1;
 
         foreach (var auction in auctions.Take(5))
         {
             string text =
                 $"{auction.DisplayItemName} - {auction.LastLowestBin:N0}";
 
-            if (auction.LastLowestBin <= auction.NotifyBelow && auction.LastLowestBin > 0)
+            if (auction.LastLowestBin > 0 &&
+                auction.LastLowestBin <= auction.NotifyBelow )
+            {
                 text = "⚠ " + text;
+            }
 
-            var tier = auction.Tier ?? _itemCache.GetTier(auction.ItemTag);
+            var tier =
+                auction.Tier ??
+                _itemCache.GetTier(auction.ItemTag);
 
             var item = new ToolStripMenuItem(text)
             {
-                ForeColor = TrayColorService.GetColor(
-                    tier,
-                    auction.Recombobulated == true)
+                ForeColor =
+                    TrayColorService.GetColor(
+                        tier,
+                        auction.Recombobulated == true)
             };
 
             item.Click += (_, _) =>
             {
-                using var details = new AuctionDetailsForm(auction);
+                using var details =
+                    new AuctionDetailsForm(auction);
+
                 details.ShowDialog();
             };
 
             _trayAuctionItems.Add(item);
 
             menu.Items.Insert(insertIndex++, item);
+            UpdateTrayIcon(
+                _serverOnline,
+                _serverMaintenance,
+                _serverPlayerCount);
         }
 
         if (auctions.Count > 5)
         {
-            var more = new ToolStripMenuItem($"...and {auctions.Count - 5} more");
+            var more =
+                new ToolStripMenuItem(
+                    $"...and {auctions.Count - 5} more");
 
             more.Click += (_, _) =>
             {
@@ -63,6 +86,9 @@ public partial class MainForm
 
             menu.Items.Insert(insertIndex, more);
         }
+
+        // Reapply the correct server-status icon.
+        UpdateTrayIconFromCurrentStatus();
     }
 
     private void UpdateTrayUpdatedTime()
