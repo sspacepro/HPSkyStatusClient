@@ -41,9 +41,10 @@
             // 
             lblItemName.AutoSize = true;
             lblItemName.BackColor = Color.Transparent;
+            lblItemName.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblItemName.Location = new Point(0, 9);
             lblItemName.Name = "lblItemName";
-            lblItemName.Size = new Size(66, 15);
+            lblItemName.Size = new Size(70, 13);
             lblItemName.TabIndex = 0;
             lblItemName.Text = "Item Name";
             // 
@@ -51,9 +52,10 @@
             // 
             lblLowestBin.AutoSize = true;
             lblLowestBin.BackColor = Color.Transparent;
+            lblLowestBin.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblLowestBin.Location = new Point(3, 26);
             lblLowestBin.Name = "lblLowestBin";
-            lblLowestBin.Size = new Size(61, 15);
+            lblLowestBin.Size = new Size(72, 13);
             lblLowestBin.TabIndex = 1;
             lblLowestBin.Text = "LowestBin";
             // 
@@ -61,9 +63,10 @@
             // 
             lblNotifyBelow.AutoSize = true;
             lblNotifyBelow.BackColor = Color.Transparent;
+            lblNotifyBelow.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblNotifyBelow.Location = new Point(3, 41);
             lblNotifyBelow.Name = "lblNotifyBelow";
-            lblNotifyBelow.Size = new Size(72, 15);
+            lblNotifyBelow.Size = new Size(83, 13);
             lblNotifyBelow.TabIndex = 2;
             lblNotifyBelow.Text = "NotifyBelow";
             // 
@@ -94,6 +97,7 @@
             // 
             txtLore.BackColor = Color.White;
             txtLore.Dock = DockStyle.Bottom;
+            txtLore.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtLore.Location = new Point(0, 59);
             txtLore.Name = "txtLore";
             txtLore.Size = new Size(342, 422);
