@@ -10,6 +10,8 @@ public partial class AuctionDetailsForm : Form
     public AuctionDetailsForm(
         AuctionWatch auction)
     {
+        var font = CustomFontService.LoadFont("minecraft_font.ttf", 7.5f);
+        ApplyFont(this, font);
         InitializeComponent();
 
         _auction = auction;
@@ -31,5 +33,12 @@ public partial class AuctionDetailsForm : Form
         MinecraftTextRenderer.Render(
             txtLore,
             _auction.ItemLore);
+    }
+    private static void ApplyFont(Control control, Font font)
+    {
+        control.Font = font;
+
+        foreach (Control child in control.Controls)
+            ApplyFont(child, font);
     }
 }

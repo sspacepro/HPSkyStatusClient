@@ -1,5 +1,6 @@
 ﻿using HPSkyStatusClient.Models;
 using HPSkyStatusClient.Services;
+using System.Drawing.Text;
 
 namespace HPSkyStatusClient.Forms;
 
@@ -11,10 +12,12 @@ public partial class AddAuctionForm : Form
 
     public AuctionWatch Watch { get; private set; } = new();
 
+
     public AddAuctionForm(ItemCacheService items)
     {
         InitializeComponent();
-
+        var font = CustomFontService.LoadFont("minecraft_font.ttf", 7.5f);
+        ApplyFont(this, font);
         _items = items;
 
         cmbTier.Items.AddRange(new[]
@@ -141,4 +144,13 @@ public partial class AddAuctionForm : Form
 
         chkRecomb.Visible = _selectedItem.CanRecombobulate != false;
     }
+    private static void ApplyFont(Control control, Font font)
+    {
+        control.Font = font;
+
+        foreach (Control child in control.Controls)
+            ApplyFont(child, font);
+    }
+
+
 }

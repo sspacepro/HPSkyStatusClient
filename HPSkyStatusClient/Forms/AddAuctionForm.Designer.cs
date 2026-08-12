@@ -40,8 +40,8 @@
             numPetLevel = new NumericUpDown();
             lblNotifyBelow = new Label();
             numNotify = new NumericUpDown();
-            btnAdd = new Button();
             lstItems = new ListBox();
+            btnAdd = new ReaLTaiizor.Controls.SkyButton();
             ((System.ComponentModel.ISupportInitialize)numStars).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numPetLevel).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numNotify).BeginInit();
@@ -145,16 +145,6 @@
             numNotify.TabIndex = 10;
             numNotify.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
-            // btnAdd
-            // 
-            btnAdd.Location = new Point(2, 225);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(75, 23);
-            btnAdd.TabIndex = 11;
-            btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
-            // 
             // lstItems
             // 
             lstItems.AccessibleName = "";
@@ -165,13 +155,51 @@
             lstItems.TabIndex = 13;
             lstItems.SelectedIndexChanged += lstItems_SelectedIndexChanged;
             // 
+            // btnAdd
+            // 
+            btnAdd.BackColor = Color.Black;
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.DownBGColorA = Color.FromArgb(107, 107, 107);
+            btnAdd.DownBGColorB = Color.FromArgb(123, 123, 123);
+            btnAdd.DownBorderColorA = Color.FromArgb(227, 195, 95);
+            btnAdd.DownBorderColorB = Color.FromArgb(227, 195, 95);
+            btnAdd.DownBorderColorC = Color.FromArgb(169, 128, 56);
+            btnAdd.DownBorderColorD = Color.FromArgb(169, 128, 56);
+            btnAdd.DownForeColor = Color.White;
+            btnAdd.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+            btnAdd.Font = new Font("Minecraft", 8.25F);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.HoverBGColorA = Color.FromArgb(107, 107, 107);
+            btnAdd.HoverBGColorB = Color.FromArgb(123, 123, 123);
+            btnAdd.HoverBorderColorA = Color.White;
+            btnAdd.HoverBorderColorB = Color.White;
+            btnAdd.HoverBorderColorC = Color.White;
+            btnAdd.HoverBorderColorD = Color.White;
+            btnAdd.HoverForeColor = Color.White;
+            btnAdd.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+            btnAdd.Location = new Point(2, 225);
+            btnAdd.Name = "btnAdd";
+            btnAdd.NormalBGColorA = Color.FromArgb(107, 107, 107);
+            btnAdd.NormalBGColorB = Color.FromArgb(123, 123, 123);
+            btnAdd.NormalBorderColorA = Color.DarkGray;
+            btnAdd.NormalBorderColorB = Color.DarkGray;
+            btnAdd.NormalBorderColorC = Color.Black;
+            btnAdd.NormalBorderColorD = Color.Black;
+            btnAdd.NormalForeColor = Color.White;
+            btnAdd.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+            btnAdd.Size = new Size(121, 23);
+            btnAdd.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            btnAdd.TabIndex = 14;
+            btnAdd.Text = "Add";
+            btnAdd.Click += btnAdd_Click;
+            // 
             // AddAuctionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(327, 251);
-            Controls.Add(lstItems);
             Controls.Add(btnAdd);
+            Controls.Add(lstItems);
             Controls.Add(numNotify);
             Controls.Add(lblNotifyBelow);
             Controls.Add(numPetLevel);
@@ -206,7 +234,7 @@
         private NumericUpDown numPetLevel;
         private Label lblNotifyBelow;
         private NumericUpDown numNotify;
-        private Button btnAdd;
         private ListBox lstItems;
+        private ReaLTaiizor.Controls.SkyButton btnAdd;
     }
 }
