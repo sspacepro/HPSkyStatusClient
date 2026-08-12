@@ -20,7 +20,8 @@ public partial class LoginForm : Form
 
     private async void btnRegister_Click(object sender, EventArgs e)
     {
-        string username = txtUsername.Text.Trim();
+        string username = txtUsername.TextButton.Trim();
+
 
         if (string.IsNullOrWhiteSpace(username))
         {
@@ -113,4 +114,11 @@ public partial class LoginForm : Form
         txtServerUrl.PlaceholderText =
             _localSettings.Settings.ServerUrl;
     }
+
+    private void LoginForm_Load(object sender, EventArgs e)
+    {
+
+    }
+
+
 }

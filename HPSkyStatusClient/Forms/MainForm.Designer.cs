@@ -29,6 +29,7 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         pgAdmin = new TabPage();
         txtAdminServerUrl = new TextBox();
         btnBackup = new Button();
@@ -1351,6 +1352,7 @@ partial class MainForm
         BackColor = SystemColors.Control;
         ClientSize = new Size(914, 472);
         Controls.Add(tabMain);
+        Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "MainForm";
         Text = "Hypixel Skyblock Status";
         Load += MainForm_Load;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AuctionDetailsForm));
             lblItemName = new Label();
             lblLowestBin = new Label();
             lblNotifyBelow = new Label();
@@ -80,6 +81,7 @@
             Controls.Add(lblNotifyBelow);
             Controls.Add(lblLowestBin);
             Controls.Add(lblItemName);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AuctionDetailsForm";
             Text = "AuctionDetailsForm";
             ResumeLayout(false);

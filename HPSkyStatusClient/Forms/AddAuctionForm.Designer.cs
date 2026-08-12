@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddAuctionForm));
             lblItemName = new Label();
             txtItem = new TextBox();
             lblTier = new Label();
@@ -158,7 +159,6 @@
             // 
             lstItems.AccessibleName = "";
             lstItems.FormattingEnabled = true;
-            lstItems.ItemHeight = 15;
             lstItems.Location = new Point(2, 51);
             lstItems.Name = "lstItems";
             lstItems.Size = new Size(194, 124);
@@ -183,6 +183,7 @@
             Controls.Add(lblTier);
             Controls.Add(txtItem);
             Controls.Add(lblItemName);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AddAuctionForm";
             Text = "AddAuctionForm";
             ((System.ComponentModel.ISupportInitialize)numStars).EndInit();
