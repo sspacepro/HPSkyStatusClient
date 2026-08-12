@@ -9,4 +9,6 @@ public class ClientPreferences
     public bool StartupNotificationHistory { get; set; } = true;
 
     public bool MinimizeToTray { get; set; } = true;
+
+    public bool TrayIconPromptShown { get; set; }
 }

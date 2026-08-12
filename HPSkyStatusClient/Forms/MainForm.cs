@@ -1,5 +1,7 @@
 using HPSkyStatusClient.Services;
+using System.Diagnostics;
 using System.Reflection;
+
 
 namespace HPSkyStatusClient;
 
@@ -177,6 +179,7 @@ public partial class MainForm : Form
                         UpdateTrayUpdatedTime();
                         await UpdateAuctions();
                         LoadServerSettings();
+                        ShowTrayIconPrompt();
                     },
                     _shutdownCts.Token);
             }
@@ -289,6 +292,30 @@ public partial class MainForm : Form
                 $"Embedded resource not found: {name}");
 
         return new Icon(stream);
+    }
+    private void ShowTrayIconPrompt()
+    {
+        if (_preferences.Preferences.TrayIconPromptShown)
+            return;
+
+        _preferences.Preferences.TrayIconPromptShown = true;
+        _preferences.Save();
+
+        var result = MessageBox.Show(
+            "For easy access, add the HPSkyStatus tray icon to your taskbar.\n\n" +
+            "Go to Settings → Other system tray icons and enable HPSkyStatus.",
+            "HPSkyStatus",
+            MessageBoxButtons.OKCancel,
+            MessageBoxIcon.Information);
+
+        if (result == DialogResult.OK)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "ms-settings:taskbar",
+                UseShellExecute = true
+            });
+        }
     }
 
 

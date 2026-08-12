@@ -2,6 +2,8 @@ using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace HPSkyStatusClient;
 
@@ -10,6 +12,9 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        if (!SingleInstanceService.IsFirstInstance())
+            return;
+
         ApplicationConfiguration.Initialize();
 
         using IHost host = Host.CreateDefaultBuilder()
@@ -63,8 +68,31 @@ internal static class Program
                     return;
             }
 
+
+
             var mainForm =
                 host.Services.GetRequiredService<MainForm>();
+
+            SingleInstanceService.StartListener(() =>
+            {
+                if (mainForm.InvokeRequired)
+                {
+                    mainForm.BeginInvoke(() =>
+                    {
+                        mainForm.Show();
+                        mainForm.WindowState = FormWindowState.Normal;
+                        mainForm.BringToFront();
+                        mainForm.Activate();
+                    });
+                }
+                else
+                {
+                    mainForm.Show();
+                    mainForm.WindowState = FormWindowState.Normal;
+                    mainForm.BringToFront();
+                    mainForm.Activate();
+                }
+            });
 
             if (login?.AdminAuthenticated == true)
             {
@@ -84,8 +112,9 @@ internal static class Program
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
-
-
+        finally
+        {
+            SingleInstanceService.Dispose();
+        }
     }
-
 }

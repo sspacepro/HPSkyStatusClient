@@ -39,8 +39,6 @@
     <EmbeddedResource Include="skyblock-yellow-notify.ico" />
     <EmbeddedResource Include="skyblock-red-notify.ico" />
 
-    <EmbeddedResource Include="skyblock.ico" />
-
     <EmbeddedResource Include="Fonts\minecraft_font.ttf" />
 </ItemGroup>
 
