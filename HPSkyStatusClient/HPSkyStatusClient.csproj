@@ -7,6 +7,15 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>pfp.ico</ApplicationIcon>
+      <!-- Single EXE -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
+    <!-- Don't include debug symbols -->
+    <DebugType>none</DebugType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,35 +25,24 @@
     <Content Include="pfp.ico" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Fonts\minecraft_font.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Update="Fonts\minecraft_font.ttf">
+        <LogicalName>HPSkyStatusClient.Fonts.minecraft_font.ttf</LogicalName>
+    </EmbeddedResource>
+</ItemGroup>
+<ItemGroup>
+    <EmbeddedResource Include="skyblock-green.ico" />
+    <EmbeddedResource Include="skyblock-yellow.ico" />
+    <EmbeddedResource Include="skyblock-red.ico" />
 
-  <ItemGroup>
-    <Content Include="skyblock-green.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="skyblock-yellow.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="skyblock-red.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="skyblock-green-notify.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="skyblock-yellow-notify.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="skyblock-red-notify.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skyblock.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <EmbeddedResource Include="skyblock-green-notify.ico" />
+    <EmbeddedResource Include="skyblock-yellow-notify.ico" />
+    <EmbeddedResource Include="skyblock-red-notify.ico" />
+
+    <EmbeddedResource Include="skyblock.ico" />
+
+    <EmbeddedResource Include="Fonts\minecraft_font.ttf" />
+</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />

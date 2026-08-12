@@ -1,4 +1,5 @@
 using HPSkyStatusClient.Services;
+using System.Reflection;
 
 namespace HPSkyStatusClient;
 
@@ -62,15 +63,15 @@ public partial class MainForm : Form
         _apiService = apiService;
 
 
-        _preferences.Load();
 
-        string baseDir = AppContext.BaseDirectory;
-        _greenIcon = new Icon(Path.Combine(baseDir, "skyblock-green.ico"));
-        _yellowIcon = new Icon(Path.Combine(baseDir, "skyblock-yellow.ico"));
-        _redIcon = new Icon(Path.Combine(baseDir, "skyblock-red.ico"));
-        _greenNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-green-notify.ico"));
-        _yellowNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-yellow-notify.ico"));
-        _redNotifyIcon = new Icon(Path.Combine(baseDir, "skyblock-red-notify.ico"));
+
+       
+        _greenIcon = LoadIcon("skyblock-green.ico");
+        _yellowIcon = LoadIcon("skyblock-yellow.ico");
+        _redIcon = LoadIcon("skyblock-red.ico");
+        _greenNotifyIcon = LoadIcon("skyblock-green-notify.ico");
+        _yellowNotifyIcon = LoadIcon("skyblock-yellow-notify.ico");
+        _redNotifyIcon = LoadIcon("skyblock-red-notify.ico");
 
         InitializeComponent();
         _preferences.Load();
@@ -81,7 +82,7 @@ public partial class MainForm : Form
 
         _trayIcon = new NotifyIcon
         {
-            Icon = new Icon(Path.Combine(baseDir, "skyblock.ico")),
+            Icon = LoadIcon("skyblock.ico"),
             Text = "HPSkyStatus",
             Visible = true
         };
@@ -273,6 +274,21 @@ public partial class MainForm : Form
         await RefreshUsers();
 
         tabMain.SelectedTab = pgAdmin;
+    }
+    private static Icon LoadIcon(string name)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        foreach (var resource in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+        {
+            Console.WriteLine(resource);
+        }
+        using var stream =
+            assembly.GetManifestResourceStream(
+                $"HPSkyStatusClient.{name}")
+            ?? throw new FileNotFoundException(
+                $"Embedded resource not found: {name}");
+
+        return new Icon(stream);
     }
 
 
