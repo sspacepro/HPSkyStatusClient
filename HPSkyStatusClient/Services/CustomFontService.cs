@@ -13,7 +13,7 @@ public static class CustomFontService
         FontStyle style = FontStyle.Regular)
     {
         string path = Path.Combine(
-            AppContext.BaseDirectory,
+            AppDataService.DirectoryPath,
             "Fonts",
             fileName);
 

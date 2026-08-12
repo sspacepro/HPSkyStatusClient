@@ -6,7 +6,7 @@ namespace HPSkyStatusClient.Services;
 public class ClientPreferencesService
 {
     private const string FileName = "preferences.json";
-    private readonly string _path = Path.Combine(AppContext.BaseDirectory, FileName);
+    private readonly string _path = AppDataService.GetFilePath(FileName);
 
     public ClientPreferences Preferences { get; private set; } = new();
 
