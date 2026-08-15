@@ -85,7 +85,7 @@
             parrotGradientPanel1.Name = "parrotGradientPanel1";
             parrotGradientPanel1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             parrotGradientPanel1.PrimerColor = Color.White;
-            parrotGradientPanel1.Size = new Size(342, 481);
+            parrotGradientPanel1.Size = new Size(342, 577);
             parrotGradientPanel1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             parrotGradientPanel1.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
             parrotGradientPanel1.TabIndex = 5;
@@ -99,7 +99,7 @@
             txtLore.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtLore.Location = new Point(0, 57);
             txtLore.Name = "txtLore";
-            txtLore.Size = new Size(342, 424);
+            txtLore.Size = new Size(342, 532);
             txtLore.TabIndex = 3;
             txtLore.Text = "";
             // 
@@ -108,7 +108,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.AppWorkspace;
-            ClientSize = new Size(342, 481);
+            ClientSize = new Size(342, 577);
             Controls.Add(parrotGradientPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "AuctionDetailsForm";
