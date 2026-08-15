@@ -2,8 +2,6 @@
 
 public class ClientPreferences
 {
-    public string ServerUrl { get; set; } = "";
-
     public int NotificationHistoryMinutes { get; set; } = 60;
 
     public bool AuctionNotifications { get; set; } = true;
@@ -11,4 +9,6 @@ public class ClientPreferences
     public bool StartupNotificationHistory { get; set; } = true;
 
     public bool MinimizeToTray { get; set; } = true;
+
+    public bool TrayIconPromptShown { get; set; }
 }

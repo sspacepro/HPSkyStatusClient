@@ -29,11 +29,21 @@ partial class MainForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         pgAdmin = new TabPage();
+        txtAdminServerUrl = new TextBox();
+        btnBackup = new Button();
         btnStatus = new Button();
         txtUpdateApiKey = new TextBox();
         btnShutdownServer = new Button();
         grpUsers = new GroupBox();
+        txtNotificationMessage = new RichTextBox();
+        btnSendNotification = new Button();
+        radNotificationSelected = new RadioButton();
+        radNotificationEveryone = new RadioButton();
+        lblNotificationMessage = new Label();
+        txtNotificationTitle = new TextBox();
+        lblNotificationTitle = new Label();
         numPurgeInactive = new NumericUpDown();
         btnPurgeInactive = new Button();
         btnDelete = new Button();
@@ -44,40 +54,48 @@ partial class MainForm
         clmBlocked = new ColumnHeader();
         clmLastRequest = new ColumnHeader();
         btnRefreshUsers = new Button();
+        parrotGradientPanel4 = new ReaLTaiizor.Controls.ParrotGradientPanel();
         grpCleanup = new GroupBox();
         numWatchExpiration = new NumericUpDown();
         lblWatchExpiration = new Label();
         numWatchCleanupInterval = new NumericUpDown();
         lblWatchCleanupInterval = new Label();
+        parrotGradientPanel7 = new ReaLTaiizor.Controls.ParrotGradientPanel();
         grpClientLimits = new GroupBox();
         numMaxPlayerRequestsPerMinute = new NumericUpDown();
         lblMaxPlayerRequestsPerMinute = new Label();
         numMaxAuctionWatches = new NumericUpDown();
         lblMaxAuctionWatches = new Label();
+        parrotGradientPanel6 = new ReaLTaiizor.Controls.ParrotGradientPanel();
         grpServerSettings = new GroupBox();
-        numItemCacheUpdatteMinutes = new NumericUpDown();
+        numItemCacheUpdateMinutes = new NumericUpDown();
         lblItemCacheUpdateMinutes = new Label();
         numAuctionCheckInterval = new NumericUpDown();
         lblAuctionCheckInterval = new Label();
         numAuctionCacheRefresh = new NumericUpDown();
         lblAuctionCacheRefrsh = new Label();
-        munHypixelUpdateInterval = new NumericUpDown();
+        numHypixelUpdateInterval = new NumericUpDown();
         lblHypixelUpdateInterval = new Label();
+        parrotGradientPanel5 = new ReaLTaiizor.Controls.ParrotGradientPanel();
+        parrotGradientPanel3 = new ReaLTaiizor.Controls.ParrotGradientPanel();
         pgSettings = new TabPage();
-        btnHealth = new Button();
-        txtAdminKey = new TextBox();
-        btnReloadSettings = new Button();
-        btnSaveSettings = new Button();
-        grpClientSettings = new GroupBox();
-        lblServerUrl = new Label();
-        chkMinimizeToTray = new CheckBox();
-        lblLogtime = new Label();
-        chkStartupNotificationHistory = new CheckBox();
-        chkAuctionNotifications = new CheckBox();
-        numNotificationHistory = new NumericUpDown();
+        parrotGradientPanel2 = new ReaLTaiizor.Controls.ParrotGradientPanel();
+        btnHealth = new ReaLTaiizor.Controls.SkyButton();
+        parrotGroupBox1 = new ReaLTaiizor.Controls.ParrotGroupBox();
+        btnReloadSettings = new ReaLTaiizor.Controls.SkyButton();
+        btnSaveSettings = new ReaLTaiizor.Controls.SkyButton();
+        skyLabel3 = new ReaLTaiizor.Controls.SkyLabel();
+        chkMinimizeToTray = new ReaLTaiizor.Controls.SkyCheckBox();
+        skyLabel2 = new ReaLTaiizor.Controls.SkyLabel();
+        skyLabel1 = new ReaLTaiizor.Controls.SkyLabel();
+        chkStartupNotificationHistory = new ReaLTaiizor.Controls.SkyCheckBox();
+        lblReceiveAuctionNotifications = new ReaLTaiizor.Controls.SkyLabel();
+        chkAuctionNotifications = new ReaLTaiizor.Controls.SkyCheckBox();
+        lblServerAdress = new ReaLTaiizor.Controls.SkyLabel();
         txtServerUrl = new TextBox();
-        grpServer = new GroupBox();
-        lblMaxAuctions = new Label();
+        txtAdminKey = new TextBox();
+        grpServerLimits = new ReaLTaiizor.Controls.ParrotGroupBox();
+        lblMaxAuctions = new ReaLTaiizor.Controls.SkyLabel();
         pgAuctions = new TabPage();
         grpAuctions = new GroupBox();
         lvAuctions = new ListView();
@@ -98,6 +116,7 @@ partial class MainForm
         btnAddAuction = new ReaLTaiizor.Controls.SkyButton();
         btnRemoveAuction = new ReaLTaiizor.Controls.SkyButton();
         tabMain = new ReaLTaiizor.Controls.DungeonTabPage();
+        numNotificationHistory = new NumericUpDown();
         pgAdmin.SuspendLayout();
         grpUsers.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
@@ -108,23 +127,26 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)numMaxPlayerRequestsPerMinute).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).BeginInit();
         grpServerSettings.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdateMinutes).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).BeginInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).BeginInit();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)numHypixelUpdateInterval).BeginInit();
         pgSettings.SuspendLayout();
-        grpClientSettings.SuspendLayout();
-        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
-        grpServer.SuspendLayout();
+        parrotGradientPanel2.SuspendLayout();
+        parrotGroupBox1.SuspendLayout();
+        grpServerLimits.SuspendLayout();
         pgAuctions.SuspendLayout();
         grpAuctions.SuspendLayout();
         parrotGradientPanel1.SuspendLayout();
         tabMain.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
         SuspendLayout();
         // 
         // pgAdmin
         // 
         pgAdmin.BackColor = Color.FromArgb(247, 186, 54);
+        pgAdmin.Controls.Add(txtAdminServerUrl);
+        pgAdmin.Controls.Add(btnBackup);
         pgAdmin.Controls.Add(btnStatus);
         pgAdmin.Controls.Add(txtUpdateApiKey);
         pgAdmin.Controls.Add(btnShutdownServer);
@@ -132,6 +154,7 @@ partial class MainForm
         pgAdmin.Controls.Add(grpCleanup);
         pgAdmin.Controls.Add(grpClientLimits);
         pgAdmin.Controls.Add(grpServerSettings);
+        pgAdmin.Controls.Add(parrotGradientPanel3);
         pgAdmin.Location = new Point(4, 28);
         pgAdmin.Name = "pgAdmin";
         pgAdmin.Padding = new Padding(3);
@@ -139,9 +162,27 @@ partial class MainForm
         pgAdmin.TabIndex = 4;
         pgAdmin.Text = "Admin";
         // 
+        // txtAdminServerUrl
+        // 
+        txtAdminServerUrl.Location = new Point(269, 383);
+        txtAdminServerUrl.Name = "txtAdminServerUrl";
+        txtAdminServerUrl.Size = new Size(238, 23);
+        txtAdminServerUrl.TabIndex = 8;
+        txtAdminServerUrl.KeyDown += txtAdminServerUrl_KeyDown;
+        // 
+        // btnBackup
+        // 
+        btnBackup.Location = new Point(432, 325);
+        btnBackup.Name = "btnBackup";
+        btnBackup.Size = new Size(75, 23);
+        btnBackup.TabIndex = 7;
+        btnBackup.Text = "Backup";
+        btnBackup.UseVisualStyleBackColor = true;
+        btnBackup.Click += btnBackup_Click;
+        // 
         // btnStatus
         // 
-        btnStatus.Location = new Point(344, 351);
+        btnStatus.Location = new Point(350, 325);
         btnStatus.Name = "btnStatus";
         btnStatus.Size = new Size(75, 23);
         btnStatus.TabIndex = 6;
@@ -151,16 +192,17 @@ partial class MainForm
         // 
         // txtUpdateApiKey
         // 
-        txtUpdateApiKey.Location = new Point(263, 322);
+        txtUpdateApiKey.Location = new Point(269, 354);
         txtUpdateApiKey.Name = "txtUpdateApiKey";
         txtUpdateApiKey.PlaceholderText = "Update Api Key";
         txtUpdateApiKey.Size = new Size(238, 23);
         txtUpdateApiKey.TabIndex = 5;
+        txtUpdateApiKey.Visible = false;
         txtUpdateApiKey.KeyDown += txtUpdateApiKey_KeyDown;
         // 
         // btnShutdownServer
         // 
-        btnShutdownServer.Location = new Point(263, 351);
+        btnShutdownServer.Location = new Point(269, 325);
         btnShutdownServer.Name = "btnShutdownServer";
         btnShutdownServer.Size = new Size(75, 23);
         btnShutdownServer.TabIndex = 4;
@@ -170,6 +212,14 @@ partial class MainForm
         // 
         // grpUsers
         // 
+        grpUsers.BackColor = Color.Maroon;
+        grpUsers.Controls.Add(txtNotificationMessage);
+        grpUsers.Controls.Add(btnSendNotification);
+        grpUsers.Controls.Add(radNotificationSelected);
+        grpUsers.Controls.Add(radNotificationEveryone);
+        grpUsers.Controls.Add(lblNotificationMessage);
+        grpUsers.Controls.Add(txtNotificationTitle);
+        grpUsers.Controls.Add(lblNotificationTitle);
         grpUsers.Controls.Add(numPurgeInactive);
         grpUsers.Controls.Add(btnPurgeInactive);
         grpUsers.Controls.Add(btnDelete);
@@ -177,15 +227,84 @@ partial class MainForm
         grpUsers.Controls.Add(btnBlock);
         grpUsers.Controls.Add(lvUsers);
         grpUsers.Controls.Add(btnRefreshUsers);
+        grpUsers.Controls.Add(parrotGradientPanel4);
         grpUsers.Location = new Point(263, 6);
         grpUsers.Name = "grpUsers";
-        grpUsers.Size = new Size(303, 313);
+        grpUsers.Size = new Size(603, 313);
         grpUsers.TabIndex = 3;
         grpUsers.TabStop = false;
         grpUsers.Text = "Users";
         // 
+        // txtNotificationMessage
+        // 
+        txtNotificationMessage.BackColor = Color.DarkRed;
+        txtNotificationMessage.Location = new Point(303, 88);
+        txtNotificationMessage.Name = "txtNotificationMessage";
+        txtNotificationMessage.Size = new Size(294, 129);
+        txtNotificationMessage.TabIndex = 14;
+        txtNotificationMessage.Text = "";
+        // 
+        // btnSendNotification
+        // 
+        btnSendNotification.Location = new Point(522, 248);
+        btnSendNotification.Name = "btnSendNotification";
+        btnSendNotification.Size = new Size(75, 23);
+        btnSendNotification.TabIndex = 12;
+        btnSendNotification.Text = "Send";
+        btnSendNotification.UseVisualStyleBackColor = true;
+        btnSendNotification.Click += btnSendNotification_Click;
+        // 
+        // radNotificationSelected
+        // 
+        radNotificationSelected.AutoSize = true;
+        radNotificationSelected.Location = new Point(429, 223);
+        radNotificationSelected.Name = "radNotificationSelected";
+        radNotificationSelected.Size = new Size(100, 19);
+        radNotificationSelected.TabIndex = 11;
+        radNotificationSelected.TabStop = true;
+        radNotificationSelected.Text = "Selected Users";
+        radNotificationSelected.UseVisualStyleBackColor = true;
+        // 
+        // radNotificationEveryone
+        // 
+        radNotificationEveryone.AutoSize = true;
+        radNotificationEveryone.Location = new Point(303, 223);
+        radNotificationEveryone.Name = "radNotificationEveryone";
+        radNotificationEveryone.Size = new Size(73, 19);
+        radNotificationEveryone.TabIndex = 10;
+        radNotificationEveryone.TabStop = true;
+        radNotificationEveryone.Text = "Everyone";
+        radNotificationEveryone.UseVisualStyleBackColor = true;
+        // 
+        // lblNotificationMessage
+        // 
+        lblNotificationMessage.AutoSize = true;
+        lblNotificationMessage.Location = new Point(303, 70);
+        lblNotificationMessage.Name = "lblNotificationMessage";
+        lblNotificationMessage.Size = new Size(53, 15);
+        lblNotificationMessage.TabIndex = 8;
+        lblNotificationMessage.Text = "Message";
+        // 
+        // txtNotificationTitle
+        // 
+        txtNotificationTitle.BackColor = Color.DarkRed;
+        txtNotificationTitle.Location = new Point(303, 44);
+        txtNotificationTitle.Name = "txtNotificationTitle";
+        txtNotificationTitle.Size = new Size(294, 23);
+        txtNotificationTitle.TabIndex = 7;
+        // 
+        // lblNotificationTitle
+        // 
+        lblNotificationTitle.AutoSize = true;
+        lblNotificationTitle.Location = new Point(303, 26);
+        lblNotificationTitle.Name = "lblNotificationTitle";
+        lblNotificationTitle.Size = new Size(30, 15);
+        lblNotificationTitle.TabIndex = 6;
+        lblNotificationTitle.Text = "Title";
+        // 
         // numPurgeInactive
         // 
+        numPurgeInactive.BackColor = Color.DarkRed;
         numPurgeInactive.Location = new Point(6, 256);
         numPurgeInactive.Maximum = new decimal(new int[] { 10000000, 0, 0, 0 });
         numPurgeInactive.Name = "numPurgeInactive";
@@ -234,11 +353,12 @@ partial class MainForm
         // 
         // lvUsers
         // 
+        lvUsers.BackColor = Color.DarkRed;
         lvUsers.Columns.AddRange(new ColumnHeader[] { clmUsername, clmBlocked, clmLastRequest });
+        lvUsers.ForeColor = Color.White;
         lvUsers.FullRowSelect = true;
         lvUsers.GridLines = true;
         lvUsers.Location = new Point(6, 44);
-        lvUsers.MultiSelect = false;
         lvUsers.Name = "lvUsers";
         lvUsers.Size = new Size(291, 177);
         lvUsers.TabIndex = 1;
@@ -270,12 +390,33 @@ partial class MainForm
         btnRefreshUsers.UseVisualStyleBackColor = true;
         btnRefreshUsers.Click += btnRefreshUsers_Click;
         // 
+        // parrotGradientPanel4
+        // 
+        parrotGradientPanel4.BottomLeft = Color.Black;
+        parrotGradientPanel4.BottomRight = Color.DarkRed;
+        parrotGradientPanel4.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel4.Dock = DockStyle.Fill;
+        parrotGradientPanel4.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel4.Location = new Point(3, 19);
+        parrotGradientPanel4.Name = "parrotGradientPanel4";
+        parrotGradientPanel4.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel4.PrimerColor = Color.White;
+        parrotGradientPanel4.Size = new Size(597, 291);
+        parrotGradientPanel4.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel4.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel4.TabIndex = 15;
+        parrotGradientPanel4.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel4.TopLeft = Color.DarkRed;
+        parrotGradientPanel4.TopRight = Color.Black;
+        // 
         // grpCleanup
         // 
+        grpCleanup.BackColor = Color.FromArgb(192, 192, 0);
         grpCleanup.Controls.Add(numWatchExpiration);
         grpCleanup.Controls.Add(lblWatchExpiration);
         grpCleanup.Controls.Add(numWatchCleanupInterval);
         grpCleanup.Controls.Add(lblWatchCleanupInterval);
+        grpCleanup.Controls.Add(parrotGradientPanel7);
         grpCleanup.Location = new Point(6, 330);
         grpCleanup.Name = "grpCleanup";
         grpCleanup.Size = new Size(251, 111);
@@ -285,6 +426,7 @@ partial class MainForm
         // 
         // numWatchExpiration
         // 
+        numWatchExpiration.BackColor = Color.FromArgb(192, 192, 0);
         numWatchExpiration.Location = new Point(6, 81);
         numWatchExpiration.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
         numWatchExpiration.Name = "numWatchExpiration";
@@ -303,6 +445,7 @@ partial class MainForm
         // 
         // numWatchCleanupInterval
         // 
+        numWatchCleanupInterval.BackColor = Color.FromArgb(192, 192, 0);
         numWatchCleanupInterval.Location = new Point(6, 37);
         numWatchCleanupInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
         numWatchCleanupInterval.Name = "numWatchCleanupInterval";
@@ -319,12 +462,33 @@ partial class MainForm
         lblWatchCleanupInterval.TabIndex = 0;
         lblWatchCleanupInterval.Text = "Cleanup Expired Watches Interval minutes:";
         // 
+        // parrotGradientPanel7
+        // 
+        parrotGradientPanel7.BottomLeft = Color.Black;
+        parrotGradientPanel7.BottomRight = Color.FromArgb(192, 192, 0);
+        parrotGradientPanel7.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel7.Dock = DockStyle.Fill;
+        parrotGradientPanel7.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel7.Location = new Point(3, 19);
+        parrotGradientPanel7.Name = "parrotGradientPanel7";
+        parrotGradientPanel7.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel7.PrimerColor = Color.White;
+        parrotGradientPanel7.Size = new Size(245, 89);
+        parrotGradientPanel7.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel7.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel7.TabIndex = 4;
+        parrotGradientPanel7.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel7.TopLeft = Color.FromArgb(192, 192, 0);
+        parrotGradientPanel7.TopRight = Color.Black;
+        // 
         // grpClientLimits
         // 
+        grpClientLimits.BackColor = Color.DodgerBlue;
         grpClientLimits.Controls.Add(numMaxPlayerRequestsPerMinute);
         grpClientLimits.Controls.Add(lblMaxPlayerRequestsPerMinute);
         grpClientLimits.Controls.Add(numMaxAuctionWatches);
         grpClientLimits.Controls.Add(lblMaxAuctionWatches);
+        grpClientLimits.Controls.Add(parrotGradientPanel6);
         grpClientLimits.Location = new Point(6, 212);
         grpClientLimits.Name = "grpClientLimits";
         grpClientLimits.Size = new Size(251, 112);
@@ -334,6 +498,7 @@ partial class MainForm
         // 
         // numMaxPlayerRequestsPerMinute
         // 
+        numMaxPlayerRequestsPerMinute.BackColor = SystemColors.MenuHighlight;
         numMaxPlayerRequestsPerMinute.Location = new Point(6, 81);
         numMaxPlayerRequestsPerMinute.Name = "numMaxPlayerRequestsPerMinute";
         numMaxPlayerRequestsPerMinute.Size = new Size(120, 23);
@@ -351,6 +516,7 @@ partial class MainForm
         // 
         // numMaxAuctionWatches
         // 
+        numMaxAuctionWatches.BackColor = SystemColors.MenuHighlight;
         numMaxAuctionWatches.Location = new Point(6, 37);
         numMaxAuctionWatches.Name = "numMaxAuctionWatches";
         numMaxAuctionWatches.Size = new Size(120, 23);
@@ -366,16 +532,37 @@ partial class MainForm
         lblMaxAuctionWatches.TabIndex = 0;
         lblMaxAuctionWatches.Text = "Max Auction Watches:";
         // 
+        // parrotGradientPanel6
+        // 
+        parrotGradientPanel6.BottomLeft = Color.Black;
+        parrotGradientPanel6.BottomRight = SystemColors.MenuHighlight;
+        parrotGradientPanel6.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel6.Dock = DockStyle.Fill;
+        parrotGradientPanel6.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel6.Location = new Point(3, 19);
+        parrotGradientPanel6.Name = "parrotGradientPanel6";
+        parrotGradientPanel6.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel6.PrimerColor = Color.White;
+        parrotGradientPanel6.Size = new Size(245, 90);
+        parrotGradientPanel6.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel6.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel6.TabIndex = 4;
+        parrotGradientPanel6.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel6.TopLeft = SystemColors.MenuHighlight;
+        parrotGradientPanel6.TopRight = Color.Black;
+        // 
         // grpServerSettings
         // 
-        grpServerSettings.Controls.Add(numItemCacheUpdatteMinutes);
+        grpServerSettings.BackColor = Color.ForestGreen;
+        grpServerSettings.Controls.Add(numItemCacheUpdateMinutes);
         grpServerSettings.Controls.Add(lblItemCacheUpdateMinutes);
         grpServerSettings.Controls.Add(numAuctionCheckInterval);
         grpServerSettings.Controls.Add(lblAuctionCheckInterval);
         grpServerSettings.Controls.Add(numAuctionCacheRefresh);
         grpServerSettings.Controls.Add(lblAuctionCacheRefrsh);
-        grpServerSettings.Controls.Add(munHypixelUpdateInterval);
+        grpServerSettings.Controls.Add(numHypixelUpdateInterval);
         grpServerSettings.Controls.Add(lblHypixelUpdateInterval);
+        grpServerSettings.Controls.Add(parrotGradientPanel5);
         grpServerSettings.Location = new Point(6, 6);
         grpServerSettings.Name = "grpServerSettings";
         grpServerSettings.Size = new Size(251, 200);
@@ -383,16 +570,17 @@ partial class MainForm
         grpServerSettings.TabStop = false;
         grpServerSettings.Text = "Server Settings";
         // 
-        // numItemCacheUpdatteMinutes
+        // numItemCacheUpdateMinutes
         // 
-        numItemCacheUpdatteMinutes.Location = new Point(6, 169);
-        numItemCacheUpdatteMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.Name = "numItemCacheUpdatteMinutes";
-        numItemCacheUpdatteMinutes.Size = new Size(120, 23);
-        numItemCacheUpdatteMinutes.TabIndex = 7;
-        numItemCacheUpdatteMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        numItemCacheUpdatteMinutes.KeyDown += numItemCacheUpdatteMinutes_KeyDown;
+        numItemCacheUpdateMinutes.BackColor = Color.Green;
+        numItemCacheUpdateMinutes.Location = new Point(6, 169);
+        numItemCacheUpdateMinutes.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+        numItemCacheUpdateMinutes.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdateMinutes.Name = "numItemCacheUpdateMinutes";
+        numItemCacheUpdateMinutes.Size = new Size(120, 23);
+        numItemCacheUpdateMinutes.TabIndex = 7;
+        numItemCacheUpdateMinutes.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numItemCacheUpdateMinutes.KeyDown += numItemCacheUpdateMinutes_KeyDown;
         // 
         // lblItemCacheUpdateMinutes
         // 
@@ -405,6 +593,7 @@ partial class MainForm
         // 
         // numAuctionCheckInterval
         // 
+        numAuctionCheckInterval.BackColor = Color.Green;
         numAuctionCheckInterval.Location = new Point(6, 125);
         numAuctionCheckInterval.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
         numAuctionCheckInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -425,6 +614,7 @@ partial class MainForm
         // 
         // numAuctionCacheRefresh
         // 
+        numAuctionCacheRefresh.BackColor = Color.Green;
         numAuctionCacheRefresh.Location = new Point(6, 81);
         numAuctionCacheRefresh.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
         numAuctionCacheRefresh.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -443,16 +633,17 @@ partial class MainForm
         lblAuctionCacheRefrsh.TabIndex = 2;
         lblAuctionCacheRefrsh.Text = "Refresh Hypixel Auctions Seconds:";
         // 
-        // munHypixelUpdateInterval
+        // numHypixelUpdateInterval
         // 
-        munHypixelUpdateInterval.Location = new Point(6, 37);
-        munHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
-        munHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.Name = "munHypixelUpdateInterval";
-        munHypixelUpdateInterval.Size = new Size(120, 23);
-        munHypixelUpdateInterval.TabIndex = 1;
-        munHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
-        munHypixelUpdateInterval.KeyDown += munHypixelUpdateInterval_KeyDown;
+        numHypixelUpdateInterval.BackColor = Color.Green;
+        numHypixelUpdateInterval.Location = new Point(6, 37);
+        numHypixelUpdateInterval.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+        numHypixelUpdateInterval.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+        numHypixelUpdateInterval.Name = "numHypixelUpdateInterval";
+        numHypixelUpdateInterval.Size = new Size(120, 23);
+        numHypixelUpdateInterval.TabIndex = 1;
+        numHypixelUpdateInterval.Value = new decimal(new int[] { 10, 0, 0, 0 });
+        numHypixelUpdateInterval.KeyDown += numHypixelUpdateInterval_KeyDown;
         // 
         // lblHypixelUpdateInterval
         // 
@@ -463,15 +654,48 @@ partial class MainForm
         lblHypixelUpdateInterval.TabIndex = 0;
         lblHypixelUpdateInterval.Text = "Hypixel Update Interval Seconds:";
         // 
+        // parrotGradientPanel5
+        // 
+        parrotGradientPanel5.BottomLeft = Color.Black;
+        parrotGradientPanel5.BottomRight = Color.FromArgb(0, 192, 0);
+        parrotGradientPanel5.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel5.Dock = DockStyle.Fill;
+        parrotGradientPanel5.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel5.Location = new Point(3, 19);
+        parrotGradientPanel5.Name = "parrotGradientPanel5";
+        parrotGradientPanel5.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel5.PrimerColor = Color.White;
+        parrotGradientPanel5.Size = new Size(245, 178);
+        parrotGradientPanel5.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel5.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel5.TabIndex = 8;
+        parrotGradientPanel5.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel5.TopLeft = Color.Green;
+        parrotGradientPanel5.TopRight = Color.Black;
+        // 
+        // parrotGradientPanel3
+        // 
+        parrotGradientPanel3.BottomLeft = Color.Black;
+        parrotGradientPanel3.BottomRight = Color.FromArgb(192, 0, 0);
+        parrotGradientPanel3.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel3.Dock = DockStyle.Fill;
+        parrotGradientPanel3.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel3.Location = new Point(3, 3);
+        parrotGradientPanel3.Name = "parrotGradientPanel3";
+        parrotGradientPanel3.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel3.PrimerColor = Color.White;
+        parrotGradientPanel3.Size = new Size(900, 434);
+        parrotGradientPanel3.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel3.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel3.TabIndex = 9;
+        parrotGradientPanel3.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel3.TopLeft = Color.Black;
+        parrotGradientPanel3.TopRight = Color.Red;
+        // 
         // pgSettings
         // 
         pgSettings.BackColor = Color.FromArgb(247, 186, 54);
-        pgSettings.Controls.Add(btnHealth);
-        pgSettings.Controls.Add(txtAdminKey);
-        pgSettings.Controls.Add(btnReloadSettings);
-        pgSettings.Controls.Add(btnSaveSettings);
-        pgSettings.Controls.Add(grpClientSettings);
-        pgSettings.Controls.Add(grpServer);
+        pgSettings.Controls.Add(parrotGradientPanel2);
         pgSettings.Location = new Point(4, 28);
         pgSettings.Name = "pgSettings";
         pgSettings.Padding = new Padding(3);
@@ -479,148 +703,335 @@ partial class MainForm
         pgSettings.TabIndex = 3;
         pgSettings.Text = "Settings";
         // 
+        // parrotGradientPanel2
+        // 
+        parrotGradientPanel2.BottomLeft = Color.DarkGreen;
+        parrotGradientPanel2.BottomRight = Color.DarkRed;
+        parrotGradientPanel2.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+        parrotGradientPanel2.Controls.Add(btnHealth);
+        parrotGradientPanel2.Controls.Add(parrotGroupBox1);
+        parrotGradientPanel2.Controls.Add(txtAdminKey);
+        parrotGradientPanel2.Controls.Add(grpServerLimits);
+        parrotGradientPanel2.Dock = DockStyle.Fill;
+        parrotGradientPanel2.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+        parrotGradientPanel2.Location = new Point(3, 3);
+        parrotGradientPanel2.Name = "parrotGradientPanel2";
+        parrotGradientPanel2.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+        parrotGradientPanel2.PrimerColor = Color.Black;
+        parrotGradientPanel2.Size = new Size(900, 434);
+        parrotGradientPanel2.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        parrotGradientPanel2.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+        parrotGradientPanel2.TabIndex = 6;
+        parrotGradientPanel2.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        parrotGradientPanel2.TopLeft = Color.DarkBlue;
+        parrotGradientPanel2.TopRight = Color.DarkGreen;
+        // 
         // btnHealth
         // 
-        btnHealth.Location = new Point(11, 292);
+        btnHealth.BackColor = Color.Black;
+        btnHealth.Cursor = Cursors.Hand;
+        btnHealth.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnHealth.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnHealth.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnHealth.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnHealth.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnHealth.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnHealth.DownForeColor = Color.White;
+        btnHealth.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnHealth.Font = new Font("Minecraft", 8.25F);
+        btnHealth.ForeColor = Color.White;
+        btnHealth.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnHealth.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnHealth.HoverBorderColorA = Color.White;
+        btnHealth.HoverBorderColorB = Color.White;
+        btnHealth.HoverBorderColorC = Color.White;
+        btnHealth.HoverBorderColorD = Color.White;
+        btnHealth.HoverForeColor = Color.White;
+        btnHealth.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnHealth.Location = new Point(11, 280);
         btnHealth.Name = "btnHealth";
-        btnHealth.Size = new Size(75, 23);
-        btnHealth.TabIndex = 5;
+        btnHealth.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnHealth.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnHealth.NormalBorderColorA = Color.DarkGray;
+        btnHealth.NormalBorderColorB = Color.DarkGray;
+        btnHealth.NormalBorderColorC = Color.Black;
+        btnHealth.NormalBorderColorD = Color.Black;
+        btnHealth.NormalForeColor = Color.White;
+        btnHealth.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnHealth.Size = new Size(121, 23);
+        btnHealth.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnHealth.TabIndex = 33;
         btnHealth.Text = "Health";
-        btnHealth.UseVisualStyleBackColor = true;
         btnHealth.Click += btnHealth_Click;
         // 
-        // txtAdminKey
+        // parrotGroupBox1
         // 
-        txtAdminKey.Location = new Point(6, 263);
-        txtAdminKey.Name = "txtAdminKey";
-        txtAdminKey.PlaceholderText = "Admin Key";
-        txtAdminKey.Size = new Size(272, 23);
-        txtAdminKey.TabIndex = 4;
-        txtAdminKey.UseSystemPasswordChar = true;
-        txtAdminKey.KeyDown += txtAdminKey_KeyDown;
+        parrotGroupBox1.BackColor = Color.Transparent;
+        parrotGroupBox1.BorderColor = Color.DodgerBlue;
+        parrotGroupBox1.BorderWidth = 1;
+        parrotGroupBox1.Controls.Add(numNotificationHistory);
+        parrotGroupBox1.Controls.Add(btnReloadSettings);
+        parrotGroupBox1.Controls.Add(btnSaveSettings);
+        parrotGroupBox1.Controls.Add(skyLabel3);
+        parrotGroupBox1.Controls.Add(chkMinimizeToTray);
+        parrotGroupBox1.Controls.Add(skyLabel2);
+        parrotGroupBox1.Controls.Add(skyLabel1);
+        parrotGroupBox1.Controls.Add(chkStartupNotificationHistory);
+        parrotGroupBox1.Controls.Add(lblReceiveAuctionNotifications);
+        parrotGroupBox1.Controls.Add(chkAuctionNotifications);
+        parrotGroupBox1.Controls.Add(lblServerAdress);
+        parrotGroupBox1.Controls.Add(txtServerUrl);
+        parrotGroupBox1.ForeColor = SystemColors.ActiveCaptionText;
+        parrotGroupBox1.Location = new Point(5, 66);
+        parrotGroupBox1.Name = "parrotGroupBox1";
+        parrotGroupBox1.ShowText = true;
+        parrotGroupBox1.Size = new Size(294, 208);
+        parrotGroupBox1.TabIndex = 18;
+        parrotGroupBox1.TabStop = false;
+        parrotGroupBox1.Text = "Client Settings";
+        parrotGroupBox1.TextColor = Color.DodgerBlue;
         // 
         // btnReloadSettings
         // 
-        btnReloadSettings.Location = new Point(92, 234);
+        btnReloadSettings.BackColor = Color.Black;
+        btnReloadSettings.Cursor = Cursors.Hand;
+        btnReloadSettings.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnReloadSettings.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnReloadSettings.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnReloadSettings.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnReloadSettings.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnReloadSettings.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnReloadSettings.DownForeColor = Color.White;
+        btnReloadSettings.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnReloadSettings.Font = new Font("Minecraft", 8.25F);
+        btnReloadSettings.ForeColor = Color.White;
+        btnReloadSettings.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnReloadSettings.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnReloadSettings.HoverBorderColorA = Color.White;
+        btnReloadSettings.HoverBorderColorB = Color.White;
+        btnReloadSettings.HoverBorderColorC = Color.White;
+        btnReloadSettings.HoverBorderColorD = Color.White;
+        btnReloadSettings.HoverForeColor = Color.White;
+        btnReloadSettings.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnReloadSettings.Location = new Point(133, 178);
         btnReloadSettings.Name = "btnReloadSettings";
-        btnReloadSettings.Size = new Size(75, 23);
-        btnReloadSettings.TabIndex = 3;
+        btnReloadSettings.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnReloadSettings.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnReloadSettings.NormalBorderColorA = Color.DarkGray;
+        btnReloadSettings.NormalBorderColorB = Color.DarkGray;
+        btnReloadSettings.NormalBorderColorC = Color.Black;
+        btnReloadSettings.NormalBorderColorD = Color.Black;
+        btnReloadSettings.NormalForeColor = Color.White;
+        btnReloadSettings.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnReloadSettings.Size = new Size(121, 23);
+        btnReloadSettings.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnReloadSettings.TabIndex = 33;
         btnReloadSettings.Text = "Reload";
-        btnReloadSettings.UseVisualStyleBackColor = true;
         btnReloadSettings.Click += btnReloadSettings_Click;
         // 
         // btnSaveSettings
         // 
-        btnSaveSettings.Location = new Point(11, 234);
+        btnSaveSettings.BackColor = Color.Black;
+        btnSaveSettings.Cursor = Cursors.Hand;
+        btnSaveSettings.DownBGColorA = Color.FromArgb(107, 107, 107);
+        btnSaveSettings.DownBGColorB = Color.FromArgb(123, 123, 123);
+        btnSaveSettings.DownBorderColorA = Color.FromArgb(227, 195, 95);
+        btnSaveSettings.DownBorderColorB = Color.FromArgb(227, 195, 95);
+        btnSaveSettings.DownBorderColorC = Color.FromArgb(169, 128, 56);
+        btnSaveSettings.DownBorderColorD = Color.FromArgb(169, 128, 56);
+        btnSaveSettings.DownForeColor = Color.White;
+        btnSaveSettings.DownShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnSaveSettings.Font = new Font("Minecraft", 8.25F);
+        btnSaveSettings.ForeColor = Color.White;
+        btnSaveSettings.HoverBGColorA = Color.FromArgb(107, 107, 107);
+        btnSaveSettings.HoverBGColorB = Color.FromArgb(123, 123, 123);
+        btnSaveSettings.HoverBorderColorA = Color.White;
+        btnSaveSettings.HoverBorderColorB = Color.White;
+        btnSaveSettings.HoverBorderColorC = Color.White;
+        btnSaveSettings.HoverBorderColorD = Color.White;
+        btnSaveSettings.HoverForeColor = Color.White;
+        btnSaveSettings.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
+        btnSaveSettings.Location = new Point(6, 178);
         btnSaveSettings.Name = "btnSaveSettings";
-        btnSaveSettings.Size = new Size(75, 23);
-        btnSaveSettings.TabIndex = 2;
+        btnSaveSettings.NormalBGColorA = Color.FromArgb(107, 107, 107);
+        btnSaveSettings.NormalBGColorB = Color.FromArgb(123, 123, 123);
+        btnSaveSettings.NormalBorderColorA = Color.DarkGray;
+        btnSaveSettings.NormalBorderColorB = Color.DarkGray;
+        btnSaveSettings.NormalBorderColorC = Color.Black;
+        btnSaveSettings.NormalBorderColorD = Color.Black;
+        btnSaveSettings.NormalForeColor = Color.White;
+        btnSaveSettings.NormalShadowForeColor = Color.FromArgb(53, 53, 53);
+        btnSaveSettings.Size = new Size(121, 23);
+        btnSaveSettings.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        btnSaveSettings.TabIndex = 32;
         btnSaveSettings.Text = "Save";
-        btnSaveSettings.UseVisualStyleBackColor = true;
         btnSaveSettings.Click += btnSaveSettings_Click;
         // 
-        // grpClientSettings
+        // skyLabel3
         // 
-        grpClientSettings.Controls.Add(lblServerUrl);
-        grpClientSettings.Controls.Add(chkMinimizeToTray);
-        grpClientSettings.Controls.Add(lblLogtime);
-        grpClientSettings.Controls.Add(chkStartupNotificationHistory);
-        grpClientSettings.Controls.Add(chkAuctionNotifications);
-        grpClientSettings.Controls.Add(numNotificationHistory);
-        grpClientSettings.Controls.Add(txtServerUrl);
-        grpClientSettings.Location = new Point(2, 48);
-        grpClientSettings.Name = "grpClientSettings";
-        grpClientSettings.Size = new Size(273, 181);
-        grpClientSettings.TabIndex = 1;
-        grpClientSettings.TabStop = false;
-        grpClientSettings.Text = "Client Settings";
-        // 
-        // lblServerUrl
-        // 
-        lblServerUrl.AutoSize = true;
-        lblServerUrl.Location = new Point(5, 19);
-        lblServerUrl.Name = "lblServerUrl";
-        lblServerUrl.Size = new Size(92, 15);
-        lblServerUrl.TabIndex = 7;
-        lblServerUrl.Text = "Server adress url";
+        skyLabel3.AutoSize = true;
+        skyLabel3.BackColor = Color.Transparent;
+        skyLabel3.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        skyLabel3.ForeColor = SystemColors.ActiveCaptionText;
+        skyLabel3.Location = new Point(25, 149);
+        skyLabel3.Name = "skyLabel3";
+        skyLabel3.Size = new Size(106, 13);
+        skyLabel3.TabIndex = 31;
+        skyLabel3.Text = "Minimize to tray";
         // 
         // chkMinimizeToTray
         // 
-        chkMinimizeToTray.AutoSize = true;
-        chkMinimizeToTray.Location = new Point(6, 160);
+        chkMinimizeToTray.BackColor = Color.Black;
+        chkMinimizeToTray.BoxBGColorA = Color.Red;
+        chkMinimizeToTray.BoxBGColorB = Color.Transparent;
+        chkMinimizeToTray.BoxBorderColorA = SystemColors.MenuHighlight;
+        chkMinimizeToTray.BoxBorderColorB = SystemColors.HotTrack;
+        chkMinimizeToTray.BoxBorderColorC = Color.Blue;
+        chkMinimizeToTray.Checked = false;
+        chkMinimizeToTray.CheckedColor = Color.FromArgb(220, 27, 94, 137);
+        chkMinimizeToTray.Font = new Font("Minecraft", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        chkMinimizeToTray.ForeColor = Color.Black;
+        chkMinimizeToTray.Location = new Point(4, 149);
         chkMinimizeToTray.Name = "chkMinimizeToTray";
-        chkMinimizeToTray.Size = new Size(112, 19);
-        chkMinimizeToTray.TabIndex = 6;
-        chkMinimizeToTray.Text = "Minimize to tray";
-        chkMinimizeToTray.UseVisualStyleBackColor = true;
+        chkMinimizeToTray.Size = new Size(15, 14);
+        chkMinimizeToTray.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        chkMinimizeToTray.TabIndex = 30;
         // 
-        // lblLogtime
+        // skyLabel2
         // 
-        lblLogtime.AutoSize = true;
-        lblLogtime.Location = new Point(6, 111);
-        lblLogtime.Name = "lblLogtime";
-        lblLogtime.Size = new Size(163, 15);
-        lblLogtime.TabIndex = 5;
-        lblLogtime.Text = "Notification history (minutes)";
+        skyLabel2.AutoSize = true;
+        skyLabel2.BackColor = Color.Transparent;
+        skyLabel2.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        skyLabel2.ForeColor = SystemColors.ActiveCaptionText;
+        skyLabel2.Location = new Point(6, 104);
+        skyLabel2.Name = "skyLabel2";
+        skyLabel2.Size = new Size(201, 13);
+        skyLabel2.TabIndex = 23;
+        skyLabel2.Text = "Notification history (minutes)";
+        // 
+        // skyLabel1
+        // 
+        skyLabel1.AutoSize = true;
+        skyLabel1.BackColor = Color.Transparent;
+        skyLabel1.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        skyLabel1.ForeColor = SystemColors.ActiveCaptionText;
+        skyLabel1.Location = new Point(25, 85);
+        skyLabel1.Name = "skyLabel1";
+        skyLabel1.Size = new Size(268, 13);
+        skyLabel1.TabIndex = 22;
+        skyLabel1.Text = "Receive recent notifications on startup";
         // 
         // chkStartupNotificationHistory
         // 
-        chkStartupNotificationHistory.AutoSize = true;
-        chkStartupNotificationHistory.Checked = true;
-        chkStartupNotificationHistory.CheckState = CheckState.Checked;
-        chkStartupNotificationHistory.Location = new Point(5, 89);
+        chkStartupNotificationHistory.BackColor = Color.Black;
+        chkStartupNotificationHistory.BoxBGColorA = Color.Red;
+        chkStartupNotificationHistory.BoxBGColorB = Color.Transparent;
+        chkStartupNotificationHistory.BoxBorderColorA = SystemColors.MenuHighlight;
+        chkStartupNotificationHistory.BoxBorderColorB = SystemColors.HotTrack;
+        chkStartupNotificationHistory.BoxBorderColorC = Color.Blue;
+        chkStartupNotificationHistory.Checked = false;
+        chkStartupNotificationHistory.CheckedColor = Color.FromArgb(220, 27, 94, 137);
+        chkStartupNotificationHistory.Font = new Font("Minecraft", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        chkStartupNotificationHistory.ForeColor = Color.Black;
+        chkStartupNotificationHistory.Location = new Point(4, 84);
         chkStartupNotificationHistory.Name = "chkStartupNotificationHistory";
-        chkStartupNotificationHistory.Size = new Size(228, 19);
-        chkStartupNotificationHistory.TabIndex = 4;
-        chkStartupNotificationHistory.Text = "Receive recent notifications on startup";
-        chkStartupNotificationHistory.UseVisualStyleBackColor = true;
+        chkStartupNotificationHistory.Size = new Size(15, 14);
+        chkStartupNotificationHistory.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        chkStartupNotificationHistory.TabIndex = 21;
+        // 
+        // lblReceiveAuctionNotifications
+        // 
+        lblReceiveAuctionNotifications.AutoSize = true;
+        lblReceiveAuctionNotifications.BackColor = Color.Transparent;
+        lblReceiveAuctionNotifications.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblReceiveAuctionNotifications.ForeColor = SystemColors.ActiveCaptionText;
+        lblReceiveAuctionNotifications.Location = new Point(25, 65);
+        lblReceiveAuctionNotifications.Name = "lblReceiveAuctionNotifications";
+        lblReceiveAuctionNotifications.Size = new Size(197, 13);
+        lblReceiveAuctionNotifications.TabIndex = 20;
+        lblReceiveAuctionNotifications.Text = "Receive auction notifications";
         // 
         // chkAuctionNotifications
         // 
-        chkAuctionNotifications.AutoSize = true;
-        chkAuctionNotifications.Checked = true;
-        chkAuctionNotifications.CheckState = CheckState.Checked;
-        chkAuctionNotifications.Location = new Point(5, 64);
+        chkAuctionNotifications.BackColor = Color.Black;
+        chkAuctionNotifications.BoxBGColorA = Color.Red;
+        chkAuctionNotifications.BoxBGColorB = Color.Transparent;
+        chkAuctionNotifications.BoxBorderColorA = SystemColors.MenuHighlight;
+        chkAuctionNotifications.BoxBorderColorB = SystemColors.HotTrack;
+        chkAuctionNotifications.BoxBorderColorC = Color.Blue;
+        chkAuctionNotifications.Checked = false;
+        chkAuctionNotifications.CheckedColor = Color.FromArgb(220, 27, 94, 137);
+        chkAuctionNotifications.Font = new Font("Minecraft", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        chkAuctionNotifications.ForeColor = Color.Black;
+        chkAuctionNotifications.Location = new Point(4, 64);
         chkAuctionNotifications.Name = "chkAuctionNotifications";
-        chkAuctionNotifications.Size = new Size(178, 19);
-        chkAuctionNotifications.TabIndex = 3;
-        chkAuctionNotifications.Text = "Receive auction notifications";
-        chkAuctionNotifications.UseVisualStyleBackColor = true;
+        chkAuctionNotifications.Size = new Size(15, 14);
+        chkAuctionNotifications.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        chkAuctionNotifications.TabIndex = 19;
         // 
-        // numNotificationHistory
+        // lblServerAdress
         // 
-        numNotificationHistory.Location = new Point(6, 131);
-        numNotificationHistory.Name = "numNotificationHistory";
-        numNotificationHistory.Size = new Size(120, 23);
-        numNotificationHistory.TabIndex = 1;
+        lblServerAdress.AutoSize = true;
+        lblServerAdress.BackColor = Color.Transparent;
+        lblServerAdress.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblServerAdress.ForeColor = SystemColors.ActiveCaptionText;
+        lblServerAdress.Location = new Point(6, 19);
+        lblServerAdress.Name = "lblServerAdress";
+        lblServerAdress.Size = new Size(114, 13);
+        lblServerAdress.TabIndex = 18;
+        lblServerAdress.Text = "Server address";
         // 
         // txtServerUrl
         // 
-        txtServerUrl.Location = new Point(5, 37);
+        txtServerUrl.BackColor = SystemColors.MenuHighlight;
+        txtServerUrl.BorderStyle = BorderStyle.FixedSingle;
+        txtServerUrl.Cursor = Cursors.IBeam;
+        txtServerUrl.ForeColor = SystemColors.WindowText;
+        txtServerUrl.Location = new Point(4, 35);
         txtServerUrl.Name = "txtServerUrl";
-        txtServerUrl.PlaceholderText = "test";
+        txtServerUrl.PlaceholderText = "http://localhost:5122";
         txtServerUrl.Size = new Size(261, 23);
         txtServerUrl.TabIndex = 0;
-        txtServerUrl.Text = "test";
         txtServerUrl.TextChanged += txtServerUrl_TextChanged;
         // 
-        // grpServer
+        // txtAdminKey
         // 
-        grpServer.Controls.Add(lblMaxAuctions);
-        grpServer.Location = new Point(1, 1);
-        grpServer.Name = "grpServer";
-        grpServer.Size = new Size(274, 41);
-        grpServer.TabIndex = 0;
-        grpServer.TabStop = false;
-        grpServer.Text = "Server Limits";
+        txtAdminKey.BackColor = SystemColors.MenuHighlight;
+        txtAdminKey.BorderStyle = BorderStyle.FixedSingle;
+        txtAdminKey.Location = new Point(5, 309);
+        txtAdminKey.Name = "txtAdminKey";
+        txtAdminKey.PlaceholderText = "Admin Key";
+        txtAdminKey.Size = new Size(265, 23);
+        txtAdminKey.TabIndex = 4;
+        txtAdminKey.UseSystemPasswordChar = true;
+        txtAdminKey.KeyDown += txtAdminKey_KeyDown;
+        // 
+        // grpServerLimits
+        // 
+        grpServerLimits.BackColor = Color.Transparent;
+        grpServerLimits.BorderColor = Color.DodgerBlue;
+        grpServerLimits.BorderWidth = 1;
+        grpServerLimits.Controls.Add(lblMaxAuctions);
+        grpServerLimits.ForeColor = SystemColors.ActiveCaptionText;
+        grpServerLimits.Location = new Point(5, 12);
+        grpServerLimits.Name = "grpServerLimits";
+        grpServerLimits.ShowText = true;
+        grpServerLimits.Size = new Size(245, 48);
+        grpServerLimits.TabIndex = 1;
+        grpServerLimits.TabStop = false;
+        grpServerLimits.Text = "Server Limits";
+        grpServerLimits.TextColor = Color.DodgerBlue;
         // 
         // lblMaxAuctions
         // 
         lblMaxAuctions.AutoSize = true;
-        lblMaxAuctions.Location = new Point(7, 19);
+        lblMaxAuctions.BackColor = Color.Transparent;
+        lblMaxAuctions.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+        lblMaxAuctions.ForeColor = SystemColors.ActiveCaptionText;
+        lblMaxAuctions.Location = new Point(6, 21);
         lblMaxAuctions.Name = "lblMaxAuctions";
-        lblMaxAuctions.Size = new Size(82, 15);
-        lblMaxAuctions.TabIndex = 1;
+        lblMaxAuctions.Size = new Size(94, 13);
+        lblMaxAuctions.TabIndex = 17;
         lblMaxAuctions.Text = "Max Auctions:";
         // 
         // pgAuctions
@@ -651,6 +1062,7 @@ partial class MainForm
         // 
         lvAuctions.BackColor = Color.Black;
         lvAuctions.Columns.AddRange(new ColumnHeader[] { Item, Tier, PetLevel, Stars, Recomb, CheapestAuction, AuctionName, NotifyBelow });
+        lvAuctions.Cursor = Cursors.Hand;
         lvAuctions.Font = new Font("Minecraft", 8.25F);
         lvAuctions.ForeColor = Color.Black;
         lvAuctions.FullRowSelect = true;
@@ -913,18 +1325,32 @@ partial class MainForm
         tabMain.Size = new Size(914, 472);
         tabMain.TabIndex = 2;
         // 
+        // numNotificationHistory
+        // 
+        numNotificationHistory.BackColor = SystemColors.MenuHighlight;
+        numNotificationHistory.Location = new Point(6, 120);
+        numNotificationHistory.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+        numNotificationHistory.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        numNotificationHistory.Name = "numNotificationHistory";
+        numNotificationHistory.Size = new Size(259, 23);
+        numNotificationHistory.TabIndex = 34;
+        numNotificationHistory.Value = new decimal(new int[] { 60, 0, 0, 0 });
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
+        BackColor = SystemColors.Control;
         ClientSize = new Size(914, 472);
         Controls.Add(tabMain);
+        Icon = (Icon)resources.GetObject("$this.Icon");
         Name = "MainForm";
         Text = "Hypixel Skyblock Status";
         Load += MainForm_Load;
         pgAdmin.ResumeLayout(false);
         pgAdmin.PerformLayout();
         grpUsers.ResumeLayout(false);
+        grpUsers.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).EndInit();
         grpCleanup.ResumeLayout(false);
         grpCleanup.PerformLayout();
@@ -936,22 +1362,23 @@ partial class MainForm
         ((System.ComponentModel.ISupportInitialize)numMaxAuctionWatches).EndInit();
         grpServerSettings.ResumeLayout(false);
         grpServerSettings.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdatteMinutes).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numItemCacheUpdateMinutes).EndInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCheckInterval).EndInit();
         ((System.ComponentModel.ISupportInitialize)numAuctionCacheRefresh).EndInit();
-        ((System.ComponentModel.ISupportInitialize)munHypixelUpdateInterval).EndInit();
+        ((System.ComponentModel.ISupportInitialize)numHypixelUpdateInterval).EndInit();
         pgSettings.ResumeLayout(false);
-        pgSettings.PerformLayout();
-        grpClientSettings.ResumeLayout(false);
-        grpClientSettings.PerformLayout();
-        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
-        grpServer.ResumeLayout(false);
-        grpServer.PerformLayout();
+        parrotGradientPanel2.ResumeLayout(false);
+        parrotGradientPanel2.PerformLayout();
+        parrotGroupBox1.ResumeLayout(false);
+        parrotGroupBox1.PerformLayout();
+        grpServerLimits.ResumeLayout(false);
+        grpServerLimits.PerformLayout();
         pgAuctions.ResumeLayout(false);
         grpAuctions.ResumeLayout(false);
         parrotGradientPanel1.ResumeLayout(false);
         parrotGradientPanel1.PerformLayout();
         tabMain.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
         ResumeLayout(false);
     }
 
@@ -983,26 +1410,16 @@ partial class MainForm
     private NumericUpDown numMaxAuctionWatches;
     private Label lblMaxAuctionWatches;
     private GroupBox grpServerSettings;
-    private NumericUpDown numItemCacheUpdatteMinutes;
+    private NumericUpDown numItemCacheUpdateMinutes;
     private Label lblItemCacheUpdateMinutes;
     private NumericUpDown numAuctionCheckInterval;
     private Label lblAuctionCheckInterval;
     private NumericUpDown numAuctionCacheRefresh;
     private Label lblAuctionCacheRefrsh;
-    private NumericUpDown munHypixelUpdateInterval;
+    private NumericUpDown numHypixelUpdateInterval;
     private Label lblHypixelUpdateInterval;
     private TabPage pgSettings;
-    private Button btnHealth;
     private TextBox txtAdminKey;
-    private Button btnReloadSettings;
-    private Button btnSaveSettings;
-    private GroupBox grpClientSettings;
-    private Label lblServerUrl;
-    private CheckBox chkMinimizeToTray;
-    private Label lblLogtime;
-    private CheckBox chkStartupNotificationHistory;
-    private CheckBox chkAuctionNotifications;
-    private NumericUpDown numNotificationHistory;
     private TextBox txtServerUrl;
     private TabPage pgAuctions;
     private GroupBox grpAuctions;
@@ -1016,8 +1433,6 @@ partial class MainForm
     private ColumnHeader AuctionName;
     private ColumnHeader NotifyBelow;
     private ReaLTaiizor.Controls.DungeonTabPage tabMain;
-    private GroupBox grpServer;
-    private Label lblMaxAuctions;
     private ReaLTaiizor.Controls.SkyButton btnRemoveAuction;
     private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel1;
     private ReaLTaiizor.Controls.SkyButton btnAddAuction;
@@ -1026,4 +1441,34 @@ partial class MainForm
     private ReaLTaiizor.Controls.SkyLabel lblUsername;
     private ReaLTaiizor.Controls.SkyLabel lblServer;
     private ReaLTaiizor.Controls.SkyLabel lblPlayerCount;
+    private Button btnBackup;
+    private Label lblNotificationTitle;
+    private TextBox txtNotificationTitle;
+    private Label lblNotificationMessage;
+    private RadioButton radNotificationSelected;
+    private RadioButton radNotificationEveryone;
+    private RichTextBox txtNotificationMessage;
+    private Button btnSendNotification;
+    private TextBox txtAdminServerUrl;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel2;
+    private ReaLTaiizor.Controls.ParrotGroupBox grpServerLimits;
+    private ReaLTaiizor.Controls.ParrotGroupBox parrotGroupBox1;
+    private ReaLTaiizor.Controls.SkyLabel lblMaxAuctions;
+    private ReaLTaiizor.Controls.SkyLabel lblServerAdress;
+    private ReaLTaiizor.Controls.SkyCheckBox chkAuctionNotifications;
+    private ReaLTaiizor.Controls.SkyLabel lblReceiveAuctionNotifications;
+    private ReaLTaiizor.Controls.SkyLabel skyLabel1;
+    private ReaLTaiizor.Controls.SkyCheckBox chkStartupNotificationHistory;
+    private ReaLTaiizor.Controls.SkyLabel skyLabel2;
+    private ReaLTaiizor.Controls.SkyLabel skyLabel3;
+    private ReaLTaiizor.Controls.SkyCheckBox chkMinimizeToTray;
+    private ReaLTaiizor.Controls.SkyButton btnSaveSettings;
+    private ReaLTaiizor.Controls.SkyButton btnReloadSettings;
+    private ReaLTaiizor.Controls.SkyButton btnHealth;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel3;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel4;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel5;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel6;
+    private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel7;
+    private NumericUpDown numNotificationHistory;
 }

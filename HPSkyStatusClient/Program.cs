@@ -1,9 +1,9 @@
-using HPSkyStatusClient.Configuration;
 using HPSkyStatusClient.Forms;
 using HPSkyStatusClient.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace HPSkyStatusClient;
 
@@ -12,13 +12,19 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        StartupService.Enable();
+        StartMenuService.CreateShortcut();
+        bool startedFromStartup =
+    Environment.GetCommandLineArgs()
+        .Contains("--startup");
+        if (!SingleInstanceService.IsFirstInstance())
+            return;
+
         ApplicationConfiguration.Initialize();
 
         using IHost host = Host.CreateDefaultBuilder()
-
             .ConfigureServices((context, services) =>
             {
-
                 services.AddSingleton<ClientSettingsService>();
 
                 services.AddHttpClient();
@@ -26,8 +32,6 @@ internal static class Program
                 services.AddSingleton<ApiService>();
 
                 services.AddSingleton<StatusService>();
-
-                //services.AddSingleton<PlayerWatchService>();
 
                 services.AddSingleton<AuctionWatchService>();
 
@@ -40,10 +44,6 @@ internal static class Program
                 services.AddTransient<AddAuctionForm>();
 
                 services.AddTransient<AuctionDetailsForm>();
-
-                services.AddSingleton<ApiErrorService>();
-
-                //services.AddTransient<AddPlayerForm>();
 
                 services.AddSingleton<ClientSettingsApiService>();
 
@@ -63,16 +63,59 @@ internal static class Program
         {
             var auth = host.Services.GetRequiredService<AuthenticationService>();
 
+            LoginForm? login = null;
+
             if (!auth.IsRegistered())
             {
-                var login = host.Services.GetRequiredService<LoginForm>();
+                login = host.Services.GetRequiredService<LoginForm>();
 
                 if (login.ShowDialog() != DialogResult.OK)
                     return;
             }
 
-            Application.Run(
-                host.Services.GetRequiredService<MainForm>());
+
+
+            var mainForm =
+                host.Services.GetRequiredService<MainForm>();
+
+            SingleInstanceService.StartListener(() =>
+            {
+                if (mainForm.InvokeRequired)
+                {
+                    mainForm.BeginInvoke(() =>
+                    {
+                        mainForm.Show();
+                        mainForm.WindowState = FormWindowState.Normal;
+                        mainForm.BringToFront();
+                        mainForm.Activate();
+                    });
+                }
+                else
+                {
+                    mainForm.Show();
+                    mainForm.WindowState = FormWindowState.Normal;
+                    mainForm.BringToFront();
+                    mainForm.Activate();
+                }
+            });
+
+            if (login?.AdminAuthenticated == true)
+            {
+                mainForm.Shown += async (_, _) =>
+                {
+                    await mainForm.OpenAdminTab();
+                };
+            }
+
+            if (startedFromStartup)
+            {
+                mainForm.Shown += (_, _) =>
+                {
+                    mainForm.Hide();
+                };
+            }
+
+            Application.Run(mainForm);
         }
         catch (Exception ex)
         {
@@ -81,6 +124,10 @@ internal static class Program
                 "HPSkyStatus Error",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
+        }
+        finally
+        {
+            SingleInstanceService.Dispose();
         }
     }
 }

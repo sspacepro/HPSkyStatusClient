@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-
+﻿
 namespace HPSkyStatusClient.Services;
 
 public static class MinecraftTextRenderer
@@ -31,50 +30,67 @@ public static class MinecraftTextRenderer
         Color currentColor = Color.Black;
         FontStyle currentStyle = FontStyle.Regular;
 
-        for (int i = 0; i < text.Length; i++)
+        // Cache fonts by style to avoid creating a new Font per character
+        var fontCache = new Dictionary<FontStyle, Font>();
+
+        try
         {
-            if (text[i] == '§' && i + 1 < text.Length)
+            for (int i = 0; i < text.Length; i++)
             {
-                char code = char.ToLower(text[i + 1]);
+                if (text[i] == '§' && i + 1 < text.Length)
+                {
+                    char code = char.ToLower(text[i + 1]);
 
-                if (Colors.TryGetValue(code, out var color))
-                {
-                    currentColor = color;
-                }
-                else
-                {
-                    switch (code)
+                    if (Colors.TryGetValue(code, out var color))
                     {
-                        case 'l':
-                            currentStyle |= FontStyle.Bold;
-                            break;
-
-                        case 'o':
-                            currentStyle |= FontStyle.Italic;
-                            break;
-
-                        case 'n':
-                            currentStyle |= FontStyle.Underline;
-                            break;
-
-                        case 'm':
-                            currentStyle |= FontStyle.Strikeout;
-                            break;
-
-                        case 'r':
-                            currentColor = Color.Black;
-                            currentStyle = FontStyle.Regular;
-                            break;
+                        currentColor = color;
                     }
+                    else
+                    {
+                        switch (code)
+                        {
+                            case 'l':
+                                currentStyle |= FontStyle.Bold;
+                                break;
+
+                            case 'o':
+                                currentStyle |= FontStyle.Italic;
+                                break;
+
+                            case 'n':
+                                currentStyle |= FontStyle.Underline;
+                                break;
+
+                            case 'm':
+                                currentStyle |= FontStyle.Strikeout;
+                                break;
+
+                            case 'r':
+                                currentColor = Color.Black;
+                                currentStyle = FontStyle.Regular;
+                                break;
+                        }
+                    }
+
+                    i++;
+                    continue;
                 }
 
-                i++;
-                continue;
-            }
+                if (!fontCache.TryGetValue(currentStyle, out var font))
+                {
+                    font = new Font(box.Font, currentStyle);
+                    fontCache[currentStyle] = font;
+                }
 
-            box.SelectionColor = currentColor;
-            box.SelectionFont = new Font(box.Font, currentStyle);
-            box.AppendText(text[i].ToString());
+                box.SelectionColor = currentColor;
+                box.SelectionFont = font;
+                box.AppendText(text[i].ToString());
+            }
+        }
+        finally
+        {
+            foreach (var font in fontCache.Values)
+                font.Dispose();
         }
 
         box.SelectionStart = 0;

@@ -15,8 +15,7 @@ public class AuctionWatchService
 
     public async Task<List<AuctionWatch>> GetWatches()
     {
-        var response = await _api.GetAsync(
-            "/api/v1/auction/watch");
+        var response = await _api.GetAsync("/api/v1/auction/watch");
 
         if (response == null || !response.IsSuccessStatusCode)
             return new List<AuctionWatch>();
@@ -30,9 +29,7 @@ public class AuctionWatchService
             ?? new List<AuctionWatch>();
     }
 
-
-    public async Task<(bool Success, string Error)> AddWatch(
-        AuctionWatch watch)
+    public async Task<(bool Success, string Error)> AddWatch(AuctionWatch watch)
     {
         var json = JsonSerializer.Serialize(new
         {
@@ -44,34 +41,29 @@ public class AuctionWatchService
             notifyBelow = watch.NotifyBelow
         });
 
-
         var response = await _api.PostAsync(
             "/api/v1/auction/watch",
-            new StringContent(
-                json,
-                Encoding.UTF8,
-                "application/json"));
+            new StringContent(json, Encoding.UTF8, "application/json"));
+
+        if (response == null)
+            return (false, "Unable to contact server.");
 
         if (response.IsSuccessStatusCode)
             return (true, "");
 
-        return (
-            false,
-            await response.Content.ReadAsStringAsync());
+        return (false, await response.Content.ReadAsStringAsync());
     }
 
-
-    public async Task<(bool Success, string Error)> RemoveWatch(
-        Guid watchId)
+    public async Task<(bool Success, string Error)> RemoveWatch(Guid watchId)
     {
-        var response = await _api.DeleteAsync(
-            $"/api/v1/auction/watch/{watchId}");
+        var response = await _api.DeleteAsync($"/api/v1/auction/watch/{watchId}");
+
+        if (response == null)
+            return (false, "Unable to contact server.");
 
         if (response.IsSuccessStatusCode)
             return (true, "");
 
-        return (
-            false,
-            await response.Content.ReadAsStringAsync());
+        return (false, await response.Content.ReadAsStringAsync());
     }
 }
