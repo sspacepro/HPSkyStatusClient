@@ -16,12 +16,13 @@ public static class StartupService
             return;
 
         string exePath = Application.ExecutablePath;
+        string startupCommand = $"\"{exePath}\" --startup";
 
         string? currentPath = key.GetValue(AppName) as string;
 
-        if (currentPath == $"\"{exePath}\"")
+        if (currentPath == startupCommand)
             return;
 
-        key.SetValue(AppName, $"\"{exePath}\"");
+        key.SetValue(AppName, startupCommand);
     }
 }

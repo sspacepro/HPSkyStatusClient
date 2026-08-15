@@ -13,6 +13,9 @@ internal static class Program
     static void Main()
     {
         StartupService.Enable();
+        bool startedFromStartup =
+    Environment.GetCommandLineArgs()
+        .Contains("--startup");
         if (!SingleInstanceService.IsFirstInstance())
             return;
 
@@ -100,6 +103,14 @@ internal static class Program
                 mainForm.Shown += async (_, _) =>
                 {
                     await mainForm.OpenAdminTab();
+                };
+            }
+
+            if (startedFromStartup)
+            {
+                mainForm.Shown += (_, _) =>
+                {
+                    mainForm.Hide();
                 };
             }
 

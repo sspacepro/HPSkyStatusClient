@@ -32,18 +32,21 @@
             txtItem = new TextBox();
             lstItems = new ListBox();
             btnAdd = new ReaLTaiizor.Controls.SkyButton();
-            numNotify = new ReaLTaiizor.Controls.DungeonNumeric();
             lblServerAdress = new ReaLTaiizor.Controls.SkyLabel();
             skyLabel1 = new ReaLTaiizor.Controls.SkyLabel();
             lblStars = new ReaLTaiizor.Controls.SkyLabel();
-            numStars = new ReaLTaiizor.Controls.DungeonNumeric();
             chkRecomb = new ReaLTaiizor.Controls.SkyCheckBox();
             lblTier = new ReaLTaiizor.Controls.SkyLabel();
             cmbTier = new ReaLTaiizor.Controls.SkyComboBox();
             lblPetLevel = new ReaLTaiizor.Controls.SkyLabel();
-            numPetLevel = new ReaLTaiizor.Controls.DungeonNumeric();
             parrotGradientPanel1 = new ReaLTaiizor.Controls.ParrotGradientPanel();
+            numPetLevel = new NumericUpDown();
+            numStars = new NumericUpDown();
+            numNotify = new NumericUpDown();
             parrotGradientPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numPetLevel).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numStars).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numNotify).BeginInit();
             SuspendLayout();
             // 
             // txtItem
@@ -89,7 +92,7 @@
             btnAdd.HoverBorderColorD = Color.White;
             btnAdd.HoverForeColor = Color.White;
             btnAdd.HoverShadowForeColor = Color.FromArgb(200, 0, 0, 0);
-            btnAdd.Location = new Point(2, 228);
+            btnAdd.Location = new Point(2, 220);
             btnAdd.Name = "btnAdd";
             btnAdd.NormalBGColorA = Color.FromArgb(107, 107, 107);
             btnAdd.NormalBGColorB = Color.FromArgb(123, 123, 123);
@@ -104,26 +107,6 @@
             btnAdd.TabIndex = 14;
             btnAdd.Text = "Add";
             btnAdd.Click += btnAdd_Click;
-            // 
-            // numNotify
-            // 
-            numNotify.BackColor = Color.Transparent;
-            numNotify.BackColorA = Color.Transparent;
-            numNotify.BackColorB = SystemColors.MenuHighlight;
-            numNotify.BorderColor = Color.FromArgb(192, 0, 0);
-            numNotify.ButtonForeColorA = Color.FromArgb(192, 0, 0);
-            numNotify.ButtonForeColorB = Color.FromArgb(192, 0, 0);
-            numNotify.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numNotify.ForeColor = Color.Black;
-            numNotify.Location = new Point(3, 194);
-            numNotify.Maximum = 2147483647L;
-            numNotify.Minimum = 1L;
-            numNotify.MinimumSize = new Size(93, 28);
-            numNotify.Name = "numNotify";
-            numNotify.Size = new Size(120, 28);
-            numNotify.TabIndex = 30;
-            numNotify.TextAlignment = ReaLTaiizor.Controls.DungeonNumeric._TextAlignment.Near;
-            numNotify.Value = 1L;
             // 
             // lblServerAdress
             // 
@@ -160,26 +143,6 @@
             lblStars.Size = new Size(94, 13);
             lblStars.TabIndex = 33;
             lblStars.Text = "Minimum stars";
-            // 
-            // numStars
-            // 
-            numStars.BackColor = Color.Transparent;
-            numStars.BackColorA = Color.Transparent;
-            numStars.BackColorB = SystemColors.MenuHighlight;
-            numStars.BorderColor = Color.FromArgb(192, 0, 0);
-            numStars.ButtonForeColorA = Color.FromArgb(192, 0, 0);
-            numStars.ButtonForeColorB = Color.FromArgb(192, 0, 0);
-            numStars.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numStars.ForeColor = Color.Black;
-            numStars.Location = new Point(195, 39);
-            numStars.Maximum = 10L;
-            numStars.Minimum = 0L;
-            numStars.MinimumSize = new Size(93, 28);
-            numStars.Name = "numStars";
-            numStars.Size = new Size(120, 28);
-            numStars.TabIndex = 34;
-            numStars.TextAlignment = ReaLTaiizor.Controls.DungeonNumeric._TextAlignment.Near;
-            numStars.Value = 0L;
             // 
             // chkRecomb
             // 
@@ -258,36 +221,18 @@
             lblPetLevel.TabIndex = 38;
             lblPetLevel.Text = "Minimum Pet Level";
             // 
-            // numPetLevel
-            // 
-            numPetLevel.BackColor = Color.Transparent;
-            numPetLevel.BackColorA = Color.Transparent;
-            numPetLevel.BackColorB = SystemColors.MenuHighlight;
-            numPetLevel.BorderColor = Color.FromArgb(192, 0, 0);
-            numPetLevel.ButtonForeColorA = Color.FromArgb(192, 0, 0);
-            numPetLevel.ButtonForeColorB = Color.FromArgb(192, 0, 0);
-            numPetLevel.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numPetLevel.ForeColor = Color.Black;
-            numPetLevel.Location = new Point(195, 147);
-            numPetLevel.Maximum = 200L;
-            numPetLevel.Minimum = 0L;
-            numPetLevel.MinimumSize = new Size(93, 28);
-            numPetLevel.Name = "numPetLevel";
-            numPetLevel.Size = new Size(120, 28);
-            numPetLevel.TabIndex = 39;
-            numPetLevel.TextAlignment = ReaLTaiizor.Controls.DungeonNumeric._TextAlignment.Near;
-            numPetLevel.Value = 0L;
-            // 
             // parrotGradientPanel1
             // 
             parrotGradientPanel1.BottomLeft = Color.Brown;
             parrotGradientPanel1.BottomRight = Color.DarkBlue;
             parrotGradientPanel1.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            parrotGradientPanel1.Controls.Add(btnAdd);
+            parrotGradientPanel1.Controls.Add(numNotify);
+            parrotGradientPanel1.Controls.Add(numStars);
+            parrotGradientPanel1.Controls.Add(numPetLevel);
             parrotGradientPanel1.Controls.Add(cmbTier);
             parrotGradientPanel1.Controls.Add(lblStars);
             parrotGradientPanel1.Controls.Add(lblPetLevel);
-            parrotGradientPanel1.Controls.Add(numPetLevel);
-            parrotGradientPanel1.Controls.Add(numNotify);
             parrotGradientPanel1.Controls.Add(lblTier);
             parrotGradientPanel1.Controls.Add(lblServerAdress);
             parrotGradientPanel1.Controls.Add(chkRecomb);
@@ -298,7 +243,7 @@
             parrotGradientPanel1.Name = "parrotGradientPanel1";
             parrotGradientPanel1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             parrotGradientPanel1.PrimerColor = Color.White;
-            parrotGradientPanel1.Size = new Size(327, 256);
+            parrotGradientPanel1.Size = new Size(327, 247);
             parrotGradientPanel1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             parrotGradientPanel1.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
             parrotGradientPanel1.TabIndex = 40;
@@ -306,13 +251,40 @@
             parrotGradientPanel1.TopLeft = Color.DarkRed;
             parrotGradientPanel1.TopRight = Color.DarkGreen;
             // 
+            // numPetLevel
+            // 
+            numPetLevel.BackColor = SystemColors.MenuHighlight;
+            numPetLevel.Location = new Point(195, 147);
+            numPetLevel.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            numPetLevel.Name = "numPetLevel";
+            numPetLevel.Size = new Size(120, 23);
+            numPetLevel.TabIndex = 40;
+            // 
+            // numStars
+            // 
+            numStars.BackColor = SystemColors.MenuHighlight;
+            numStars.Location = new Point(195, 38);
+            numStars.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
+            numStars.Name = "numStars";
+            numStars.Size = new Size(120, 23);
+            numStars.TabIndex = 41;
+            // 
+            // numNotify
+            // 
+            numNotify.BackColor = SystemColors.MenuHighlight;
+            numNotify.Location = new Point(0, 191);
+            numNotify.Maximum = new decimal(new int[] { -1539607551, 11, 0, 0 });
+            numNotify.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numNotify.Name = "numNotify";
+            numNotify.Size = new Size(120, 23);
+            numNotify.TabIndex = 42;
+            numNotify.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
             // AddAuctionForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(327, 256);
-            Controls.Add(numStars);
-            Controls.Add(btnAdd);
+            ClientSize = new Size(327, 247);
             Controls.Add(lstItems);
             Controls.Add(txtItem);
             Controls.Add(parrotGradientPanel1);
@@ -321,6 +293,9 @@
             Text = "AddAuctionForm";
             parrotGradientPanel1.ResumeLayout(false);
             parrotGradientPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numPetLevel).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numStars).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numNotify).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -329,16 +304,16 @@
         private TextBox txtItem;
         private ListBox lstItems;
         private ReaLTaiizor.Controls.SkyButton btnAdd;
-        private ReaLTaiizor.Controls.DungeonNumeric numNotify;
         private ReaLTaiizor.Controls.SkyLabel lblServerAdress;
         private ReaLTaiizor.Controls.SkyLabel skyLabel1;
         private ReaLTaiizor.Controls.SkyLabel lblStars;
-        private ReaLTaiizor.Controls.DungeonNumeric numStars;
         private ReaLTaiizor.Controls.SkyCheckBox chkRecomb;
         private ReaLTaiizor.Controls.SkyLabel lblTier;
         private ReaLTaiizor.Controls.SkyComboBox cmbTier;
         private ReaLTaiizor.Controls.SkyLabel lblPetLevel;
-        private ReaLTaiizor.Controls.DungeonNumeric numPetLevel;
         private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel1;
+        private NumericUpDown numPetLevel;
+        private NumericUpDown numStars;
+        private NumericUpDown numNotify;
     }
 }

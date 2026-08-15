@@ -86,7 +86,6 @@ partial class MainForm
         btnSaveSettings = new ReaLTaiizor.Controls.SkyButton();
         skyLabel3 = new ReaLTaiizor.Controls.SkyLabel();
         chkMinimizeToTray = new ReaLTaiizor.Controls.SkyCheckBox();
-        numNotificationHistory = new ReaLTaiizor.Controls.DungeonNumeric();
         skyLabel2 = new ReaLTaiizor.Controls.SkyLabel();
         skyLabel1 = new ReaLTaiizor.Controls.SkyLabel();
         chkStartupNotificationHistory = new ReaLTaiizor.Controls.SkyCheckBox();
@@ -117,6 +116,7 @@ partial class MainForm
         btnAddAuction = new ReaLTaiizor.Controls.SkyButton();
         btnRemoveAuction = new ReaLTaiizor.Controls.SkyButton();
         tabMain = new ReaLTaiizor.Controls.DungeonTabPage();
+        numNotificationHistory = new NumericUpDown();
         pgAdmin.SuspendLayout();
         grpUsers.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)numPurgeInactive).BeginInit();
@@ -139,6 +139,7 @@ partial class MainForm
         grpAuctions.SuspendLayout();
         parrotGradientPanel1.SuspendLayout();
         tabMain.SuspendLayout();
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).BeginInit();
         SuspendLayout();
         // 
         // pgAdmin
@@ -768,11 +769,11 @@ partial class MainForm
         parrotGroupBox1.BackColor = Color.Transparent;
         parrotGroupBox1.BorderColor = Color.DodgerBlue;
         parrotGroupBox1.BorderWidth = 1;
+        parrotGroupBox1.Controls.Add(numNotificationHistory);
         parrotGroupBox1.Controls.Add(btnReloadSettings);
         parrotGroupBox1.Controls.Add(btnSaveSettings);
         parrotGroupBox1.Controls.Add(skyLabel3);
         parrotGroupBox1.Controls.Add(chkMinimizeToTray);
-        parrotGroupBox1.Controls.Add(numNotificationHistory);
         parrotGroupBox1.Controls.Add(skyLabel2);
         parrotGroupBox1.Controls.Add(skyLabel1);
         parrotGroupBox1.Controls.Add(chkStartupNotificationHistory);
@@ -872,7 +873,7 @@ partial class MainForm
         skyLabel3.BackColor = Color.Transparent;
         skyLabel3.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
         skyLabel3.ForeColor = SystemColors.ActiveCaptionText;
-        skyLabel3.Location = new Point(25, 159);
+        skyLabel3.Location = new Point(25, 149);
         skyLabel3.Name = "skyLabel3";
         skyLabel3.Size = new Size(106, 13);
         skyLabel3.TabIndex = 31;
@@ -890,32 +891,11 @@ partial class MainForm
         chkMinimizeToTray.CheckedColor = Color.FromArgb(220, 27, 94, 137);
         chkMinimizeToTray.Font = new Font("Minecraft", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
         chkMinimizeToTray.ForeColor = Color.Black;
-        chkMinimizeToTray.Location = new Point(4, 158);
+        chkMinimizeToTray.Location = new Point(4, 149);
         chkMinimizeToTray.Name = "chkMinimizeToTray";
         chkMinimizeToTray.Size = new Size(15, 14);
         chkMinimizeToTray.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
         chkMinimizeToTray.TabIndex = 30;
-        // 
-        // numNotificationHistory
-        // 
-        numNotificationHistory.BackColor = Color.Transparent;
-        numNotificationHistory.BackColorA = Color.Transparent;
-        numNotificationHistory.BackColorB = SystemColors.MenuHighlight;
-        numNotificationHistory.BorderColor = Color.FromArgb(192, 0, 0);
-        numNotificationHistory.ButtonForeColorA = Color.FromArgb(192, 0, 0);
-        numNotificationHistory.ButtonForeColorB = Color.FromArgb(192, 0, 0);
-        numNotificationHistory.Font = new Font("Tahoma", 11F);
-        numNotificationHistory.ForeColor = Color.Black;
-        numNotificationHistory.Location = new Point(6, 123);
-        numNotificationHistory.Maximum = 100000L;
-        numNotificationHistory.Minimum = 1L;
-        numNotificationHistory.MinimumSize = new Size(93, 28);
-        numNotificationHistory.Name = "numNotificationHistory";
-        numNotificationHistory.Size = new Size(254, 28);
-        numNotificationHistory.TabIndex = 29;
-        numNotificationHistory.Text = "numNotificationHistory";
-        numNotificationHistory.TextAlignment = ReaLTaiizor.Controls.DungeonNumeric._TextAlignment.Near;
-        numNotificationHistory.Value = 1L;
         // 
         // skyLabel2
         // 
@@ -1345,6 +1325,17 @@ partial class MainForm
         tabMain.Size = new Size(914, 472);
         tabMain.TabIndex = 2;
         // 
+        // numNotificationHistory
+        // 
+        numNotificationHistory.BackColor = SystemColors.MenuHighlight;
+        numNotificationHistory.Location = new Point(6, 120);
+        numNotificationHistory.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+        numNotificationHistory.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+        numNotificationHistory.Name = "numNotificationHistory";
+        numNotificationHistory.Size = new Size(259, 23);
+        numNotificationHistory.TabIndex = 34;
+        numNotificationHistory.Value = new decimal(new int[] { 60, 0, 0, 0 });
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1387,6 +1378,7 @@ partial class MainForm
         parrotGradientPanel1.ResumeLayout(false);
         parrotGradientPanel1.PerformLayout();
         tabMain.ResumeLayout(false);
+        ((System.ComponentModel.ISupportInitialize)numNotificationHistory).EndInit();
         ResumeLayout(false);
     }
 
@@ -1467,7 +1459,6 @@ partial class MainForm
     private ReaLTaiizor.Controls.SkyLabel lblReceiveAuctionNotifications;
     private ReaLTaiizor.Controls.SkyLabel skyLabel1;
     private ReaLTaiizor.Controls.SkyCheckBox chkStartupNotificationHistory;
-    private ReaLTaiizor.Controls.DungeonNumeric numNotificationHistory;
     private ReaLTaiizor.Controls.SkyLabel skyLabel2;
     private ReaLTaiizor.Controls.SkyLabel skyLabel3;
     private ReaLTaiizor.Controls.SkyCheckBox chkMinimizeToTray;
@@ -1479,4 +1470,5 @@ partial class MainForm
     private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel5;
     private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel6;
     private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel7;
+    private NumericUpDown numNotificationHistory;
 }
