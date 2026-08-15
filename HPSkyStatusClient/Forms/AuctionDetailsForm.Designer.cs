@@ -96,11 +96,10 @@
             // txtLore
             // 
             txtLore.BackColor = Color.White;
-            txtLore.Dock = DockStyle.Bottom;
             txtLore.Font = new Font("Minecraft", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLore.Location = new Point(0, 59);
+            txtLore.Location = new Point(0, 57);
             txtLore.Name = "txtLore";
-            txtLore.Size = new Size(342, 422);
+            txtLore.Size = new Size(342, 424);
             txtLore.TabIndex = 3;
             txtLore.Text = "";
             // 

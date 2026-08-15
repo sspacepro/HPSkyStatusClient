@@ -13,6 +13,7 @@ internal static class Program
     static void Main()
     {
         StartupService.Enable();
+        StartMenuService.CreateShortcut();
         bool startedFromStartup =
     Environment.GetCommandLineArgs()
         .Contains("--startup");
