@@ -1,0 +1,1 @@
+HPSkyStatus is a lightweight Windows client for monitoring Hypixel SkyBlock. It lets users watch auction prices for specific items and receive notifications when items reach their desired price. The client runs in the system tray, providing quick access to auction information and current SkyBlock server status.
