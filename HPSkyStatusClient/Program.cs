@@ -12,6 +12,7 @@ internal static class Program
     [STAThread]
     static void Main()
     {
+        StartupService.Enable();
         if (!SingleInstanceService.IsFirstInstance())
             return;
 
